@@ -8,7 +8,7 @@ FROM continuumio/miniconda3
 MAINTAINER Aaron Groarke
 
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE=assignment1.settings
+ENV DJANGO_SETTINGS_MODULE=prototype.settings
 
 # Ensure that everything is up-to-date
 RUN apt-get -y update && apt-get -y upgrade
@@ -25,11 +25,11 @@ RUN apt-get -y install build-essential libcairo2 libpango-1.0-0 libpangocairo-1.
 # Now copy this to the image and install everything in it. Make sure to install uwsgi - it may not be in the source
 # environment.
 COPY ENV.yml /usr/src/app
-RUN conda env create -n assignment1 --file ENV.yml
+RUN conda env create -n prototype --file ENV.yml
 
 # Make RUN commands use the new environment
 # See https://pythonspeed.com/articles/activate-conda-dockerfile/ for explanation
-RUN echo "conda activate assignment1" >> ~/.bashrc
+RUN echo "conda activate prototype" >> ~/.bashrc
 SHELL ["/bin/bash", "--login", "-c"]
 
 # Set up conda to match our test environment
@@ -43,7 +43,7 @@ COPY . /usr/src/app
 # Make sure that static files are up to date and available
 RUN python manage.py collectstatic --no-input
 
-# Expose port 8001 on the image. We'll map a localhost port to this later.
+# Expose port 8001 on the image. Map a localhost port to this later.
 EXPOSE 8001
 
 # Run "uwsgi". uWSGI is a Web Server Gateway Interface (WSGI) server implementation that is typically used to run Python
