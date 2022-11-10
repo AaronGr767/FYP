@@ -1,0 +1,9 @@
+#login_container{
+    display: block;
+    visibility: visible;
+}
+
+#register_container{
+    display: none;
+    visibility: hidden;
+}
