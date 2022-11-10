@@ -1,5 +1,5 @@
 """
-ASGI config for Prototype project.
+ASGI config for prototype project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Prototype.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'prototype.settings')
 
 application = get_asgi_application()
