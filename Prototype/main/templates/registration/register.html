@@ -10,11 +10,13 @@
     <body>
     <div class="form_container">
     <div class="container py-5">
-        <h1>Register</h1>
+        <h1>Create Account</h1>
         <form method="POST" >
             {% csrf_token %}
             {{ register_form|crispy }}
-            <button class="btn btn-primary" type="submit">Register</button>
+            <div class="m-4 d-grid gap-2 col-2 mx-auto">
+          <button type="submit" class="btn btn-outline-primary">Register</button>
+          </div>
         </form>
 	<p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>
 </div>
