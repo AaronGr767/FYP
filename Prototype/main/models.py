@@ -7,7 +7,8 @@ User = get_user_model()
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    username = models.CharField(max_length=150, primary_key=True)
+    username = models.CharField(max_length=50, primary_key=True)
+    email = models.CharField(max_length=100, null=True)
     test = models.CharField(max_length=50)
 
     def __str__(self):
