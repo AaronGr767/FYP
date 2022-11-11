@@ -44,7 +44,7 @@ COPY . /usr/src/app
 RUN python manage.py collectstatic --no-input
 
 # Expose port 8001 on the image. Map a localhost port to this later.
-EXPOSE 8001
+EXPOSE 8002
 
 # Run "uwsgi". uWSGI is a Web Server Gateway Interface (WSGI) server implementation that is typically used to run Python
 # web applications.
