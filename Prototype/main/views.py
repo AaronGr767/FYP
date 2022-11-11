@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from main.forms import NewUser
 from main.models import UserProfile
 
+from django.contrib.auth import authenticate, login
 
 def register_request(request):
 	if request.method == "POST":
