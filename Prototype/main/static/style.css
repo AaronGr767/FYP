@@ -7,3 +7,16 @@
     display: none;
     visibility: hidden;
 }
+
+.form_container {
+     display: block;
+    background-color: white;
+   border-radius: 1em;
+    margin: 8%;
+}
+
+body{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(16,200,109,1) 0%, rgba(34,224,218,1) 100%);
+}
+
