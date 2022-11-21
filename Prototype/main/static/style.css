@@ -22,3 +22,8 @@ body{
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(201,221,215,1) 0%, rgba(34,224,218,1) 100%);
 }
 
+#nav-buttons{
+    text-align: center;
+}
+
+

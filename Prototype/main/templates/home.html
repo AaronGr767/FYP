@@ -7,15 +7,21 @@
         <div class="m-2 text-center">
             Hi {{ user.username }}! Welcome to this site!
         </div>
+        <div id="nav-buttons">
+            <button onclick="location.href='/create'" type="button" class="btn btn-outline-dark">
+            Create Trip<br>
+            <i class="fa-regular fa-square-plus"></i>
+            </button>
 
+            <button onclick="location.href='/manage'" type="button" class="btn btn-outline-dark">
+            Manage Trips<br>
+            <i class="fa-solid fa-pen-to-square"></i>
+            </button>
 
-            <button onclick="location.href='/create'" type="button" class="btn btn-outline-success">
-             Create Trip</button>
-
-            <button onclick="location.href='/manage'" type="button" class="btn btn-outline-success">
-             Manage Trip</button>
-
-            <button onclick="location.href='/edit'" type="button" class="btn btn-outline-success">
-             Edit Profile</button>
+            <button onclick="location.href='/edit'" type="button" class="btn btn-outline-dark">
+            Edit Profile<br>
+            <i class="fa-solid fa-user-pen"></i>
+            </button>
+        </div>
     {% endif %}
 {% endblock %}
