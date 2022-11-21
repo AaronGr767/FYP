@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+
+
+    {% if user.is_authenticated %}
+        <div class="m-2 text-center">
+            Hi {{ user.username }}! Edit Profile!
+        </div>
+
+
+    {% endif %}
+{% endblock %}
