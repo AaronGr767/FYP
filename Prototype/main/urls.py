@@ -11,4 +11,5 @@ urlpatterns = [
     path('create', TemplateView.as_view(template_name="createTrip.html"), name="createTrip"),
     path('manage', TemplateView.as_view(template_name="manageTrip.html"), name="manageTrip"),
     path('edit', TemplateView.as_view(template_name="editProfile.html"), name="editProfile"),
+    path('route', views.tripRoute, name="tripRoute"),
 ]
