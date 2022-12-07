@@ -5,8 +5,31 @@
 
     {% if user.is_authenticated %}
         <div class="m-2 text-center">
-            Hi {{ user.username }}! Create trip!
+            Hi {{ user.username }}! Enter your starting location & choose your mode of transport!
         </div>
+
+        <div id="locContainer">
+
+   <input type="text" placeholder="Enter address" id="starting_address" name="starting_address">
+   <input type="hidden" class="geo" id="id-lat-a" value="">
+   <input type="hidden" class="geo" id="id-long-a" value="">
+
+        <select id="mode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Cycling</option>
+        </select>
+        <button type="button" class="btn btn-primary btn-sm" onclick="beginTrip('a')" id="mapButton">Map Route</button>
+</div>
+
+        <script type="text/javascript">
+
+
+    var api_key = "AIzaSyAJTfOeJJsqYknf27HwCCymGuvD_igs0C4";
+
+  </script>
+
+  <script src="{% static 'script/set_location.js' %}"></script>
 
 
     {% endif %}
