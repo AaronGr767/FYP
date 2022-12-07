@@ -1,0 +1,86 @@
+.form_container {
+     display: block;
+    background-color: white;
+   border-radius: 1em;
+    margin-top: 5%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+form{
+    margin:5%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+h1{
+    text-align: center;
+}
+
+html, body{
+    height:100%;
+    background: rgb(249,249,237);
+    background: linear-gradient(0deg, rgba(249,249,237,1) 0%, rgba(217,219,241,1) 100%);
+}
+
+img{
+    height: 7em;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#nav-buttons{
+    text-align: center;
+}
+
+.map-container{
+    height: 30em;
+    width: 55em;
+    border: solid #DBF4A7 3px;
+    margin: auto;
+}
+
+#map-route{
+    height: 95%;
+
+    margin: .75em;
+}
+
+.container{
+    text-align: center;
+}
+
+#locContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: center;
+    margin: auto;
+    width:40%;
+    padding: 1%;
+}
+
+#locContainer input[type=text], select {
+    border:  solid #8E9DCC 2px;
+  border-radius: 4px;
+    height: 100%;
+    background-color: white;
+    margin: 10px;
+}
+
+#mapButton{
+    background-color: #8E9DCC;
+    border: solid #7D84B2 1px;
+}
+
+#mapButton:hover {
+    background-color: #D9DBF1;
+}
+
+
+
+
+
