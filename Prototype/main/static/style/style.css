@@ -50,16 +50,13 @@ img{
     margin: .75em;
 }
 
-.container{
-    text-align: center;
-}
 
 #locContainer{
     border-radius: 10px;
     border: solid #7D84B2 3px;
     text-align: center;
     margin: auto;
-    width:40%;
+    width:20%;
     padding: 1%;
 }
 

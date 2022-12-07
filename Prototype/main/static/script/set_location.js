@@ -17,7 +17,7 @@ function initAutocomplete() {
 }
 
 
-function beginTrip (addy){
+function beginTrip (){
 
     // const selectedMode = document.getElementById("mode").value;
     localStorage.setItem('transMode',document.getElementById("mode").value);
