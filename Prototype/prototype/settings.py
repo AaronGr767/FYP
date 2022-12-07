@@ -85,7 +85,7 @@ if os.environ.get('CONDA_PREFIX', '').startswith('/opt'):
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'gis',
-            'HOST': 'prototype1-db',
+            'HOST': 'fyp_prototype-db',
             'USER': 'docker',
             'PASSWORD': 'docker',
             'PORT': 5432
@@ -126,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-gb'
 
 TIME_ZONE = 'UTC'
 
@@ -152,3 +152,5 @@ CRISPY_FAIL_SILENTLY = not DEBUG
 
 LOGIN_REDIRECT_URL = "/home"
 LOGOUT_REDIRECT_URL = "/"
+
+API_KEY = "AIzaSyAJTfOeJJsqYknf27HwCCymGuvD_igs0C4"
