@@ -20,7 +20,6 @@ function initMap() {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    // const selectedMode = document.getElementById("mode").value;
     var selectedMode=localStorage.getItem('transMode');
 
     directionsService.route({
@@ -33,10 +32,11 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
       if (status === 'OK') {
         directionsDisplay.setDirections(response);
 
-
       } else {
 
         alert('Directions request failed due to ' + status);
       }
     });
 }
+
+

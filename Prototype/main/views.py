@@ -45,26 +45,16 @@ def tripRoute(request):
 	# 	long_1 = long_query[0]
 	# 	long.append(long_1)
 
-
-
 	lat_query = Attraction.objects.values('latitude').filter(name="GPO").values_list('latitude', flat = True)
-	#lat_query = Attraction.objects.filter(name="GPO").values('latitude')
-	#loc_lat = re.findall(r"'([^']*)'", lat_query)
 	lat_1 = lat_query[0]
 
 	long_query = Attraction.objects.values('longitude').filter(name="GPO").values_list('longitude', flat=True)
-	#long_query = Attraction.objects.filter(name="GPO").values('longitude')
-	#loc_long = re.findall(r"'([^']*)'", long_query)
 	long_1 = long_query[0]
 
 	lat_query = Attraction.objects.values('latitude').filter(name="Hugh_Lane_Gallery").values_list('latitude', flat=True)
-	# lat_query = Attraction.objects.filter(name="GPO").values('latitude')
-	# loc_lat = re.findall(r"'([^']*)'", lat_query)
 	lat_2 = lat_query[0]
 
 	long_query = Attraction.objects.values('longitude').filter(name="Hugh_Lane_Gallery").values_list('longitude', flat=True)
-	# long_query = Attraction.objects.filter(name="GPO").values('longitude')
-	# loc_long = re.findall(r"'([^']*)'", long_query)
 	long_2 = long_query[0]
 
 	context = {
