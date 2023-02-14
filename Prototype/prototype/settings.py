@@ -17,6 +17,8 @@ import socket
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# GDAL_LIBRARY_PATH = 'C:\OSGeo4W\bin\gdal305'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -153,4 +155,4 @@ CRISPY_FAIL_SILENTLY = not DEBUG
 LOGIN_REDIRECT_URL = "/home"
 LOGOUT_REDIRECT_URL = "/"
 
-API_KEY = "AIzaSyAJTfOeJJsqYknf27HwCCymGuvD_igs0C4"
+API_KEY = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o"
