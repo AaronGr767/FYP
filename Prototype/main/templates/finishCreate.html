@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+
+
+    {% if user.is_authenticated %}
+        <div class="m-2 text-center">
+            <td><nobr>
+                <span style="font-weight:bold">
+                    Group Details
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Choose Attractions
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Route Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Finish
+                </span>
+            </nobr>
+        </div>
+
+        <div id="locContainer">
+        </div>
+
+        <script type="text/javascript">
+
+            var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
+
+        </script>
+        
+
+
+    {% endif %}
+{% endblock %}
