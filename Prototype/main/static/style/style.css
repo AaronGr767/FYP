@@ -56,7 +56,13 @@ img{
     border: solid #7D84B2 3px;
     text-align: center;
     margin: auto;
-    width:30%;
+    width:45%;
+    padding: 1%;
+}
+
+#nextStep{
+    text-align: center;
+    margin: auto;
     padding: 1%;
 }
 
@@ -68,6 +74,26 @@ img{
     margin: 10px;
 }
 
+#detailsContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: left;
+    margin: auto;
+    width:45%;
+    padding: 1%;
+}
+
+#detailsContainer input[type=integer],input[type=float],input[type=date],input[type=checkbox]{
+    border:  solid #8E9DCC 2px;
+    border-radius: 4px;
+    height: 100%;
+    background-color: white;
+    margin: 10px;
+    width:10%;
+}
+#detailsContainer input[type=date] {
+    width: 35%;
+}
 #mapButton{
     background-color: #8E9DCC;
     border: solid #7D84B2 1px;

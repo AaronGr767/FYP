@@ -36,13 +36,30 @@
             <button type="button" class="btn btn-primary btn-sm" onclick="getLocation()" id="mapButton">Use Location</button>
         </div>
 
+        <div id="detailsContainer">
+
+            Group Size:<input type="integer" name="starting_address"><br>
+            Maximum Price:<input type="float" placeholder="€€€" name="starting_address"><br>
+            Date:<input type="date" placeholder="Enter address" name="starting_address">
+        </div>
+
+        <div id="detailsContainer">
+            Art<input type="checkbox" value="art" id="artCheck">
+            History<input type="checkbox" value="history" id="histCheck">
+        </div>
+
+        <div id="nextStep">
+            <button onclick="setFilters()" type="button" class="btn btn-outline-dark" >NEXT STEP</button>
+        </div>
+
         <script type="text/javascript">
 
             var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
 
         </script>
 
-  <script src="{% static 'script/set_location.js' %}"></script>
+        <script src="{% static 'script/set_location.js' %}"></script>
+        <script src="{% static 'script/attraction_choices.js' %}"></script>
 
 
     {% endif %}

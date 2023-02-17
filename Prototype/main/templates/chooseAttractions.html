@@ -24,12 +24,19 @@
         <div id="locContainer">
         </div>
 
+        <div id="nextStep">
+            <button onclick="location.href='/create'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
+            <button onclick="location.href='/routeMap'" type="button" class="btn btn-outline-dark" >NEXT STEP</button>
+        </div>
+
         <script type="text/javascript">
 
             var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
-
+            var attractions = '{{results|safe}}';
+            console.log("yes? " + attractions);
         </script>
 
+        <script src="{% static 'script/attraction_choices.js' %}"></script>
 
 
     {% endif %}

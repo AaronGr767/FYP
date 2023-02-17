@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.core import serializers
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from .models import Attraction
@@ -69,6 +71,36 @@ def tripRoute(request):
 	}
 	return render(request, 'tripRoute.html', context)
 
+def filterAttractions(request):
+	i = 0
+	filterArray = request.POST.getlist('filters[]')
+	filt_query = [];
 
+	print(filterArray)
+
+	results = ' '
+
+
+	print(filterArray[0])
+
+	i = 0
+
+	long_query = Attraction.objects.values()
+	filt_query = Attraction.objects.filter(tag__in=filterArray).values()
+	results = filt_query
+
+	context = {
+		'google_api_key': settings.API_KEY,
+		'results' : filt_query
+	}
+
+	# query_results = serializers.serialize("json", Attraction.objects.filter(tag=filterArray).values())
+
+	print(context.get('results'))
+	print(filt_query.values('name'))
+
+	return HttpResponse(results)
+
+	# return render(request, 'chooseAttractions.html', context)
 
 

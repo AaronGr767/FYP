@@ -9,7 +9,11 @@ urlpatterns = [
     path('registration', views.register_request, name="registration"),
     path('home', TemplateView.as_view(template_name="home.html"), name="home"),
     path('create', TemplateView.as_view(template_name="createTrip.html"), name="createTrip"),
+    path('choose', TemplateView.as_view(template_name="chooseAttractions.html"), name="chooseAttractions"),
+    path('routeMap', TemplateView.as_view(template_name="routeMap.html"), name="routeMap"),
+    path('finishCreate', TemplateView.as_view(template_name="finishCreate.html"), name="finishCreate"),
     path('manage', TemplateView.as_view(template_name="manageTrip.html"), name="manageTrip"),
     path('edit', TemplateView.as_view(template_name="editProfile.html"), name="editProfile"),
     path('route', views.tripRoute, name="tripRoute"),
+    path('filterAttractions/', views.filterAttractions, name="filterAttractions")
 ]
