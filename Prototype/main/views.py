@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from .models import Attraction
-
+from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
 
@@ -27,6 +28,12 @@ def register_request(request):
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUser()
 	return render(request=request, template_name="registration/register.html", context={"register_form":form})
+
+@login_required
+def logout_request(request):
+	logout(request)
+	messages.info(request, "Successfully logged out!")
+	return redirect("main:home")
 
 def tripRoute(request):
 

@@ -12,8 +12,25 @@
 </head>
 <body>
     <header>
-        <img src="{% static 'images/logo.png' %}" class="center">
+        <div class="container" >
+              <div class="row">
+                    <div class="col" style="margin-top: 5%;text-align: left">
+                        <button id="baseButton" onclick="location.href='{%  url 'main:home' %}'" class="btn btn-outline">
+                            <i id="baseHeaderHome" class="fa-solid fa-house fa-2x"></i>
+                        </button>
+                    </div>
+                    <div class="col-9">
+                      <img id="baseHeaderLogo" src="{% static 'images/logo.png' %}" class="center">
+                    </div>
+                    <div class="col" style="margin-top: 5%">
+                        <button id="baseButton" onclick="location.href='{%  url 'logout' %}'" class="btn btn-outline">
+                            <i id="baseHeaderLogout" class="fa-solid fa-right-from-bracket fa-2x"></i>
+                        </button>
+                    </div>
+              </div>
+        </div>
     </header>
+
     <main>
         {% block content %}
         {% endblock %}

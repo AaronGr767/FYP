@@ -108,7 +108,33 @@ img{
     color: red;
 }
 
+/*#baseHeaderLogo{*/
+/*    overflow: hidden;*/
+/*}*/
 
+/*#baseHeaderHome{*/
+/*    margin: 50px;*/
+/*}*/
 
+/*#baseHeaderLogout{*/
+/*    float: right;*/
+/*}*/
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+#baseButton{
+    background-color: transparent;
+}
 
 
