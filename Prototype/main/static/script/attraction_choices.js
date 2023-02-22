@@ -1,3 +1,5 @@
+
+
 function setFilters(){
     let counter= 0;
     let filterArray=[];
@@ -39,10 +41,11 @@ function postFilters(filterArray){
                     var dataJson = data.replace(/'/g, '"');
                     console.log(dataJson);
 
-                    var dataObj = [];
+
 
                     let placeholder='';
                     let counter = 0;
+                    let dataObj = [];
 
                     for(let i = 0; i <= dataJson.length; i++){
                         if(dataJson[i] === "}"){
@@ -67,7 +70,8 @@ function postFilters(filterArray){
                     console.log("finished beans = ")
 
                     console.log(dataObj[0])
-                    console.log(dataObj[1])
+
+                    localStorage.setItem('resultStore', JSON.stringify(dataObj))
 
                     location.href='/choose'
 
@@ -91,3 +95,5 @@ function getCookie(cname) {
      }
      return "";
     }
+
+

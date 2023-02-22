@@ -1,5 +1,6 @@
 let useLoc = false;
 let myLat, myLong;
+let myLoc=false;
 
 $.getScript( "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&libraries=places")
 .done(function( script, textStatus ) {
@@ -18,6 +19,19 @@ function initAutocomplete() {
 
 }
 
+function setChoice(){
+    myLoc = true;
+    return myLoc;
+}
+
+function checkType(){
+    if(myLoc){
+        getLocation()
+    }else{
+        beginTrip()
+    }
+
+}
 
 function beginTrip (){
 

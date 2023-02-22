@@ -137,4 +137,32 @@ img{
     background-color: transparent;
 }
 
+#optionsContainer{
+    float: left;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: left;
+    width:25%;
+    margin-left: 1%;
+    padding: 1%;
+}
+
+#map {
+    float: left;
+    margin-left: 2%;
+      height: 20em; /* The height is 400 pixels */
+      width: 70%; /* The width is the width of the web page */
+    border: solid #DBF4A7 3px;
+}
+
+#mainContainer{
+    margin: auto;
+}
+
+
+#clear {
+    clear: both;
+}
+
+
 

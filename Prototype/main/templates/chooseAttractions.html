@@ -21,22 +21,66 @@
             </nobr>
         </div>
 
-        <div id="locContainer">
+        <div id="mainContainer">
+            <div id="optionsContainer">
+            </div>
+
+            <div id="map">
+            </div>
+
+            <div id="clear"></div>
+
         </div>
 
+        <br>
         <div id="nextStep">
             <button onclick="location.href='/create'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
-            <button onclick="location.href='/routeMap'" type="button" class="btn btn-outline-dark" >NEXT STEP</button>
+            <button onclick=collectChoices() type="button" class="btn btn-outline-dark" >NEXT STEP</button>
         </div>
 
         <script type="text/javascript">
 
             var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
-            var attractions = '{{results|safe}}';
-            console.log("yes? " + attractions);
+
+            document.getElementById('optionsContainer').innerHTML = ``;
+
+            displayOptions()
+
+            function displayOptions(){
+                let resultsObj = [];
+                let optCont = document.getElementById('optionsContainer')
+                let results = localStorage.getItem("resultStore");
+
+                if (results == null) {
+                    resultsObj = [];
+                  } else {
+                    resultsObj = JSON.parse(results);
+                }
+
+
+                console.log("beep " + resultsObj.length);
+                console.log(resultsObj[0])
+
+                for(i=0; i < resultsObj.length; i++){
+
+                    checkHtml = `
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%">
+                                      <input type="checkbox" onclick=addAttraction(${resultsObj[i].id}) class="btn-check" name=${resultsObj[i].name} id=${resultsObj[i].id} autocomplete="off">
+                                      <label class="btn btn-outline-primary" for=${resultsObj[i].id}>${resultsObj[i].name}</label>
+                                    </div>
+                        <br>`
+                    optCont.innerHTML += checkHtml;
+                }
+
+
+            }
         </script>
 
-        <script src="{% static 'script/attraction_choices.js' %}"></script>
+        <script src="{% static 'script/choose_attractions.js' %}"></script>
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap&v=weekly"
+          defer></script>
+
 
 
     {% endif %}
