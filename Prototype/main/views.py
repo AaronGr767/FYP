@@ -6,7 +6,9 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.conf import settings
-from .models import Attraction
+from osgeo_utils.gdal2tiles import data
+
+from .models import Attraction, SavedTrip
 from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
@@ -111,3 +113,29 @@ def filterAttractions(request):
 	# return render(request, 'chooseAttractions.html', context)
 
 
+def saveTrip(request):
+	savedNames = request.POST.get("attNames", None)
+	savedLat = request.POST.get("lats", None)
+	savedLng = request.POST.get("lngs", None)
+	savedFilt = request.POST.get("tags", None)
+	savedDate = request.POST.get("cDate", None)
+
+
+	try:
+
+		# my_coords = [float(coord) for coord in locations.split(", ")]
+		sTrip = SavedTrip()
+		sTrip.userOwner = request.user
+		sTrip.attNames = savedNames
+		sTrip.attLat = savedLat
+		sTrip.attLng = savedLng
+		sTrip.tags = savedFilt
+		sTrip.date = savedDate
+		sTrip.save()
+
+		message = f"Updated {request.user.username} with {f'POINT({savedNames})'}"
+
+		return JsonResponse({"message": message}, status=200)
+	except:
+
+		return JsonResponse({"message": request.user}, status=400)

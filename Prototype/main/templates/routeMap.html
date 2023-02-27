@@ -23,7 +23,11 @@
 
         <div id="locContainer">
 
-           <input type="text" placeholder="Enter address" id="starting_address" name="starting_address">
+        <button type="button" class="btn btn-primary btn-sm" onclick=setChoice() id="mapButton">Use Current Location</button>
+
+            <h5>OR</h5>
+
+           <input type="text" placeholder="Enter chosen address" id="starting_address" name="starting_address">
            <input type="hidden" class="geo" id="id-lat-a" value="">
            <input type="hidden" class="geo" id="id-long-a" value="">
 
@@ -33,8 +37,7 @@
                 <option value="BICYCLING">Cycling</option>
             </select>
                 <br>
-            <button type="button" class="btn btn-primary btn-sm"  id="mapButton">Map Route</button>
-            <button type="button" class="btn btn-primary btn-sm" onclick=setChoice() id="mapButton">Use Location</button>
+
         </div>
 
         <div id="nextStep">

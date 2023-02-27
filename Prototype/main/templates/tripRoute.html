@@ -5,13 +5,32 @@
 
 {#<h3 id="map">Route:</h3>#}
 
+    <div class="m-2 text-center">
+            <td><nobr>
+                <span style="font-weight:bold">
+                    Group Details
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Choose Attractions
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Route Map
+                </span>
+                <span style="color:lightgray">
+
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Finish
+                </span>
+            </nobr>
+        </div>
+
 
     <div id="optionsContainer"><ul id="attList"></ul></div>
    <div id="map"></div>
+    <div id="clear"></div>
 
     <div id="nextStep">
             <button onclick="location.href='/routeMap'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
-            <button onclick="location.href='/routeMap'" type="button" class="btn btn-outline-dark" >SAVE TRIP</button>
+            <button onclick=saveTrip() type="button" class="btn btn-outline-dark" >SAVE TRIP</button>
         </div>
 
 

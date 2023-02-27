@@ -20,28 +20,28 @@
             </nobr>
         </div>
 
-        <div id="locContainer">
-
-           <input type="text" placeholder="Enter address" id="starting_address" name="starting_address">
-           <input type="hidden" class="geo" id="id-lat-a" value="">
-           <input type="hidden" class="geo" id="id-long-a" value="">
-
-            <select id="mode">
-                <option value="DRIVING">Driving</option>
-                <option value="WALKING">Walking</option>
-                <option value="BICYCLING">Cycling</option>
-            </select>
-                <br>
-            <button type="button" class="btn btn-primary btn-sm" onclick="beginTrip('a')" id="mapButton">Map Route</button>
-            <button type="button" class="btn btn-primary btn-sm" onclick="getLocation()" id="mapButton">Use Location</button>
-        </div>
+{#        <div id="locContainer">#}
+{##}
+{#           <input type="text" placeholder="Enter address" id="starting_address" name="starting_address">#}
+{#           <input type="hidden" class="geo" id="id-lat-a" value="">#}
+{#           <input type="hidden" class="geo" id="id-long-a" value="">#}
+{##}
+{#            <select id="mode">#}
+{#                <option value="DRIVING">Driving</option>#}
+{#                <option value="WALKING">Walking</option>#}
+{#                <option value="BICYCLING">Cycling</option>#}
+{#            </select>#}
+{#                <br>#}
+{#            <button type="button" class="btn btn-primary btn-sm" onclick="beginTrip('a')" id="mapButton">Map Route</button>#}
+{#            <button type="button" class="btn btn-primary btn-sm" onclick="getLocation()" id="mapButton">Use Location</button>#}
+{#        </div>#}
 
         <div id="detailsContainer">
 
-            Group Size:<input type="integer" name="starting_address"><br>
-            Maximum Price:<input type="float" placeholder="€€€" name="starting_address"><br>
-            Date:<input type="date" placeholder="Enter address" name="starting_address">
-        </div>
+            Group Size:<input type="integer" name="starting_address" id="groupSize"><br>
+            Maximum Price:<input type="float" placeholder="€€€" name="starting_address" id="maxPrice"><br>
+            Date:<input type="date" placeholder="Enter address" name="starting_address" id="chosenDate">
+        </div><br>
 
         <div id="detailsContainer">
             Art<input type="checkbox" value="art" id="artCheck">

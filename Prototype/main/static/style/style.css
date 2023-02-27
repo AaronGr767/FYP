@@ -62,7 +62,7 @@ img{
 
 #nextStep{
     text-align: center;
-    margin: auto;
+    margin: 1%;
     padding: 1%;
 }
 
@@ -150,8 +150,8 @@ img{
 #map {
     float: left;
     margin-left: 2%;
-      height: 20em; /* The height is 400 pixels */
-      width: 70%; /* The width is the width of the web page */
+      height: 25em; /* The height is 400 pixels */
+      width: 50%; /* The width is the width of the web page */
     border: solid #DBF4A7 3px;
 }
 

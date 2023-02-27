@@ -12,7 +12,11 @@ function setFilters(){
             counter ++;
     }
 
+    localStorage.setItem('filterStore', filterArray)
+
     // location.href='/choose'
+
+    storeDetails();
 
     postFilters(filterArray)
 }
@@ -96,4 +100,17 @@ function getCookie(cname) {
      return "";
     }
 
+function storeDetails(){
+    gSize = document.getElementById("groupSize").value
+    mPrice = document.getElementById("maxPrice").value
+    cDate = document.getElementById("chosenDate").value
 
+    let resultsObj1 = {
+        groupSize:gSize,
+        maxPrice:mPrice,
+        chosenDate:cDate
+    };
+
+     localStorage.setItem('detailsStore', JSON.stringify(resultsObj1))
+
+}
