@@ -25,9 +25,13 @@ function setChoice(){
 }
 
 function checkType(){
-    if(myLoc){
+    let manualEntry = document.getElementById('starting_address').value
+
+    if(myLoc == false &&  manualEntry == ""){
+        console.log("Path to next page will go here when mapping is sorted")
+    } else if(myLoc == true){
         getLocation()
-    }else{
+    } else{
         beginTrip()
     }
 
@@ -39,14 +43,18 @@ function beginTrip (){
     localStorage.setItem('transMode',document.getElementById("mode").value);
 
 
-
     if(useLoc == true){
         console.log("Anything here?")
-        var latitude = myLat;
-        var longitude = myLong;
+        let latitude = myLat;
+        let longitude = myLong;
+
+        // let startObj = {startLat: latitude, startLng: longitude}
+        // localStorage.setItem('startLoc', JSON.stringify(startObj));
 
         console.log('lat_a=' + latitude + '&long_a=' + longitude)
         var queryCoords = 'lat_a=' + latitude + '&long_a=' + longitude
+
+        localStorage.setItem('startLoc', queryCoords);
 
         locString = '/route?' + queryCoords
         window.location.assign(locString)
@@ -62,8 +70,13 @@ function beginTrip (){
                 var latitude = results[0].geometry.location.lat();
                 var longitude = results[0].geometry.location.lng();
 
+                // let startObj = {startLat: latitude, startLng: longitude}
+                // localStorage.setItem('startLoc', JSON.stringify(startObj));
+
                 console.log('lat_a=' + latitude + '&long_a=' + longitude)
                 var queryCoords = 'lat_a=' + latitude + '&long_a=' + longitude
+
+                localStorage.setItem('startLoc', queryCoords);
 
                 locString = '/route?' + queryCoords
                 window.location.assign(locString)

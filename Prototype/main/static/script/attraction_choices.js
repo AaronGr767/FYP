@@ -8,8 +8,40 @@ function setFilters(){
             counter ++;
     }
     if (document.getElementById('histCheck').checked) {
-            filterArray[counter] = "history";
+            filterArray[counter] = "historical";
             counter ++;
+    }
+    if (document.getElementById('archCheck').checked) {
+            filterArray[counter] = "architecture";
+            counter ++;
+    }
+    if (document.getElementById('cultCheck').checked) {
+            filterArray[counter] = "cultural";
+            counter ++;
+    }
+    if (document.getElementById('eduCheck').checked) {
+            filterArray[counter] = "educational";
+            counter ++;
+    }
+    if (document.getElementById('famCheck').checked) {
+            filterArray[counter] = "family-friendly";
+            counter ++;
+    }
+    if (document.getElementById('outCheck').checked) {
+            filterArray[counter] = "outdoors";
+            counter ++;
+    }
+    if (document.getElementById('recCheck').checked) {
+            filterArray[counter] = "recreational";
+            counter ++;
+    }
+    if (document.getElementById('relCheck').checked) {
+            filterArray[counter] = "religious";
+            counter ++;
+    }
+
+    if(filterArray.length==0){
+        filterArray = ['historical','architecture','art','cultural','educational','family-friendly','outdoors','recreational','religious']
     }
 
     localStorage.setItem('filterStore', filterArray)
@@ -31,8 +63,10 @@ function postFilters(filterArray){
                         'X-CSRFToken': csrftoken
                     },
                     data: {
-
-                        filters: filterArray
+                        filters: filterArray,
+                        gSize : document.getElementById("groupSize").value,
+                        mPrice : document.getElementById("maxPrice").value,
+                        cDate : document.getElementById("chosenDate").value
                     }
                 }).done(function (data, status, xhr) {
 
@@ -74,6 +108,8 @@ function postFilters(filterArray){
                     console.log("finished beans = ")
 
                     console.log(dataObj[0])
+                    console.log(dataObj[1])
+                    console.log(dataObj)
 
                     localStorage.setItem('resultStore', JSON.stringify(dataObj))
 
@@ -104,6 +140,8 @@ function storeDetails(){
     gSize = document.getElementById("groupSize").value
     mPrice = document.getElementById("maxPrice").value
     cDate = document.getElementById("chosenDate").value
+
+    console.log("hola "+mPrice)
 
     let resultsObj1 = {
         groupSize:gSize,

@@ -3,6 +3,8 @@ let resultsObj = retrieveStore()
 
 displayAttractions(resultsObj)
 
+var popup = document.getElementById("optPopUp");
+popup.style.display = "none";
 
 
 $.getScript( "https://maps.googleapis.com/maps/api/js?key=" + api_key + "&libraries=places")
@@ -40,6 +42,8 @@ function initMap() {
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     var selectedMode=localStorage.getItem('transMode');
 
+    console.log(selectedMode);
+
     directionsService.route({
         origin: origin,
         destination: destination,
@@ -67,6 +71,8 @@ function displayAttractions(resultsObj){
     //     resultsObj = JSON.parse(results);
     // }
 
+    console.log("cheese = " + typeof(resultsObj))
+
     resultsObj.forEach((element) =>{
                 console.log(element.name)
                 choiceHtml.innerHTML += `<li>${element.name}</li>`
@@ -75,13 +81,14 @@ function displayAttractions(resultsObj){
     return resultsObj;
 }
 
-function saveTrip(resultsObj) {
+function saveTrip(startCheck) {
     let resultsName, resultsLat, resultsLng = '';
     let resultsStore = retrieveStore()
     let counter = 0;
 
     let details = localStorage.getItem("detailsStore");
     let filters = localStorage.getItem("filterStore");
+    let startLoc = localStorage.getItem("startLoc")
 
     if (details == null) {
         detailsObj = [];
@@ -107,7 +114,7 @@ function saveTrip(resultsObj) {
     console.log(resultsLat)
     console.log(resultsLng)
 
-    let csrftoken = getCookie('csrftoken');
+    // let csrftoken = getCookie('csrftoken');
 
     $.ajax({
         type: "POST",
@@ -116,6 +123,7 @@ function saveTrip(resultsObj) {
         },
         url:"savetrip/",
         data: {
+            sLocation: startLoc,
             attNames: resultsName,
             lats: resultsLat,
             lngs:resultsLng,
@@ -133,10 +141,17 @@ function saveTrip(resultsObj) {
         var originalMsg = $(".toast-body").html();
         $(".toast-body").html(originalMsg + "<br/>" + error);
     }).always(function () {
-        console.log("find_loc_ed finished");
+        console.log("save finished");
+        if(startCheck){
+            location.href='/startTrip'
+        }else{
+            location.href='/home'
+        }
     });
 
-    // location.href='/home'
+
+
+
 }
 
 function getCookie(cname) {
@@ -151,5 +166,8 @@ function getCookie(cname) {
      return "";
     }
 
-
+function optionsPopUp(){
+    var popup = document.getElementById("optPopUp");
+    popup.style.display = "block";
+}
 

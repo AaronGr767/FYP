@@ -56,22 +56,24 @@ def tripRoute(request):
 	# 	long_1 = long_query[0]
 	# 	long.append(long_1)
 
-	lat_query = Attraction.objects.values('latitude').filter(name="GPO").values_list('latitude', flat = True)
+	lat_query = Attraction.objects.values('latitude').filter(name="General Post Office").values_list('latitude', flat = True)
 	lat_1 = lat_query[0]
 
-	long_query = Attraction.objects.values('longitude').filter(name="GPO").values_list('longitude', flat=True)
+	long_query = Attraction.objects.values('longitude').filter(name="General Post Office").values_list('longitude', flat=True)
 	long_1 = long_query[0]
 
-	lat_query = Attraction.objects.values('latitude').filter(name="Hugh_Lane_Gallery").values_list('latitude', flat=True)
+	lat_query = Attraction.objects.values('latitude').filter(name="Hugh Lane Gallery").values_list('latitude', flat=True)
 	lat_2 = lat_query[0]
 
-	long_query = Attraction.objects.values('longitude').filter(name="Hugh_Lane_Gallery").values_list('longitude', flat=True)
+	long_query = Attraction.objects.all().filter(name="Hugh Lane Gallery").values_list('longitude', flat=True)
 	long_2 = long_query[0]
 
 	context = {
 	"google_api_key": settings.API_KEY,
 	"lat_1": lat_1,
 	"long_1": long_1,
+	# "lat_1": lat_2,
+	# "long_1": long_2,
 	# "lat_1": lat[1],
 	# "long_1": long[1],
 	"origin": f'{lat_0}, {long_0}',
@@ -83,6 +85,8 @@ def tripRoute(request):
 def filterAttractions(request):
 	i = 0
 	filterArray = request.POST.getlist('filters[]')
+	groupSize = request.POST.get('gSize')
+	maximumPrice = request.POST.get('mPrice')
 	filt_query = [];
 
 	print(filterArray)
@@ -95,7 +99,15 @@ def filterAttractions(request):
 	i = 0
 
 	long_query = Attraction.objects.values()
-	filt_query = Attraction.objects.filter(tag__in=filterArray).values()
+	print(Attraction.objects.values())
+	print("priceo = ")
+	print(maximumPrice)
+	if maximumPrice != "":
+		filt_query = Attraction.objects.filter(tag__in=filterArray,maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).values()
+		print("we vibin!")
+	else:
+		filt_query = Attraction.objects.filter(tag__in=filterArray,maxGroup__gte=groupSize).values()
+
 	results = filt_query
 
 	context = {
@@ -114,11 +126,13 @@ def filterAttractions(request):
 
 
 def saveTrip(request):
+	savedStart = request.POST.get("sLocation", None)
 	savedNames = request.POST.get("attNames", None)
 	savedLat = request.POST.get("lats", None)
 	savedLng = request.POST.get("lngs", None)
 	savedFilt = request.POST.get("tags", None)
 	savedDate = request.POST.get("cDate", None)
+	groupSize = request.POST.get("gSize", None)
 
 
 	try:
@@ -126,12 +140,18 @@ def saveTrip(request):
 		# my_coords = [float(coord) for coord in locations.split(", ")]
 		sTrip = SavedTrip()
 		sTrip.userOwner = request.user
+		sTrip.startLocation = savedStart
 		sTrip.attNames = savedNames
 		sTrip.attLat = savedLat
 		sTrip.attLng = savedLng
 		sTrip.tags = savedFilt
+		sTrip.groupSize = groupSize
 		sTrip.date = savedDate
 		sTrip.save()
+
+		trip_query = SavedTrip.objects.values('id').filter(userOwner_id=request.user.id).order_by('-id')[0]
+		print("feck")
+		print(trip_query)
 
 		message = f"Updated {request.user.username} with {f'POINT({savedNames})'}"
 
@@ -139,3 +159,6 @@ def saveTrip(request):
 	except:
 
 		return JsonResponse({"message": request.user}, status=400)
+
+def retrieveTrip(request):
+	trip_query = Attraction.objects.filter(id="General Post Office")

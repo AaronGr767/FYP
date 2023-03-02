@@ -6,28 +6,33 @@
     {% if user.is_authenticated %}
         <div class="m-2 text-center">
             <td><nobr>
-                <span style="font-weight:bold">
+                <span>
                     Group Details
                     <i class="fa-solid fa-arrow-right"></i>
                     Choose Attractions
                     <i class="fa-solid fa-arrow-right"></i>
-                    Route Map
-                </span>
-                <span style="color:lightgray">
 
+                </span>
+                <span style="font-weight:bold">Choose Location</span>
+                <span style="color:lightgray">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Trip Summary
                     <i class="fa-solid fa-arrow-right"></i>
                     Finish
                 </span>
             </nobr>
         </div>
-
+        <br>
         <div id="locContainer">
 
-        <button type="button" class="btn btn-primary btn-sm" onclick=setChoice() id="mapButton">Use Current Location</button>
 
-            <h5>OR</h5>
+
+            <h5>Choose Location</h5>
+            <p>You may choose your starting location now or when you start your trip!</p>
 
            <input type="text" placeholder="Enter chosen address" id="starting_address" name="starting_address">
+            <h7>OR</h7>
+            <button type="button" class="btn btn-primary btn-sm" onclick=setChoice() id="mapButton">Use Current Location</button>
            <input type="hidden" class="geo" id="id-lat-a" value="">
            <input type="hidden" class="geo" id="id-long-a" value="">
 
@@ -36,13 +41,18 @@
                 <option value="WALKING">Walking</option>
                 <option value="BICYCLING">Cycling</option>
             </select>
-                <br>
+
 
         </div>
-
+        <br>
         <div id="nextStep">
-            <button onclick="location.href='/choose'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
-            <button onclick=checkType() type="button" class="btn btn-outline-dark" >NEXT STEP</button>
+
+                <button onclick="location.href='/choose'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
+                <button onclick=checkType() type="button" class="btn btn-outline-dark" >NEXT STEP</button>
+
+            </div>
+
+
         </div>
 
         <script type="text/javascript">

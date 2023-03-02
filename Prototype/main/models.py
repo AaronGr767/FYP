@@ -19,11 +19,14 @@ class Attraction(models.Model):
     latitude = models.CharField(max_length=50)
     longitude = models.CharField(max_length=50)
     tag = models.CharField(max_length=100, null=True)
+    maxPrice = models.FloatField(max_length=10, null=True)
+    maxGroup = models.CharField(max_length=10, null=True)
 
 class SavedTrip(models.Model):
     #will probably need to set an id here as opposed to trying to use the one created by postgres
     userOwner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    startLocation = models.CharField(max_length=100,null=True)
     attNames = models.TextField(null=True)
     attLat = models.TextField(null=True)
     attLng = models.TextField(null=True)

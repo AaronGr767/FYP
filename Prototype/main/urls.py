@@ -17,5 +17,6 @@ urlpatterns = [
     path('edit', TemplateView.as_view(template_name="editProfile.html"), name="editProfile"),
     path('route', views.tripRoute, name="tripRoute"),
     path('filterAttractions/', views.filterAttractions, name="filterAttractions"),
-    path('savetrip/', views.saveTrip, name="saveTrip")
+    path('savetrip/', views.saveTrip, name="saveTrip"),
+    path('startTrip/', TemplateView.as_view(template_name="startTrip.html"), name="startTrip")
 ]

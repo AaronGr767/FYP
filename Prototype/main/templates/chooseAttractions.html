@@ -6,27 +6,33 @@
     {% if user.is_authenticated %}
         <div class="m-2 text-center">
             <td><nobr>
-                <span style="font-weight:bold">
+                <span >
                     Group Details
                     <i class="fa-solid fa-arrow-right"></i>
-                    Choose Attractions
-                </span>
+
+                </span >
+                <span style="font-weight:bold">Choose Attractions</span>
+
                 <span style="color:lightgray">
 
                     <i class="fa-solid fa-arrow-right"></i>
-                    Route Map
+                    Choose Location
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Trip Summary
                     <i class="fa-solid fa-arrow-right"></i>
                     Finish
                 </span>
             </nobr>
         </div>
-
+        <br>
         <div id="mainContainer">
             <div id="optionsContainer">
             </div>
 
-            <div id="map">
+            <div id="mapContainer">
+                <div id="map"></div>
             </div>
+
 
             <div id="clear"></div>
 
@@ -60,16 +66,22 @@
 
                 console.log("beep " + resultsObj.length);
                 console.log(resultsObj[0])
+                    console.log("cheese = " + typeof(resultsObj))
+
 
                 for(i=0; i < resultsObj.length; i++){
 
+                    console.log(resultsObj[i].name)
+
                     checkHtml = `
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%">
-                                      <input type="checkbox" onclick=addAttraction(${resultsObj[i].id}) class="btn-check" name=${resultsObj[i].name} id=${resultsObj[i].id} autocomplete="off">
-                                      <label class="btn btn-outline-primary" for=${resultsObj[i].id}>${resultsObj[i].name}</label>
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:100%">
+                                      <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i} autocomplete="off">
+                                      <label class="btn btn-outline-secondary" for=${i}>${resultsObj[i].name}</label>
                                     </div>
                         <br>`
+
                     optCont.innerHTML += checkHtml;
+                    console.log("feck off " + document.getElementById(i).name)
                 }
 
 

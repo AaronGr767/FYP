@@ -36,16 +36,54 @@
 {#            <button type="button" class="btn btn-primary btn-sm" onclick="getLocation()" id="mapButton">Use Location</button>#}
 {#        </div>#}
 
-        <div id="detailsContainer">
 
-            Group Size:<input type="integer" name="starting_address" id="groupSize"><br>
-            Maximum Price:<input type="float" placeholder="€€€" name="starting_address" id="maxPrice"><br>
-            Date:<input type="date" placeholder="Enter address" name="starting_address" id="chosenDate">
+        <br>
+        <div id="filtersContainer">
+            <table id="filtersContainerTable">
+                <h5 style="text-align: center">Attraction type:</h5>
+                <tr>
+                    <div id="filtersContainerCheck">
+                    <td><label>Architecture</label><input type="checkbox" value="architecture" id="archCheck"></td>
+                    <td><label>Art</label><input type="checkbox" value="art" id="artCheck"></td>
+                    <td><label>Cultural</label><input type="checkbox" value="cultural" id="cultCheck"></td>
+                        </div>
+                </tr>
+                <tr>
+                    <td><label>Educational</label><input type="checkbox" value="educational" id="eduCheck"></td>
+                    <td><label>Family-Friendly</label><input type="checkbox" value="family-friendly" id="famCheck"></td>
+                    <td><label>Historical</label><input type="checkbox" value="historical" id="histCheck"></td>
+
+                </tr>
+                <tr>
+                    <td><label>Outdoors</label><input type="checkbox" value="outdoors" id="outCheck"></td>
+                    <td><label>Recreational</label><input type="checkbox" value="recreational" id="recCheck"></td>
+                    <td><label>Religious</label><input type="checkbox" value="religious" id="relCheck"></td>
+                </tr>
+            </table>
         </div><br>
 
         <div id="detailsContainer">
-            Art<input type="checkbox" value="art" id="artCheck">
-            History<input type="checkbox" value="history" id="histCheck">
+            <h5 style="text-align: center">Optional Details:</h5>
+            <table>
+                <tr>
+{#                    <td style="text-align: center"><label>*Group Size:</label></td>#}
+                    <td style="text-align: left">Group Size:</td>
+                    <td style="text-align: center"><input type="integer" placeholder="1,2,3" name="starting_address" id="groupSize" ></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left"><label>*Maximum Price:</label></td>
+                    <td style="text-align: center"><input type="float" placeholder="€€€" name="starting_address" id="maxPrice" style="text-align: center"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left"><label>Trip Date:</label></td>
+                    <td style="text-align: center"><input type="date" placeholder="Enter address" name="starting_address" id="chosenDate" style="color: gray"></td>
+                </tr>
+{#                <label >*Group Size:</label><input type="integer" placeholder="1,2,3" name="starting_address" id="groupSize" style="text-align: center"><br>#}
+{#                <label>*Maximum Price (per person):</label><input type="float" placeholder="€€€" name="starting_address" id="maxPrice" style="text-align: center"><br>#}
+{#                <label>*Trip Date:</label><input type="date" placeholder="Enter address" name="starting_address" id="chosenDate" style="color: gray"><br>#}
+
+            </table>
+            <font size="1" style="margin:auto">* ticket price for each attraction per person</font>
         </div>
 
         <div id="nextStep">

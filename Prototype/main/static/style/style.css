@@ -37,12 +37,12 @@ img{
     text-align: center;
 }
 
-.map-container{
-    height: 30em;
-    width: 55em;
-    border: solid #DBF4A7 3px;
-    margin: auto;
-}
+/*.map-container{*/
+/*    height: 30em;*/
+/*    width: 55em;*/
+/*    border: solid #DBF4A7 3px;*/
+/*    margin: auto;*/
+/*}*/
 
 #map-route{
     height: 95%;
@@ -56,14 +56,13 @@ img{
     border: solid #7D84B2 3px;
     text-align: center;
     margin: auto;
-    width:45%;
+    width:35%;
     padding: 1%;
+
 }
 
 #nextStep{
     text-align: center;
-    margin: 1%;
-    padding: 1%;
 }
 
 #locContainer input[type=text], select {
@@ -79,21 +78,63 @@ img{
     border: solid #7D84B2 3px;
     text-align: left;
     margin: auto;
-    width:45%;
+    width:25%;
     padding: 1%;
+    background-color: whitesmoke;
 }
 
-#detailsContainer input[type=integer],input[type=float],input[type=date],input[type=checkbox]{
+#detailsContainer input[type=integer],input[type=float],input[type=date]{
+    border:  solid #8E9DCC 2px;
+    border-radius: 4px;
+    background-color: white;
+    width:20%;
+    min-width: 30px;
+    text-align: right;
+}
+#detailsContainer input[type=date] {
+    width:66%;
+    min-width: 60px;
+}
+
+#detailsContainer label{
+    text-align: left;
+}
+
+
+#filtersContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    width:45%;
+    margin: auto;
+    background-color: whitesmoke;
+}
+
+#filtersContainerTable{
+    text-align: right;
+    margin: auto;
+    width: 95%;
+
+}
+
+#filtersContainer label{
+    text-align: left;
+    float:left;
+    padding-left: 2%;
+}
+
+#filtersContainer input[type=checkbox]{
     border:  solid #8E9DCC 2px;
     border-radius: 4px;
     height: 100%;
     background-color: white;
     margin: 10px;
     width:10%;
+    text-align: right;
 }
-#detailsContainer input[type=date] {
-    width: 35%;
-}
+
+
 #mapButton{
     background-color: #8E9DCC;
     border: solid #7D84B2 1px;
@@ -142,27 +183,63 @@ img{
     border-radius: 10px;
     border: solid #7D84B2 3px;
     text-align: left;
-    width:25%;
+    width:15%;
     margin-left: 1%;
     padding: 1%;
+    background-color: whitesmoke;
 }
 
 #map {
     float: left;
-    margin-left: 2%;
+      height: 100%; /* The height is 400 pixels */
+      width: 100%; /* The width is the width of the web page */
+    border-radius: 5px;
+}
+
+#mapContainer {
+    background-color: whitesmoke;
+    float: left;
+    margin-left:9%;
       height: 25em; /* The height is 400 pixels */
       width: 50%; /* The width is the width of the web page */
     border: solid #DBF4A7 3px;
+    padding: 15px;
+    border-radius: 5px;
+
 }
 
 #mainContainer{
     margin: auto;
+    width:90%;
 }
 
 
 #clear {
     clear: both;
 }
+
+#addDetContainer{
+    background-color: red;
+    width:100%;
+    margin:auto;
+}
+
+#optPopUp {
+    /*top:0;*/
+    margin:auto;
+    width: 30%;
+    height: 100%;
+    border-radius: 10px;
+    border: solid darkgrey 3px;
+    text-align: center;
+    padding: 1%;
+    background-color: whitesmoke;
+}
+
+#stepOptions{
+    margin-bottom: 10px;
+}
+
 
 
 

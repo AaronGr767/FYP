@@ -25,15 +25,22 @@ function initMap() {
         center: dublin,
     });
 
-
+  //   const pinViewBackground = new google.maps.marker.PinView({
+  //   background: "#FBBC04",
+  // });
 
 }
 
-// Adds a marker to the map and push to the array.
+// const customPin = new google.maps.marker.PinView({
+//     background: "#7bcde8",
+// })
+
+
 function addMarker(position) {
   const marker = new google.maps.Marker({
-    position,
     map,
+    position,
+    content: "background: '#FBBC04'",
   });
 
   markers.push(marker);
@@ -67,9 +74,9 @@ function deleteMarkers() {
 }
 
 function addAttraction(buttonId) {
-        console.log(buttonId)
-
         let attBut = document.getElementById(buttonId)
+        console.log("breaks here")
+        console.log(attBut.name)
 
         if (attBut.checked) {
 
@@ -77,8 +84,8 @@ function addAttraction(buttonId) {
 
 
             resultsObj.forEach((element) => {
-                let id = element.id;
-                if(buttonId == id){
+                // let id = element.id;
+                if(attBut.name == element.name){
                     var myLatlng = new google.maps.LatLng(parseFloat(element.latitude),parseFloat(element.longitude));
                     addMarker(myLatlng, buttonId)
                 }
@@ -86,12 +93,10 @@ function addAttraction(buttonId) {
 
         }else
         {
-
-
             attBut.checked = false;
             resultsObj.forEach((element) => {
 
-                if(buttonId===element.id) {
+                if(attBut.name == element.name) {
                     var tempLatLng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
                     console.log(tempLatLng)
                     markers.forEach((item) => {
@@ -133,8 +138,16 @@ function addAttraction(buttonId) {
 window.initMap = initMap;
 
 function collectChoices(){
+    let results = localStorage.getItem("resultStore");
+
+        if (results == null) {
+            resultsObj = [];
+          } else {
+            resultsObj = JSON.parse(results);
+        }
+
     let finalChoices = [];
-    for(i=1;i<=2;i++){
+    for(i=0;i<resultsObj.length;i++){
         checkVar = document.getElementById(i)
         if(checkVar.checked){
             resultsObj.forEach((element) =>{

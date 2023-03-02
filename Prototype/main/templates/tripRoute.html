@@ -7,21 +7,23 @@
 
     <div class="m-2 text-center">
             <td><nobr>
-                <span style="font-weight:bold">
+                <span >
                     Group Details
                     <i class="fa-solid fa-arrow-right"></i>
                     Choose Attractions
                     <i class="fa-solid fa-arrow-right"></i>
-                    Route Map
-                </span>
+                    Choose Location
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span >
+                <span style="font-weight:bold">Trip Summary</span>
+
                 <span style="color:lightgray">
-
-
                     <i class="fa-solid fa-arrow-right"></i>
                     Finish
                 </span>
             </nobr>
         </div>
+        <br>
 
 
     <div id="optionsContainer"><ul id="attList"></ul></div>
@@ -29,9 +31,15 @@
     <div id="clear"></div>
 
     <div id="nextStep">
+        <div id="stepOptions">
             <button onclick="location.href='/routeMap'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
-            <button onclick=saveTrip() type="button" class="btn btn-outline-dark" >SAVE TRIP</button>
+            <button onclick=optionsPopUp() type="button" class="btn btn-outline-dark" >FINISH TRIP</button>
         </div>
+        <div id="optPopUp">Would you like to save this trip for future use or start right now?<br><br>
+            <button onclick=saveTrip(false) type="button" class="btn btn-outline-secondary">Save Trip</button>
+            <button onclick=saveTrip(true) type="button" class="btn btn-outline-secondary">Start Now</button>
+        </div>
+    </div>
 
 
 
