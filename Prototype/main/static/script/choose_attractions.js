@@ -147,6 +147,7 @@ function collectChoices(){
         }
 
     let finalChoices = [];
+        let attId = []
     for(i=0;i<resultsObj.length;i++){
         checkVar = document.getElementById(i)
         if(checkVar.checked){

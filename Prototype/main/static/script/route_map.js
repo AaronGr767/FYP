@@ -82,33 +82,26 @@ function displayAttractions(resultsObj){
 }
 
 function saveTrip(startCheck) {
-    let resultsName, resultsLat, resultsLng = '';
-    let resultsStore = retrieveStore()
-    let counter = 0;
+    let resultsName = [];
+    let resultsLat = [];
+    let resultsLng = [];
+    let finalStore = retrieveStore()
 
     let details = localStorage.getItem("detailsStore");
     let filters = localStorage.getItem("filterStore");
     let startLoc = localStorage.getItem("startLoc")
 
-    if (details == null) {
-        detailsObj = [];
-      } else {
-        detailsObj = JSON.parse(details);
-    }
+    let filterArray = JSON.parse(filters)
+    console.log(typeof filterArray)
 
-    resultsStore.forEach((element) =>{
-                if(counter==0){
-                    resultsName = element.name
-                    resultsLat = element.latitude
-                    resultsLng = element.longitude
-                    counter ++
-                }else{
-                    resultsName = resultsName + "," + element.name
-                    resultsLat = resultsLat + "," + element.latitude
-                    resultsLng = resultsLng + "," + element.longitude
-                }
+    let detailsObj = JSON.parse(details);
 
-            })
+
+    finalStore.forEach((element) =>{
+        resultsName.push(element.name)
+        resultsLat.push(element.latitude)
+        resultsLng.push(element.longitude)
+    })
 
     console.log(resultsName)
     console.log(resultsLat)
@@ -127,11 +120,12 @@ function saveTrip(startCheck) {
             attNames: resultsName,
             lats: resultsLat,
             lngs:resultsLng,
-            tags:filters,
+            tripTags:filterArray,
             tName:detailsObj.tripName,
             gSize:detailsObj.groupSize,
             mPrice:detailsObj.maxPrice,
-            cDate:detailsObj.chosenDate
+            cDate:detailsObj.chosenDate,
+            atts: resultsObj
         }
     }).done(function (data, status, xhr) {
         console.log(data)

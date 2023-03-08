@@ -44,7 +44,8 @@ function setFilters(){
         filterArray = ['historical','architecture','art','cultural','educational','family-friendly','outdoors','recreational','religious']
     }
 
-    localStorage.setItem('filterStore', filterArray)
+    console.log(filterArray)
+    localStorage.setItem('filterStore', JSON.stringify(filterArray))
 
     // location.href='/choose'
 

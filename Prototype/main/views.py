@@ -127,11 +127,11 @@ def filterAttractions(request):
 
 
 def saveTrip(request):
+	savedFilt = request.POST.getlist('tripTags[]', None)
 	savedStart = request.POST.get("sLocation", None)
-	savedNames = request.POST.get("attNames", None)
-	savedLat = request.POST.get("lats", None)
-	savedLng = request.POST.get("lngs", None)
-	savedFilt = request.POST.get("tags", None)
+	savedNames = request.POST.getlist("attNames[]", None)
+	savedLat = request.POST.getlist("lats[]", None)
+	savedLng = request.POST.getlist("lngs[]", None)
 	tripName = request.POST.get("tName", None)
 	savedDate = request.POST.get("cDate", None)
 	groupSize = request.POST.get("gSize", None)
@@ -146,7 +146,7 @@ def saveTrip(request):
 		sTrip.attNames = savedNames
 		sTrip.attLat = savedLat
 		sTrip.attLng = savedLng
-		sTrip.tags = savedFilt
+		sTrip.tripTags = savedFilt
 		sTrip.tripName = tripName
 		sTrip.groupSize = groupSize
 		sTrip.date = savedDate

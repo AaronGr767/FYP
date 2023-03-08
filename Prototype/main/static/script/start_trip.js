@@ -15,7 +15,8 @@ function retrieveTrip(){
             sTripId:stId.id
         }
     }).done(function (data, status, xhr) {
-        console.log("nothing here")
+        console.log(data)
+        displayTrip(data)
         // console.log(tripid_query)
         var originalMsg = $(".toast-body").html();
         $(".toast-body").html(originalMsg + "<br/>Retrievedtrip<br/>" + data["message"]);
@@ -27,6 +28,13 @@ function retrieveTrip(){
         console.log("retrieval finished");
     });
 }
+
+function displayTrip(){
+    let tripDets = document.getElementById("tripSum")
+
+
+}
+
 
 function getCookie(cname) {
      var name = cname + "=";

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.fields import ArrayField
 # Register your models here.
 
 User = get_user_model()
@@ -30,9 +31,9 @@ class SavedTrip(models.Model):
     userOwner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     tripName = models.CharField(max_length=100,null=True)
     startLocation = models.CharField(max_length=100,null=True)
-    attNames = models.TextField(null=True)
-    attLat = models.TextField(null=True)
-    attLng = models.TextField(null=True)
+    attNames = ArrayField(models.TextField(), null=True)
+    attLat = ArrayField(models.TextField(), null=True)
+    attLng = ArrayField(models.TextField(), null=True)
     date = models.CharField(max_length=50,null=True)
     groupSize = models.CharField(max_length=3,null=True)
-    tags = models.TextField(null=True)
+    tripTags = ArrayField(models.CharField(max_length=200), null=True)
