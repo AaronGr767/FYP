@@ -111,6 +111,25 @@ img{
     background-color: whitesmoke;
 }
 
+#nameContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    width:35%;
+    margin: auto;
+    background-color: whitesmoke;
+}
+
+#nameContainer input[type=text]{
+    border:  solid #8E9DCC 2px;
+    border-radius: 4px;
+    background-color: white;
+    width:60%;
+    margin-left:20%;
+    text-align: center;
+}
+
 #filtersContainerTable{
     text-align: right;
     margin: auto;

@@ -19,7 +19,7 @@ const waypts = [
         ];
 
 function retrieveStore(){
-    let results = localStorage.getItem("resultStore");
+    let results = localStorage.getItem("finalChoice");
 
     if (results == null) {
         resultsStorage = [];
@@ -128,12 +128,19 @@ function saveTrip(startCheck) {
             lats: resultsLat,
             lngs:resultsLng,
             tags:filters,
+            tName:detailsObj.tripName,
             gSize:detailsObj.groupSize,
             mPrice:detailsObj.maxPrice,
             cDate:detailsObj.chosenDate
         }
     }).done(function (data, status, xhr) {
-        console.log(data["message"])
+        console.log(data)
+        if(startCheck){
+            localStorage.setItem('saveAndStart', JSON.stringify(data))
+            location.href='/startTrip'
+        }else{
+            location.href='/home'
+        }
         var originalMsg = $(".toast-body").html();
         $(".toast-body").html(originalMsg + "<br/>Updateddatabase<br/>" + data["message"]);
     }).fail(function (xhr, status, error) {
@@ -142,15 +149,7 @@ function saveTrip(startCheck) {
         $(".toast-body").html(originalMsg + "<br/>" + error);
     }).always(function () {
         console.log("save finished");
-        if(startCheck){
-            location.href='/startTrip'
-        }else{
-            location.href='/home'
-        }
     });
-
-
-
 
 }
 

@@ -137,6 +137,7 @@ function getCookie(cname) {
     }
 
 function storeDetails(){
+    tName = document.getElementById("tripName").value
     gSize = document.getElementById("groupSize").value
     mPrice = document.getElementById("maxPrice").value
     cDate = document.getElementById("chosenDate").value
@@ -144,6 +145,7 @@ function storeDetails(){
     console.log("hola "+mPrice)
 
     let resultsObj1 = {
+        tripName:tName,
         groupSize:gSize,
         maxPrice:mPrice,
         chosenDate:cDate

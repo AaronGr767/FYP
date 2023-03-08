@@ -151,7 +151,7 @@ function collectChoices(){
         checkVar = document.getElementById(i)
         if(checkVar.checked){
             resultsObj.forEach((element) =>{
-                if(element.id == i){
+                if(element.name == checkVar.name){
                     finalChoices.push(element)
                     console.log("vibes")
                     console.log(finalChoices)

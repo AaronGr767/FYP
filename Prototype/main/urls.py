@@ -18,5 +18,6 @@ urlpatterns = [
     path('route', views.tripRoute, name="tripRoute"),
     path('filterAttractions/', views.filterAttractions, name="filterAttractions"),
     path('savetrip/', views.saveTrip, name="saveTrip"),
+    path('retrievetrip/', views.retrieveTrip, name="retrieveTrip"),
     path('startTrip/', TemplateView.as_view(template_name="startTrip.html"), name="startTrip")
 ]

@@ -7,7 +7,7 @@
         <div class="m-2 text-center">
             <td><nobr>
                 <span style="font-weight:bold">
-                    Group Details
+                    Trip Details
                 </span>
                 <span style="color:lightgray">
                     <i class="fa-solid fa-arrow-right"></i>
@@ -35,12 +35,15 @@
 {#            <button type="button" class="btn btn-primary btn-sm" onclick="beginTrip('a')" id="mapButton">Map Route</button>#}
 {#            <button type="button" class="btn btn-primary btn-sm" onclick="getLocation()" id="mapButton">Use Location</button>#}
 {#        </div>#}
-
-
+        <br>
+        <div id =nameContainer>
+            <h5 style="text-align: center">Trip Name:</h5>
+            <input type="text" id="tripName" placeholder="Enter Trip Name Here!">
+        </div>
         <br>
         <div id="filtersContainer">
             <table id="filtersContainerTable">
-                <h5 style="text-align: center">Attraction type:</h5>
+                <h5 style="text-align: center">Attraction Type:</h5>
                 <tr>
                     <div id="filtersContainerCheck">
                     <td><label>Architecture</label><input type="checkbox" value="architecture" id="archCheck"></td>
@@ -83,9 +86,9 @@
 {#                <label>*Trip Date:</label><input type="date" placeholder="Enter address" name="starting_address" id="chosenDate" style="color: gray"><br>#}
 
             </table>
-            <font size="1" style="margin:auto">* ticket price for each attraction per person</font>
+            <font size="1" style="margin:auto">* ticket price for each attraction per adult</font>
         </div>
-
+        <br>
         <div id="nextStep">
             <button onclick="setFilters()" type="button" class="btn btn-outline-dark" >NEXT STEP</button>
         </div>
