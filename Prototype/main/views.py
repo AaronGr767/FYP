@@ -103,21 +103,22 @@ def filterAttractions(request):
 	print("priceo = ")
 	print(maximumPrice)
 	if maximumPrice != "":
-		filt_query = Attraction.objects.filter(tag__in=filterArray,maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).values()
+		filt_query = Attraction.objects.filter(tag1__in=filterArray, maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).values()
 		print("we vibin!")
 	else:
-		filt_query = Attraction.objects.filter(tag__in=filterArray,maxGroup__gte=groupSize).values()
+		filt_query = Attraction.objects.filter(tag1__in=filterArray, maxGroup__gte=groupSize).values()
+		print("we not vibin!")
 
 	results = filt_query
 
-	context = {
-		'google_api_key': settings.API_KEY,
-		'results' : filt_query
-	}
+	# context = {
+	# 	'google_api_key': settings.API_KEY,
+	# 	'results' : filt_query
+	# }
 
 	# query_results = serializers.serialize("json", Attraction.objects.filter(tag=filterArray).values())
 
-	print(context.get('results'))
+	# print(context.get('results'))
 	print(filt_query.values('name'))
 
 	return HttpResponse(results)
@@ -131,6 +132,7 @@ def saveTrip(request):
 	savedLat = request.POST.get("lats", None)
 	savedLng = request.POST.get("lngs", None)
 	savedFilt = request.POST.get("tags", None)
+	tripName = request.POST.get("tName", None)
 	savedDate = request.POST.get("cDate", None)
 	groupSize = request.POST.get("gSize", None)
 
@@ -145,6 +147,7 @@ def saveTrip(request):
 		sTrip.attLat = savedLat
 		sTrip.attLng = savedLng
 		sTrip.tags = savedFilt
+		sTrip.tripName = tripName
 		sTrip.groupSize = groupSize
 		sTrip.date = savedDate
 		sTrip.save()
@@ -153,12 +156,20 @@ def saveTrip(request):
 		print("feck")
 		print(trip_query)
 
-		message = f"Updated {request.user.username} with {f'POINT({savedNames})'}"
+		# message = f"Updated {request.user.username} with {f'POINT({savedNames})'}"
 
-		return JsonResponse({"message": message}, status=200)
+		return JsonResponse(trip_query, status=200)
 	except:
 
 		return JsonResponse({"message": request.user}, status=400)
 
 def retrieveTrip(request):
-	trip_query = Attraction.objects.filter(id="General Post Office")
+	savedTripId = request.POST.get("sTripId", None)
+
+	tripid_query = SavedTrip.objects.filter(id=savedTripId).values()
+	print("Test")
+	print(tripid_query)
+
+	queryResults = tripid_query
+
+	return HttpResponse(queryResults)
