@@ -15,9 +15,14 @@ urlpatterns = [
     path('finishCreate', TemplateView.as_view(template_name="finishCreate.html"), name="finishCreate"),
     path('manage', TemplateView.as_view(template_name="manageTrip.html"), name="manageTrip"),
     path('edit', TemplateView.as_view(template_name="editProfile.html"), name="editProfile"),
-    path('route', views.tripRoute, name="tripRoute"),
+    path('comparesimilarity', views.compareSimilarity, name="compareSimilarity"),
     path('filterAttractions/', views.filterAttractions, name="filterAttractions"),
     path('savetrip/', views.saveTrip, name="saveTrip"),
     path('retrievetrip/', views.retrieveTrip, name="retrieveTrip"),
-    path('startTrip/', TemplateView.as_view(template_name="startTrip.html"), name="startTrip")
+    path('doingTrip/updaterating/', views.updateRating, name="updateRating"),
+    path('doingTrip/updatetripstatus/', views.updateTripStatus, name="updatetripstatus"),
+    path('startTrip/', TemplateView.as_view(template_name="startTrip.html"), name="startTrip"),
+    path('doingTrip/', TemplateView.as_view(template_name="doingTrip.html"), name="doingTrip"),
+    path('tripRoute', TemplateView.as_view(template_name="tripRoute.html"), name="tripRoute")
+
 ]

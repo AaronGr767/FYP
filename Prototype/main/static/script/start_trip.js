@@ -29,9 +29,36 @@ function retrieveTrip(){
     });
 }
 
-function displayTrip(){
-    let tripDets = document.getElementById("tripSum")
+function displayTrip(data){
+    let tripTags = document.getElementById("trTag")
+    let tripAtts = document.getElementById("trAtt")
 
+    console.log(typeof data)
+
+    console.log(data[0].tripTags)
+
+    document.getElementById("trName").innerHTML += `  ${data[0].tripName}`
+
+    if(data[0].date != "")
+    {
+        document.getElementById("trDate").innerHTML += `  ${data[0].date}`
+    } else{
+        document.getElementById("trDate").innerHTML = ``
+    }
+
+    let fullList = data[0].tripTags[0];
+
+    for(i=1;i<data[0].tripTags.length;i++){
+        fullList =fullList + "," + data[0].tripTags[i]
+    }
+
+    tripTags.innerHTML += `<p style="color: gray">${fullList}</p>`
+
+    for(i=0;i<data[0].attNames.length;i++){
+        tripAtts.innerHTML += `<li>${data[0].attNames[i]}</li>`
+    }
+
+    localStorage.setItem('currentTrip', JSON.stringify(data[0]))
 
 }
 

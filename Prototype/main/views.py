@@ -1,3 +1,7 @@
+import decimal
+from collections import defaultdict
+
+from _decimal import Decimal
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -8,10 +12,11 @@ from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from osgeo_utils.gdal2tiles import data
 
-from .models import Attraction, SavedTrip
+from .models import Attraction, SavedTrip, AttractionRating
 from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
+from django.db.models import Q
 
 from django.contrib.auth import authenticate, login
 
@@ -37,50 +42,50 @@ def logout_request(request):
 	messages.info(request, "Successfully logged out!")
 	return redirect("main:home")
 
-def tripRoute(request):
-
-	lat_0 = request.GET.get("lat_a", None)
-	long_0 = request.GET.get("long_a", None)
-
-	# Come back to this to fix iteration through db, current problem is "list index out of range", think its a problem with query as models dont contain id while postgres does
-	# length = range(3)
-	# lat=[]
-	# long=[]
-	#
-	# for i in length:
-	# 	lat_query = Attraction.objects.values('latitude').filter(id=i).values_list('latitude', flat=True)
-	# 	lat_1 = lat_query[0]
-	# 	lat.append(lat_1)
-	#
-	# 	long_query = Attraction.objects.values('longitude').filter(id=i).values_list('longitude', flat=True)
-	# 	long_1 = long_query[0]
-	# 	long.append(long_1)
-
-	lat_query = Attraction.objects.values('latitude').filter(name="General Post Office").values_list('latitude', flat = True)
-	lat_1 = lat_query[0]
-
-	long_query = Attraction.objects.values('longitude').filter(name="General Post Office").values_list('longitude', flat=True)
-	long_1 = long_query[0]
-
-	lat_query = Attraction.objects.values('latitude').filter(name="Hugh Lane Gallery").values_list('latitude', flat=True)
-	lat_2 = lat_query[0]
-
-	long_query = Attraction.objects.all().filter(name="Hugh Lane Gallery").values_list('longitude', flat=True)
-	long_2 = long_query[0]
-
-	context = {
-	"google_api_key": settings.API_KEY,
-	"lat_1": lat_1,
-	"long_1": long_1,
-	# "lat_1": lat_2,
-	# "long_1": long_2,
-	# "lat_1": lat[1],
-	# "long_1": long[1],
-	"origin": f'{lat_0}, {long_0}',
-	"destination": f'{lat_2}, {long_2}',
-	#"destination": f'{lat[2]}, {lat[2]}',
-	}
-	return render(request, 'tripRoute.html', context)
+# def tripRoute(request):
+#
+# 	lat_0 = request.GET.get("lat_a", None)
+# 	long_0 = request.GET.get("long_a", None)
+#
+# 	# Come back to this to fix iteration through db, current problem is "list index out of range", think its a problem with query as models dont contain id while postgres does
+# 	# length = range(3)
+# 	# lat=[]
+# 	# long=[]
+# 	#
+# 	# for i in length:
+# 	# 	lat_query = Attraction.objects.values('latitude').filter(id=i).values_list('latitude', flat=True)
+# 	# 	lat_1 = lat_query[0]
+# 	# 	lat.append(lat_1)
+# 	#
+# 	# 	long_query = Attraction.objects.values('longitude').filter(id=i).values_list('longitude', flat=True)
+# 	# 	long_1 = long_query[0]
+# 	# 	long.append(long_1)
+#
+# 	lat_query = Attraction.objects.values('latitude').filter(name="General Post Office").values_list('latitude', flat = True)
+# 	lat_1 = lat_query[0]
+#
+# 	long_query = Attraction.objects.values('longitude').filter(name="General Post Office").values_list('longitude', flat=True)
+# 	long_1 = long_query[0]
+#
+# 	lat_query = Attraction.objects.values('latitude').filter(name="Hugh Lane Gallery").values_list('latitude', flat=True)
+# 	lat_2 = lat_query[0]
+#
+# 	long_query = Attraction.objects.all().filter(name="Hugh Lane Gallery").values_list('longitude', flat=True)
+# 	long_2 = long_query[0]
+#
+# 	context = {
+# 	"google_api_key": settings.API_KEY,
+# 	"lat_1": lat_1,
+# 	"long_1": long_1,
+# 	# "lat_1": lat_2,
+# 	# "long_1": long_2,
+# 	# "lat_1": lat[1],
+# 	# "long_1": long[1],
+# 	"origin": f'{lat_0}, {long_0}',
+# 	"destination": f'{lat_2}, {long_2}',
+# 	#"destination": f'{lat[2]}, {lat[2]}',
+# 	}
+# 	return render(request, 'tripRoute.html', context)
 
 def filterAttractions(request):
 	i = 0
@@ -103,10 +108,10 @@ def filterAttractions(request):
 	print("priceo = ")
 	print(maximumPrice)
 	if maximumPrice != "":
-		filt_query = Attraction.objects.filter(tag1__in=filterArray, maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).values()
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).values()
 		print("we vibin!")
 	else:
-		filt_query = Attraction.objects.filter(tag1__in=filterArray, maxGroup__gte=groupSize).values()
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxGroup__gte=groupSize).values()
 		print("we not vibin!")
 
 	results = filt_query
@@ -135,6 +140,9 @@ def saveTrip(request):
 	tripName = request.POST.get("tName", None)
 	savedDate = request.POST.get("cDate", None)
 	groupSize = request.POST.get("gSize", None)
+	description = request.POST.getlist("desc[]", None)
+	website = request.POST.getlist("site[]", None)
+	colours = request.POST.getlist("mColours[]", None)
 
 
 	try:
@@ -146,10 +154,13 @@ def saveTrip(request):
 		sTrip.attNames = savedNames
 		sTrip.attLat = savedLat
 		sTrip.attLng = savedLng
+		sTrip.tripDescs = description
+		sTrip.tripSites = website
 		sTrip.tripTags = savedFilt
 		sTrip.tripName = tripName
 		sTrip.groupSize = groupSize
 		sTrip.date = savedDate
+		sTrip.tripColours = colours
 		sTrip.save()
 
 		trip_query = SavedTrip.objects.values('id').filter(userOwner_id=request.user.id).order_by('-id')[0]
@@ -170,6 +181,107 @@ def retrieveTrip(request):
 	print("Test")
 	print(tripid_query)
 
-	queryResults = tripid_query
+	thisTrip= list(tripid_query)
 
-	return HttpResponse(queryResults)
+
+
+	return JsonResponse(thisTrip, safe=False)
+
+def updateRating(request):
+	ratedTrip = request.POST.get("name", None)
+	tripRating = request.POST.get("rating", None)
+
+	# retrieveFilter = AttractionRating.objects.values("sumOfRatings","totalNoRatings").filter(attractionName=ratedTrip)
+	retrieveFilter = AttractionRating.objects.get(attractionName=ratedTrip)
+
+	print(retrieveFilter.sumOfRatings)
+
+	newRatingSum = retrieveFilter.sumOfRatings + int(tripRating)
+	newRatingCount = retrieveFilter.totalNoRatings + 1
+	avgRating = newRatingSum/newRatingCount
+	roundRating = Decimal('{:.2f}'.format(avgRating))
+	print(roundRating)
+
+	AttractionRating.objects.filter(attractionName=ratedTrip).update(sumOfRatings=newRatingSum,totalNoRatings=newRatingCount, averageRating = roundRating)
+
+	return HttpResponse(status=200)
+
+def updateTripStatus(request):
+	thisTrip = request.POST.get("trId", None)
+
+	SavedTrip.objects.filter(id=thisTrip).update(completed=True)
+
+	return HttpResponse(status=200)
+
+def compareSimilarity(request):
+	savedFilt = request.POST.getlist('usedTags[]', None)
+	minRating = request.POST.get("mRate", None)
+
+	mySet = set(savedFilt)
+
+	query = SavedTrip.objects.all().order_by('-id')[:10]
+	print(savedFilt)
+	print(query[0].tripTags)
+
+	matchingTrips = []
+
+	for item in query:
+		testSet = item.tripTags
+		union = len(mySet.union(testSet))
+		int = len(mySet.intersection(testSet))
+		finalSim = int/union
+		print(finalSim)
+		if(finalSim>.6):
+			matchingTrips.append(item.attNames)
+
+	print(matchingTrips)
+
+	combinedTrips = [item for innerTrips in matchingTrips for item in innerTrips]
+
+	# counts = defaultdict(lambda: 0)
+	#
+	# for item in combinedTrips:
+	# 	counts[item] += 1
+	#
+	# print(counts)
+
+	filterRating = AttractionRating.objects.filter(averageRating__gte=minRating).values_list("attractionName")
+	print(filterRating)
+
+	checkForRating = []
+
+	#Alter the query results for comparison purposes
+	for item in filterRating:
+		strItem = str(item)
+		print(strItem)
+		alter = strItem.replace("(",'').replace(")",'').replace(",","").replace("'",'')
+		checkForRating.append(alter)
+
+
+	print(set(checkForRating))
+	print("test")
+	print(set(combinedTrips))
+
+	rateSet = set(checkForRating)
+	simSet = set(combinedTrips)
+	matchRating = list(rateSet.intersection(simSet))
+	print(matchRating)
+
+	# for item in list(counts.keys()):
+	# 	if counts[item] in matchRating:
+	# 		del counts[item]
+
+	attCount = []
+
+	for item in matchRating:
+		temp = combinedTrips.count(item)
+		attCount.append(temp)
+
+	filt_query = Attraction.objects.filter(name__in=matchRating).values()
+
+	finalResults = {
+		"attractions": list(filt_query),
+		"frequency": attCount
+	}
+
+	return JsonResponse(finalResults, status=200)

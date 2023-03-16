@@ -73,14 +73,16 @@ function postFilters(filterArray){
 
                     console.log("Did we make it home?");
 
-                    console.log(typeof data)
+
 
                     // let jsonResp = JSON.parse('{"data"}');
                     console.log(data);
+                    // let test1 = JSON.parse(data)
                     var dataJson = data.replace(/'/g, '"');
                     console.log(dataJson);
 
-
+         //            let test2 = JSON.parse(dataJson)
+         // console.log(typeof test2)
 
                     let placeholder='';
                     let counter = 0;

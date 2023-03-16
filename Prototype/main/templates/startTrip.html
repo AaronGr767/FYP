@@ -6,8 +6,17 @@
     {% if user.is_authenticated %}
         <br>
 
-        <div id="tripSum">
+        <div id="summaryContainer">
+        <h1>Trip Details</h1><br>
+            <h5 id="trName"><strong><em>Name:</em></strong></h5>
+            <p id="trDate"><strong><em>Planned Date:</em></strong></p>
+            <ul id="trAtt"><strong><em>Attractions:</em></strong></ul>
+            <p id="trTag"><strong><em>Tags:</em></strong></p>
+        </div>
 
+        <br>
+        <div id="nextStep">
+            <button onclick="location.href='/doingTrip'" type="button" class="btn btn-outline-dark" >BEGIN TRIP</button>
         </div>
 
         <script type="text/javascript">

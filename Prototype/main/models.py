@@ -25,6 +25,8 @@ class Attraction(models.Model):
     tag2 = models.TextField(null=True)
     tag3 = models.TextField(null=True)
     description = models.TextField(null=True)
+    website = models.TextField(null=True)
+    markerColour = models.CharField(max_length=7, null=True)
 
 class SavedTrip(models.Model):
     #will probably need to set an id here as opposed to trying to use the one created by postgres
@@ -37,3 +39,14 @@ class SavedTrip(models.Model):
     date = models.CharField(max_length=50,null=True)
     groupSize = models.CharField(max_length=3,null=True)
     tripTags = ArrayField(models.CharField(max_length=200), null=True)
+    tripDescs = ArrayField(models.TextField(), null=True)
+    tripSites = ArrayField(models.TextField(), null=True)
+    completed = models.BooleanField(default=False)
+    tripColours = ArrayField(models.TextField(), null=True)
+
+class AttractionRating(models.Model):
+    attraction = models.ForeignKey(Attraction, null=True, on_delete=models.CASCADE)
+    attractionName = models.CharField(max_length=100)
+    averageRating = models.DecimalField(max_digits=4, decimal_places=2)
+    sumOfRatings = models.IntegerField()
+    totalNoRatings = models.IntegerField()

@@ -18,7 +18,7 @@ h1{
 }
 
 html, body{
-    height:100%;
+    min-height: 100vh;
     background: rgb(249,249,237);
     background: linear-gradient(0deg, rgba(249,249,237,1) 0%, rgba(217,219,241,1) 100%);
 }
@@ -80,7 +80,7 @@ img{
     margin: auto;
     width:25%;
     padding: 1%;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, .8)
 }
 
 #detailsContainer input[type=integer],input[type=float],input[type=date]{
@@ -106,9 +106,9 @@ img{
     border: solid #7D84B2 3px;
     padding-bottom: 1%;
     padding-top: 1%;
-    width:45%;
+    width:40%;
     margin: auto;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, .8)
 }
 
 #nameContainer{
@@ -116,9 +116,9 @@ img{
     border: solid #7D84B2 3px;
     padding-bottom: 1%;
     padding-top: 1%;
-    width:35%;
+    width:25%;
     margin: auto;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, .8)
 }
 
 #nameContainer input[type=text]{
@@ -126,7 +126,7 @@ img{
     border-radius: 4px;
     background-color: white;
     width:60%;
-    margin-left:20%;
+
     text-align: center;
 }
 
@@ -202,11 +202,27 @@ img{
     border-radius: 10px;
     border: solid #7D84B2 3px;
     text-align: left;
-    width:15%;
+    width:16%;
     margin-left: 1%;
     padding: 1%;
     background-color: whitesmoke;
 }
+
+optionsContainer h5{
+    text-align: center;
+}
+
+#tripOptions{
+    float: right;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: center;
+    width:16%;
+    margin-right: 1%;
+    padding: 1%;
+    background-color: whitesmoke;
+}
+
 
 #map {
     float: left;
@@ -232,6 +248,42 @@ img{
     width:90%;
 }
 
+#mapPopUp{
+    display: none;
+    position: relative;
+    padding: 1%;
+    width: 16%;
+    margin:500px;
+    left:41%;
+    background-color: rgba(245, 245, 245, .8);
+    border: solid #DBF4A7 3px;
+    border-radius: 5px;
+}
+
+
+#mapPopUp2{
+    display: none;
+    position: relative;
+    padding: 1%;
+    width: 36%;
+    left: 32%;
+    background-color: rgba(245, 245, 245, .8);
+    border: solid #DBF4A7 3px;
+    border-radius: 5px;
+}
+
+#mapPopUp3{
+    opacity: 1;
+    transition: opacity 2s ease-out;
+    display: none;
+    position: relative;
+    padding: 1%;
+    width: 36%;
+    left: 32%;
+    background-color: rgba(245, 245, 245, .8);
+    border: solid #DBF4A7 3px;
+    border-radius: 5px;
+}
 
 #clear {
     clear: both;
@@ -259,6 +311,158 @@ img{
     margin-bottom: 10px;
 }
 
+#summaryContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: center;
+    margin: auto;
+    width:25%;
+    background-color: whitesmoke;
+}
 
+#summaryContainer ul{
+    text-align: left;
+    margin-left: 30%;
+}
 
+#tripHeader{
+    text-align: center;
+}
 
+@keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    /* Apply the animation to the div when a certain class is added */
+    #myDiv.fadeOut {
+        animation: fadeOut 1s;
+    }
+
+/*Reference: https://codepen.io/anefzaoui/pen/NWPZzMa*/
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+body {
+    margin: 5%;
+    text-align: center;
+    background: #111;
+    color: #333;
+}
+h1 {
+    font-size: 2em;
+    margin-bottom: .5rem;
+}
+
+/* Ratings widget */
+.rate {
+    display: inline-block;
+    border: 0;
+}
+/* Hide radio */
+.rate > input {
+    display: none;
+}
+/* Order correctly by floating highest to the right */
+.rate > label {
+    float: right;
+}
+/* The star of the show */
+.rate > label:before {
+    display: inline-block;
+    font-size: 2rem;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 "; /* full star */
+}
+
+/* Half star trick */
+.rate .half:before {
+    content: "\f089 "; /* half star no outline */
+    position: absolute;
+    padding-right: 0;
+}
+/* Click + hover color */
+input:checked ~ label, /* color current and previous stars on checked */
+label:hover, label:hover ~ label { color: #73B100;  } /* color previous stars on hover */
+
+/* Hover highlights */
+input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #7D84B2;  }
+/*end reference*/
+
+@keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+#mapPopUp3.fadeOut {
+    animation: fadeOut 2s;
+}
+
+.scrollable-div {
+    height: 100%; /* Set the maximum height for the div */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+
+/*Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown*/
+.dropbtn {
+  margin-bottom: 2%;
+  background-color: #7D84B2;
+  color: white;
+  /*padding: 16px;*/
+  /*font-size: 16px;*/
+    border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+/* End Reference */
+
+#tripOptions{
+    float: right;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: center;
+    width:22%;
+    padding: 1%;
+    background-color: whitesmoke;
+}

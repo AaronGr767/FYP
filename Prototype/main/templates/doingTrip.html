@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+
+
+    {% if user.is_authenticated %}
+        <br>
+        <h2 id="tripHeader" class="align-items-center justify-content-center">
+        </h2>
+        <div id="mainContainer">
+            <div id="optionsContainer">
+            </div>
+
+            <div id="mapContainer" style="z-index: 1">
+                <div id="map" style="z-index: 2">
+                </div>
+            </div>
+
+            <div id="tripOptions">
+                <b>Route Type: </b>
+                <div class="form-check form-check-inline">
+                  <input  onclick=displayOptions() class="form-check-input" type="radio" name="inlineRadioOptions" id="cust" value="cust" checked>
+                  <label class="form-check-label" for="inlineRadio1">Custom</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input onclick=lockOptions() class="form-check-input" type="radio" name="inlineRadioOptions" id="recc" value="recc">
+                  <label class="form-check-label" for="inlineRadio2">Recommended</label>
+                </div><br><br>
+                <b>Mode of Travel: </b>
+                <select id="mode" >
+                    <option value="DRIVING">Driving</option>
+                    <option value="WALKING">Walking</option>
+                    <option value="BICYCLING">Bicycling</option>
+                    <option value="TRANSIT">Transit</option>
+                </select>
+            </div>
+
+
+            <div id="clear"></div>
+
+        <div id="mapPopUp" class="m-2 text-center">
+        </div>
+        <div id="mapPopUp2" class="m-2 text-center">
+        </div>
+        <div id="mapPopUp3" class="m-2 text-center">
+        </div>
+
+        </div>
+
+        <br>
+    <div id="nextStep">
+        <div id="stepOptions">
+            <button onclick=optionsPopUp(true) type="button" class="btn btn-outline-dark" >FINISH TRIP</button>
+        </div>
+        <div id="optPopUp">Are you certain you wish to finish this trip now?<br><br>
+            <button onclick=optionsPopUp(false) type="button" class="btn btn-outline-secondary">Resume Trip</button>
+            <button onclick=markFinished() type="button" class="btn btn-outline-secondary">Finish Trip</button>
+        </div>
+    </div>
+
+
+        <script src="{% static 'script/doing_trip.js' %}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap&libraries=geometry&v=weekly" defer></script>
+
+{#        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap&libraries=geometry" async defer></script>#}
+{#        <script#}
+{#          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap&v=weekly"#}
+{#          defer></script>#}
+
+
+
+    {% endif %}
+{% endblock %}

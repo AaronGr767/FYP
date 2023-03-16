@@ -1,11 +1,13 @@
-// In the following example, markers appear when the user clicks on the map.
-// The markers are stored in an array.
-// The user can then click an option to hide, show or delete the markers.
+let removeCheck = 0;
 let map;
 let markers = [];
+let reccObj;
+
 let i = 0
 let j = -1;
 
+
+compareTrips(0)
 showMarkers()
 
 let results = localStorage.getItem("resultStore");
@@ -36,12 +38,27 @@ function initMap() {
 // })
 
 
-function addMarker(position) {
+function addMarker(position,attName,colour) {
+
   const marker = new google.maps.Marker({
-    map,
-    position,
-    content: "background: '#FBBC04'",
-  });
+        map,
+        position,
+        title: attName,
+        icon: {
+            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+            scale: 5,
+            strokeWeight: 2,
+            fillColor: colour,
+            fillOpacity: 1
+        }
+    });
+
+    marker.addListener('click', function() {
+        const infowindow = new google.maps.InfoWindow({
+            content: marker.title // Use the title as the content of the info window
+        });
+        infowindow.open(map, marker); // Open the info window at the marker's position
+    });
 
   markers.push(marker);
   console.log(markers)
@@ -87,7 +104,9 @@ function addAttraction(buttonId) {
                 // let id = element.id;
                 if(attBut.name == element.name){
                     var myLatlng = new google.maps.LatLng(parseFloat(element.latitude),parseFloat(element.longitude));
-                    addMarker(myLatlng, buttonId)
+                    console.log(element.latitude)
+                    console.log(myLatlng)
+                    addMarker(myLatlng, element.name, element.markerColour)
                 }
             })
 
@@ -164,3 +183,153 @@ function collectChoices(){
     localStorage.setItem('finalChoice', JSON.stringify(finalChoices))
     location.href='/routeMap'
 }
+
+function compareTrips(minRating) {
+    let optCont = document.getElementById('reccChoices')
+    optCont.innerHTML = ``;
+
+    let filters = localStorage.getItem("filterStore");
+    let filterArray = JSON.parse(filters)
+
+    // let csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        url:"comparesimilarity",
+        data: {
+            usedTags: filterArray,
+            mRate: minRating
+        }
+    }).done(function (data, status, xhr) {
+        console.log(data)
+
+        removeCheck++
+
+        displayRecommendations(data)
+
+        var originalMsg = $(".toast-body").html();
+        $(".toast-body").html(originalMsg + "<br/>Updateddatabase<br/>" + data["message"]);
+    }).fail(function (xhr, status, error) {
+        console.log(error);
+        var originalMsg = $(".toast-body").html();
+        $(".toast-body").html(originalMsg + "<br/>" + error);
+    }).always(function () {
+        console.log("retrieval finished");
+    });
+
+}
+
+function getCookie(cname) {
+     var name = cname + "=";
+     var ca = document.cookie.split(';');
+     for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if(c.indexOf(name) == 0)
+           return c.substring(name.length,c.length);
+     }
+     return "";
+    }
+
+function showDropdown(){
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+//Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+//End Reference
+
+function displayRecommendations(recAtt){
+    let optCont = document.getElementById('reccChoices')
+
+                for(i=0; i < recAtt.frequency.length; i++){
+
+
+                    checkHtml = `
+                                    <div id="recOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${recAtt.attractions[i].tag1}" style="margin-bottom: 2%;width:100%">
+                                      <input type="checkbox"  onclick=addRecAttraction(${i}) class="btn-check" name="${recAtt.attractions[i].name}" id=${i}  autocomplete="off">
+                                      <label class="btn btn-outline-secondary" for=${i}>${recAtt.attractions[i].name}</label>
+                                    </div>
+                        <br>`
+
+                    optCont.innerHTML += checkHtml;
+                }
+}
+
+function addRecAttraction(buttonId) {
+        let attBut = document.getElementById(buttonId)
+        console.log("breaks here")
+        console.log(attBut.name)
+
+        if (attBut.checked) {
+
+            let compare;
+
+
+            resultsObj.forEach((element) => {
+                // let id = element.id;
+                if(attBut.name == element.name){
+                    var myLatlng = new google.maps.LatLng(parseFloat(element.latitude),parseFloat(element.longitude));
+                    console.log(element.latitude)
+                    console.log(myLatlng)
+                    addMarker(myLatlng, element.name, element.markerColour)
+                }
+            })
+
+        }else
+        {
+            attBut.checked = false;
+            resultsObj.forEach((element) => {
+
+                if(attBut.name == element.name) {
+                    var tempLatLng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
+                    console.log(tempLatLng)
+                    markers.forEach((item) => {
+                        j++;
+                        console.log("comp " + tempLatLng + " / " + markers)
+                        if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
+                            console.log("no hope")
+                            delMarkers(item, j)
+                            // showMarkers()
+                            // console.log("del"+markers[j])
+                            // delete markers[j]
+                            //
+                            // setMapOnAll(map, markers)
+                        }
+                    })
+                }
+
+                // let id = element.id;
+                // if(buttonId == id){
+                //     console.log("att del")
+                //     delete element.id;
+                //     delete element.position;
+                //
+                //     setMapOnAll()
+
+                //     function setMapOnAll(map) {
+                //       for (let i = 0; i < markers.length; i++) {
+                //         markers[i].setMap(map);
+                //       }
+                //     }
+                //
+                //
+                // }
+            })
+        }
+
+    }

@@ -26,11 +26,29 @@
         </div>
         <br>
         <div id="mainContainer">
-            <div id="optionsContainer">
+            <div id="optionsContainer" class="scrollable-div">
             </div>
 
             <div id="mapContainer">
                 <div id="map"></div>
+            </div>
+
+            <div id="tripOptions">
+
+                <div class="dropdown">
+                  <button onclick="showDropdown()" type="button" class="dropbtn"><i class="fa-solid fa-circle-chevron-down"></i> Rating</button>
+                  <div id="myDropdown" class="dropdown-content">
+                    <a onclick="compareTrips(10)"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></a>
+                    <a onclick="compareTrips(8)"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></a>
+                    <a onclick="compareTrips(6)"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></a>
+                    <a onclick="compareTrips(4)"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></a>
+                    <a onclick="compareTrips(2)"><i class="fa-solid fa-star"></i></a>
+                  </div>
+                </div>
+                Similar Users Liked:
+                <div id="reccChoices">
+
+                </div>
             </div>
 
 
@@ -48,7 +66,7 @@
 
             var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
 
-            document.getElementById('optionsContainer').innerHTML = ``;
+            document.getElementById('optionsContainer').innerHTML = `<span style="text-align: center">Your Choices:</span>`;
 
             displayOptions()
 
@@ -74,8 +92,8 @@
                     console.log(resultsObj[i].name)
 
                     checkHtml = `
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:100%">
-                                      <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i} autocomplete="off">
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${resultsObj[i].tag1}" style="margin-bottom: 2%;width:100%">
+                                      <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i}  autocomplete="off">
                                       <label class="btn btn-outline-secondary" for=${i}>${resultsObj[i].name}</label>
                                     </div>
                         <br>`

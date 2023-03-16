@@ -27,8 +27,11 @@
 
 
     <div id="optionsContainer"><ul id="attList"></ul></div>
+    <div id="mapContainer">
    <div id="map"></div>
+    </div>
     <div id="clear"></div>
+    <br>
 
     <div id="nextStep">
         <div id="stepOptions">
@@ -41,19 +44,8 @@
         </div>
     </div>
 
-
-
-<script type="text/javascript">
-
-    var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
-    var origin = "{{origin|safe}}";
-    var lat_1 = {{lat_1|safe}};
-    var long_1 = {{long_1|safe}};
-    var destination = "{{destination|safe}}";
-
-  </script>
-
-  <script src="{% static 'script/route_map.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap" async defer></script>
+    <script src="{% static 'script/route_map.js' %}"></script>
 
 
 {% endblock %}
