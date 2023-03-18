@@ -65,45 +65,6 @@
         <script type="text/javascript">
 
             var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
-
-            document.getElementById('optionsContainer').innerHTML = `<span style="text-align: center">Your Choices:</span>`;
-
-            displayOptions()
-
-            function displayOptions(){
-                let resultsObj = [];
-                let optCont = document.getElementById('optionsContainer')
-                let results = localStorage.getItem("resultStore");
-
-                if (results == null) {
-                    resultsObj = [];
-                  } else {
-                    resultsObj = JSON.parse(results);
-                }
-
-
-                console.log("beep " + resultsObj.length);
-                console.log(resultsObj[0])
-                    console.log("cheese = " + typeof(resultsObj))
-
-
-                for(i=0; i < resultsObj.length; i++){
-
-                    console.log(resultsObj[i].name)
-
-                    checkHtml = `
-                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${resultsObj[i].tag1}" style="margin-bottom: 2%;width:100%">
-                                      <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i}  autocomplete="off">
-                                      <label class="btn btn-outline-secondary" for=${i}>${resultsObj[i].name}</label>
-                                    </div>
-                        <br>`
-
-                    optCont.innerHTML += checkHtml;
-                    console.log("feck off " + document.getElementById(i).name)
-                }
-
-
-            }
         </script>
 
         <script src="{% static 'script/choose_attractions.js' %}"></script>

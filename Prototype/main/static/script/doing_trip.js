@@ -7,6 +7,7 @@ let finishedAttractions = 0;
 let userLocation;
 let userArray = []
 let chosenLatlng;
+let finishedArray = [];
 
 let markCount = 0;
 let locMarker;
@@ -61,6 +62,9 @@ function displayOptions() {
         console.log("feck off " + document.getElementById(i).name)
 
     }
+    for(i = 0; i < finishedArray.length; i++){
+            document.getElementById(finishedArray[i]).disabled = true;
+        }
 }
 
 function confirmBox(i) {
@@ -224,11 +228,14 @@ function finishAttraction(finAtt) {
 function addRating(rating, finAtt) {
     let attName = resultsObj.attNames[finAtt]
     let popUp = document.getElementById("mapPopUp3")
+
     popUp.innerHTML = 'Thank you for rating this attraction!';
+
      setTimeout(function() {
         popUp.classList.add('fadeOut');
         setTimeout(function() {
             popUp.style.display = 'none';
+            popUp.classList.remove('fadeOut');
         }, 2000);
     }, 2000);
     console.log(rating)
@@ -255,7 +262,13 @@ function addRating(rating, finAtt) {
             document.getElementById(i).checked = false;
             document.getElementById(i).disabled = false;
         }
-        document.getElementById(finAtt).disabled = true;
+
+
+        finishedArray.push(finAtt)
+
+        for(i = 0; i < finishedArray.length; i++){
+             document.getElementById(finishedArray[i]).disabled = true;
+        }
         displayCounter = 0;
         finishedAttractions ++;
         lastRoute.setMap(null);

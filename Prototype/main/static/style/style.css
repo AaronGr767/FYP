@@ -89,7 +89,7 @@ img{
     background-color: white;
     width:20%;
     min-width: 30px;
-    text-align: right;
+    text-align: center;
 }
 #detailsContainer input[type=date] {
     width:66%;
@@ -223,6 +223,9 @@ optionsContainer h5{
     background-color: whitesmoke;
 }
 
+#tripName{
+    margin-left:20%;
+}
 
 #map {
     float: left;
@@ -345,16 +348,16 @@ optionsContainer h5{
 
 /*Reference: https://codepen.io/anefzaoui/pen/NWPZzMa*/
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-body {
-    margin: 5%;
-    text-align: center;
-    background: #111;
-    color: #333;
-}
-h1 {
-    font-size: 2em;
-    margin-bottom: .5rem;
-}
+/*body {*/
+/*    margin: 5%;*/
+/*    text-align: center;*/
+/*    background: #111;*/
+/*    color: #333;*/
+/*}*/
+    /*h1 {*/
+    /*    font-size: 2em;*/
+    /*    margin-bottom: .5rem;*/
+    /*}*/
 
 /* Ratings widget */
 .rate {

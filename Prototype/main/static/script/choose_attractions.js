@@ -1,11 +1,50 @@
 let removeCheck = 0;
 let map;
 let markers = [];
-let reccObj;
+let recData;
+let tempHold;
 
 let i = 0
 let j = -1;
 
+document.getElementById('optionsContainer').innerHTML = `<span style="text-align: center">Your Choices:</span>`;
+
+displayOptions()
+
+function displayOptions(){
+    let resultsObj = [];
+    let optCont = document.getElementById('optionsContainer')
+    let results = localStorage.getItem("resultStore");
+
+    if (results == null) {
+        resultsObj = [];
+      } else {
+        resultsObj = JSON.parse(results);
+    }
+
+
+    console.log("beep " + resultsObj.length);
+    console.log(resultsObj[0])
+        console.log("cheese = " + typeof(resultsObj))
+
+
+    for(i=0; i < resultsObj.length; i++){
+
+        console.log(resultsObj[i].name)
+
+        checkHtml = `
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${resultsObj[i].tag1}" style="margin-bottom: 2%;width:100%">
+                          <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i}  autocomplete="off">
+                          <label class="btn btn-outline-secondary" for=${i}>${resultsObj[i].name}</label>
+                        </div>
+            <br>`
+
+        optCont.innerHTML += checkHtml;
+        console.log("feck off " + document.getElementById(i).name)
+    }
+
+
+}
 
 compareTrips(0)
 showMarkers()
@@ -75,7 +114,7 @@ function setMapOnAll(map) {
 function delMarkers(delMark, i) {
     console.log(delMark)
     delete markers[i]
-  delMark.setMap(null);
+    delMark.setMap(null);
     console.log("clarity" + i)
     console.log(markers)
 }
@@ -179,6 +218,20 @@ function collectChoices(){
             })
         }
     }
+    for(i=0; i<recData.frequency.length; i++){
+        let formatId = "rec" + i
+        checkRec = document.getElementById(formatId)
+            if(checkRec.checked){
+            for(j=0; j<recData.frequency.length; j++){
+                if(recData.attractions[j].name == checkRec.name){
+                    finalChoices.push(recData.attractions[j])
+                    console.log(recData.attractions[j])
+                    console.log(finalChoices)
+                }
+            }
+        }
+    }
+
 
     localStorage.setItem('finalChoice', JSON.stringify(finalChoices))
     location.href='/routeMap'
@@ -205,6 +258,7 @@ function compareTrips(minRating) {
         }
     }).done(function (data, status, xhr) {
         console.log(data)
+        recData = data
 
         removeCheck++
 
@@ -254,49 +308,61 @@ window.onclick = function(event) {
 //End Reference
 
 function displayRecommendations(recAtt){
-    let optCont = document.getElementById('reccChoices')
+    let recOpt = document.getElementById('reccChoices')
 
                 for(i=0; i < recAtt.frequency.length; i++){
 
+                    let recId = "rec" + i
+
+                    console.log(recId)
 
                     checkHtml = `
                                     <div id="recOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${recAtt.attractions[i].tag1}" style="margin-bottom: 2%;width:100%">
-                                      <input type="checkbox"  onclick=addRecAttraction(${i}) class="btn-check" name="${recAtt.attractions[i].name}" id=${i}  autocomplete="off">
-                                      <label class="btn btn-outline-secondary" for=${i}>${recAtt.attractions[i].name}</label>
+                                      <input type="checkbox"  onclick=addRecAttraction(${i}) class="btn-check" name="${recAtt.attractions[i].name}" id=${recId}  autocomplete="off">
+                                      <label class="btn btn-outline-secondary" for=${recId}>${recAtt.attractions[i].name}</label>
                                     </div>
                         <br>`
 
-                    optCont.innerHTML += checkHtml;
+                    recOpt.innerHTML += checkHtml;
                 }
 }
 
 function addRecAttraction(buttonId) {
-        let attBut = document.getElementById(buttonId)
-        console.log("breaks here")
+    realId = "rec" + buttonId
+        let attBut = document.getElementById(realId)
+        console.log("Adding rec")
         console.log(attBut.name)
 
         if (attBut.checked) {
 
             let compare;
 
+            for(i=0; i < recData.frequency.length; i++) {
+                    // let id = element.id;
+                    if (attBut.name == recData.attractions[i].name) {
+                        var myLatlng = new google.maps.LatLng(parseFloat(recData.attractions[i].latitude), parseFloat(recData.attractions[i].longitude));
+                        console.log(recData.attractions[i].latitude)
+                        console.log(myLatlng)
+                        addMarker(myLatlng, recData.attractions[i].name, recData.attractions[i].markerColour)
+                        for(j=0; j < resultsObj.length; j++){
+                            tempHold = document.getElementById(i)
+                            if(tempHold.name == recData.attractions[i].name){
+                                tempHold.disabled = true;
+                            }
+                        }
+                    }
 
-            resultsObj.forEach((element) => {
-                // let id = element.id;
-                if(attBut.name == element.name){
-                    var myLatlng = new google.maps.LatLng(parseFloat(element.latitude),parseFloat(element.longitude));
-                    console.log(element.latitude)
-                    console.log(myLatlng)
-                    addMarker(myLatlng, element.name, element.markerColour)
-                }
-            })
-
+            }
         }else
         {
-            attBut.checked = false;
-            resultsObj.forEach((element) => {
+            if(tempHold.disabled){
+                tempHold.disabled = false;
+            }
 
-                if(attBut.name == element.name) {
-                    var tempLatLng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
+            for(i=0; i < recData.frequency.length; i++) {
+
+                if(attBut.name == recData.attractions[i].name) {
+                    var tempLatLng = new google.maps.LatLng(parseFloat(recData.attractions[i].latitude), parseFloat(recData.attractions[i].longitude));
                     console.log(tempLatLng)
                     markers.forEach((item) => {
                         j++;
@@ -313,23 +379,7 @@ function addRecAttraction(buttonId) {
                     })
                 }
 
-                // let id = element.id;
-                // if(buttonId == id){
-                //     console.log("att del")
-                //     delete element.id;
-                //     delete element.position;
-                //
-                //     setMapOnAll()
-
-                //     function setMapOnAll(map) {
-                //       for (let i = 0; i < markers.length; i++) {
-                //         markers[i].setMap(map);
-                //       }
-                //     }
-                //
-                //
-                // }
-            })
+            }
         }
 
     }
