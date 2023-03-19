@@ -17,7 +17,8 @@
             </div>
 
             <div id="tripOptions">
-                <b>Route Type: </b>
+                <div id="routeCont">
+                <b>Route Type: </b><br>
                 <div class="form-check form-check-inline">
                   <input  onclick=displayOptions() class="form-check-input" type="radio" name="inlineRadioOptions" id="cust" value="cust" checked>
                   <label class="form-check-label" for="inlineRadio1">Custom</label>
@@ -33,11 +34,19 @@
                     <option value="BICYCLING">Bicycling</option>
                     <option value="TRANSIT">Transit</option>
                 </select>
+                    </div>
+                <div id="breakCont">
+
+                </div>
             </div>
 
 
             <div id="clear"></div>
-
+        <div id="timeAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing in an hour:<br>
+          <button type="button" onclick="closeAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <ul id="closingAtts"></ul>
+        </div>
         <div id="mapPopUp" class="m-2 text-center">
         </div>
         <div id="mapPopUp2" class="m-2 text-center">

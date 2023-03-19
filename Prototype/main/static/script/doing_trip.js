@@ -45,6 +45,42 @@ function tripName() {
 
 locationMarker(markCount)
 
+setInterval(checkTime, 60000)
+
+function checkTime() {
+    let closingArray = []
+    let currTime = new Date();
+    let compareTime = (currTime.getHours() * 60) + currTime.getMinutes()
+
+    for (i = 0; i < resultsObj.attClosing.length; i++) {
+        let attHour = parseInt(resultsObj.attClosing[i].substring(0, 2)) * 60
+        let attMins = parseInt(resultsObj.attClosing[i].substring(2))
+        let attTime = attHour + attMins
+        let dif = attTime - compareTime;
+        if (dif == 60) {
+            closingArray.push(resultsObj.attNames[i])
+        }
+    }
+
+    if (closingArray.length != 0) {
+    let alertBox = document.getElementById("timeAlert")
+        alertBox.style.display = 'block'
+    let alertList = document.getElementById("closingAtts")
+
+        for(i=0; i<closingArray.length;i++){
+            alertList.innerHTML += `<li>${closingArray[i]}</li>`
+        }
+    }
+
+}
+
+function closeAlert(){
+    let alertBox = document.getElementById("timeAlert")
+    let alertList = document.getElementById("closingAtts")
+    alertList.innerHTML = ``
+    alertBox.style.display = 'none'
+}
+
 function displayOptions() {
     if(routePath.length != 0){
         for(i=0;i<routePath.length;i++)
@@ -116,29 +152,33 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
 
     document.getElementById("mode").addEventListener("change", () => {
-        if(lastRoute != ''){
-            lastRoute.setMap(null);
-            lastRoute=''
-            let selectedMode = document.getElementById("mode").value;
+        if (document.getElementById("cust").checked) {
+            if (lastRoute != '') {
+                lastRoute.setMap(null);
+                lastRoute = ''
+                let selectedMode = document.getElementById("mode").value;
 
-        let request = {
-            origin: userLocation,
-            destination: chosenLatlng,
-            travelMode: google.maps.TravelMode[selectedMode]
-        };
+                let request = {
+                    origin: userLocation,
+                    destination: chosenLatlng,
+                    travelMode: google.maps.TravelMode[selectedMode]
+                };
 
-        // Send the request to the DirectionsService and display the route on the map
-        let directionsService = new google.maps.DirectionsService();
-        directionsService.route(request, function (result, status) {
-            if (status == 'OK') {
-                // Create a new route object and display it on the map
-                lastRoute = new google.maps.DirectionsRenderer({
-                    suppressMarkers: true,
-                    map,
-                    directions: result
+                // Send the request to the DirectionsService and display the route on the map
+                let directionsService = new google.maps.DirectionsService();
+                directionsService.route(request, function (result, status) {
+                    if (status == 'OK') {
+                        // Create a new route object and display it on the map
+                        lastRoute = new google.maps.DirectionsRenderer({
+                            suppressMarkers: true,
+                            map,
+                            directions: result
+                        });
+                    }
                 });
             }
-        });
+        } else {
+            calculateRoute()
         }
     });
 
@@ -359,7 +399,7 @@ function addAttraction() {
 
     for (i = 0; i < resultsObj.attLat.length; i++) {
         var myLatlng = new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]));
-        addMarker(myLatlng, resultsObj.attNames[i], resultsObj.tripColours[i])
+        addMarker(myLatlng, resultsObj.attNames[i], resultsObj.tripColours[i], resultsObj.attClosing[i])
     }
 }
 
@@ -371,11 +411,14 @@ function delMarkers(delMark, i) {
     console.log(markers)
 }
 
-function addMarker(position, attName, colour) {
+function addMarker(position, attName, colour, closing) {
+    let reformat = closing.substring(0,2) + ":" + closing.substring(2)
+
     const marker = new google.maps.Marker({
         map,
         position,
         title: attName,
+        subtitle:reformat,
         icon: {
             path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
             scale: 5,
@@ -387,7 +430,7 @@ function addMarker(position, attName, colour) {
 
     marker.addListener('click', function() {
         const infowindow = new google.maps.InfoWindow({
-            content: marker.title // Use the title as the content of the info window
+            content: "<strong>" +marker.title + "</strong>" + "<br>Closing Hours:" + marker.subtitle
         });
         infowindow.open(map, marker); // Open the info window at the marker's position
     });
@@ -449,6 +492,7 @@ function markFinished(){
 }
 
 function lockOptions(){
+
     for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
         document.getElementById(i).disabled = true;
     }
@@ -456,6 +500,12 @@ function lockOptions(){
 }
 
 function calculateRoute() {
+    if(routePath.length != 0){
+        for(i=0;i<routePath.length;i++)
+        routePath[i].setMap(null);
+    }
+
+    const selectedMode = document.getElementById("mode").value;
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
 
@@ -498,7 +548,7 @@ function calculateRoute() {
         destination: wpDest,
       waypoints: remainingLocCoords,
       optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode.DRIVING,
+      travelMode: google.maps.TravelMode[selectedMode],
     })
     .then((response) => {
       directionsRenderer.setDirections(response);
@@ -529,9 +579,13 @@ function calculateRoute() {
 
 
     })
-    .catch((e) => window.alert("Directions request failed due to " + e));
-
-
+    .catch((e) => {
+        if (selectedMode == 'TRANSIT') {
+            window.alert("Unable to plot a route between these attractions using public transport. Sorry!")
+        }else{
+            window.alert("Directions request failed due to " + e)
+        }
+    })
 }
 window.initMap = initMap;
 

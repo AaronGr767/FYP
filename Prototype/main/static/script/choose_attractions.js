@@ -3,6 +3,7 @@ let map;
 let markers = [];
 let recData;
 let tempHold;
+let currHold;
 
 let i = 0
 let j = -1;
@@ -163,31 +164,10 @@ function addAttraction(buttonId) {
                         if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
                             console.log("no hope")
                             delMarkers(item, j)
-                            // showMarkers()
-                            // console.log("del"+markers[j])
-                            // delete markers[j]
-                            //
-                            // setMapOnAll(map, markers)
                         }
                     })
                 }
 
-                // let id = element.id;
-                // if(buttonId == id){
-                //     console.log("att del")
-                //     delete element.id;
-                //     delete element.position;
-                //
-                //     setMapOnAll()
-
-                //     function setMapOnAll(map) {
-                //       for (let i = 0; i < markers.length; i++) {
-                //         markers[i].setMap(map);
-                //       }
-                //     }
-                //
-                //
-                // }
             })
         }
 
@@ -345,9 +325,10 @@ function addRecAttraction(buttonId) {
                         console.log(myLatlng)
                         addMarker(myLatlng, recData.attractions[i].name, recData.attractions[i].markerColour)
                         for(j=0; j < resultsObj.length; j++){
-                            tempHold = document.getElementById(i)
+                            tempHold = document.getElementById(j)
                             if(tempHold.name == recData.attractions[i].name){
-                                tempHold.disabled = true;
+                                currHold = tempHold;
+                                currHold.disabled = true;
                             }
                         }
                     }
@@ -355,8 +336,8 @@ function addRecAttraction(buttonId) {
             }
         }else
         {
-            if(tempHold.disabled){
-                tempHold.disabled = false;
+            if(currHold.disabled){
+                currHold.disabled = false;
             }
 
             for(i=0; i < recData.frequency.length; i++) {

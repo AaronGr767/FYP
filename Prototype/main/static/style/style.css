@@ -212,16 +212,16 @@ optionsContainer h5{
     text-align: center;
 }
 
-#tripOptions{
-    float: right;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    text-align: center;
-    width:16%;
-    margin-right: 1%;
-    padding: 1%;
-    background-color: whitesmoke;
-}
+/*#tripOptions{*/
+/*    float: right;*/
+/*    border-radius: 10px;*/
+/*    border: solid #7D84B2 3px;*/
+/*    text-align: center;*/
+/*    width:16%;*/
+/*    margin-right: 1%;*/
+/*    padding: 1%;*/
+/*    background-color: whitesmoke;*/
+/*}*/
 
 #tripName{
     margin-left:20%;
@@ -237,7 +237,7 @@ optionsContainer h5{
 #mapContainer {
     background-color: whitesmoke;
     float: left;
-    margin-left:9%;
+    margin-left:8%;
       height: 25em; /* The height is 400 pixels */
       width: 50%; /* The width is the width of the web page */
     border: solid #DBF4A7 3px;
@@ -472,10 +472,23 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 
 #tripOptions{
     float: right;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
     text-align: center;
     width:22%;
-    padding: 1%;
+}
+
+#routeCont{
+    width: 72.8%;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
     background-color: whitesmoke;
+    padding: 1%;
+}
+
+#timeAlert{
+    width: 35%;
+    margin: auto;
+    margin-top:1%;
+    margin-bottom: 1%;
+    text-align: center;
+    display: none;
 }

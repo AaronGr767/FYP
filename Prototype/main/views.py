@@ -145,6 +145,7 @@ def saveTrip(request):
 	description = request.POST.getlist("desc[]", None)
 	website = request.POST.getlist("site[]", None)
 	colours = request.POST.getlist("mColours[]", None)
+	closing = request.POST.getlist("cArray[]", None)
 
 	attStat = [False] * len(savedNames)
 
@@ -165,6 +166,7 @@ def saveTrip(request):
 		sTrip.date = savedDate
 		sTrip.tripColours = colours
 		sTrip.attStatus =attStat
+		sTrip.attClosing = closing
 		sTrip.save()
 
 		trip_query = SavedTrip.objects.values('id').filter(userOwner_id=request.user.id).order_by('-id')[0]

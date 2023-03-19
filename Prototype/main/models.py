@@ -45,6 +45,8 @@ class SavedTrip(models.Model):
     completed = models.BooleanField(default=False)
     tripColours = ArrayField(models.TextField(), null=True)
     attStatus = ArrayField(models.BooleanField(default=False), null=True)
+    attClosing = ArrayField(models.TextField(), null=True)
+
 
 class AttractionRating(models.Model):
     attraction = models.ForeignKey(Attraction, null=True, on_delete=models.CASCADE)

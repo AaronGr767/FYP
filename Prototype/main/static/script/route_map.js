@@ -94,6 +94,8 @@ function saveTrip(startCheck) {
     let statusArray = [];
     let finalStore = retrieveStore()
 
+    let closingArray = retrieveTimes(finalStore)
+
     let details = localStorage.getItem("detailsStore");
     let filters = localStorage.getItem("filterStore");
     let startLoc = localStorage.getItem("startLoc")
@@ -138,7 +140,8 @@ function saveTrip(startCheck) {
             desc:descArray,
             site:siteArray,
             mColours: colourArray,
-            aStatus: statusArray
+            aStatus: statusArray,
+            cArray: closingArray
         }
     }).done(function (data, status, xhr) {
         console.log(data)
@@ -158,6 +161,23 @@ function saveTrip(startCheck) {
         console.log("save finished");
     });
 
+}
+
+function retrieveTimes(finalStore){
+    let dayArray=[];
+    let myDets = localStorage.getItem("detailsStore");
+    myDets = JSON.parse(myDets)
+    let choseDay = new Date(myDets.chosenDate)
+
+    let days = [0,1,2,3,4,5,6]
+
+    let chosenDay = days[choseDay.getDay()]
+
+    finalStore.forEach((element) =>{
+        dayArray.push(element.closingHours[chosenDay])
+    })
+
+    return dayArray;
 }
 
 function getCookie(cname) {
