@@ -8,6 +8,7 @@ let userLocation;
 let userArray = []
 let chosenLatlng;
 let finishedArray = [];
+let routePath = [];
 
 let markCount = 0;
 let locMarker;
@@ -45,6 +46,10 @@ function tripName() {
 locationMarker(markCount)
 
 function displayOptions() {
+    if(routePath.length != 0){
+        for(i=0;i<routePath.length;i++)
+        routePath[i].setMap(null);
+    }
     optCont.innerHTML = ``;
 
     for (i = 0; i < resultsObj.attNames.length; i++) {
@@ -204,6 +209,7 @@ function locationMarker() {
 }
 
 function finishAttraction(finAtt) {
+    resultsObj.attStatus[finAtt] = true
     let lastPopUp = document.getElementById("mapPopUp2")
     lastPopUp.style.display = 'none';
     let popUp = document.getElementById("mapPopUp3")
@@ -227,6 +233,7 @@ function finishAttraction(finAtt) {
 
 function addRating(rating, finAtt) {
     let attName = resultsObj.attNames[finAtt]
+    resultsObj.att
     let popUp = document.getElementById("mapPopUp3")
 
     popUp.innerHTML = 'Thank you for rating this attraction!';
@@ -449,48 +456,82 @@ function lockOptions(){
 }
 
 function calculateRoute() {
-    let service = new google.maps.DistanceMatrixService();
-    let startLocation = [userLocation]
-    let tripLocations = [];
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer();
+
+    let remainingLocNames = [];
+    let remainingLocCoords = [];
+    let remainingLocDesc = [];
+    let remainingLocSites = [];
+    let remainingLocCol = [];
+
     for (i = 0; i < resultsObj.attNames.length; i++) {
-        let nextLoc = new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]));
-        tripLocations.push(nextLoc);
+        if (resultsObj.attStatus[i] == false) {
+            remainingLocNames.push(resultsObj.attNames[i])
+            remainingLocDesc.push(resultsObj.tripDescs[i])
+            remainingLocSites.push(resultsObj.tripSites[i])
+            remainingLocCol.push(resultsObj.tripColours[i])
+
+            let attLocation = new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]));
+
+            console.log(parseFloat(resultsObj.attLat[i]))
+
+            remainingLocCoords.push({
+                location: attLocation,
+                stopover: true
+            });
+
+            console.log(remainingLocCoords)
+            console.log(remainingLocCoords.location)
+            console.log(typeof userLocation)
+
+
+        }
     }
 
-    // for(i=0;i<resultsObj.attNames.length;i++){
-    //     let distanceToGeofence = google.maps.geometry.spherical.computeDistanceBetween(
-    //                 userLocation,
-    //                 new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]))
-    //             );
-    //     for(){
-    //
-    //     }
-    // }
+    let wpDest = remainingLocCoords[remainingLocCoords.length - 1].location
+    remainingLocCoords.pop()
 
-    // service.getDistanceMatrix({
-    //     origins: startLocation,
-    //     destinations: tripLocations,
-    //     travelMode: 'DRIVING',
-    //     unitSystem: google.maps.UnitSystem.IMPERIAL,
-    //     avoidHighways: false,
-    //     avoidTolls: false
-    // }, function (response, status) {
-    //     if (status === 'OK') {
-    //         let distances = response.rows[0].elements;
-    //         let shortestDistance = null;
-    //         let closestLocation = null;
-    //         for (let i = 0; i < distances.length; i++) {
-    //             let distance = distances[i].distance.value;
-    //             if (shortestDistance === null || distance < shortestDistance) {
-    //                 shortestDistance = distance;
-    //                 closestLocation = tripLocations[i];
-    //             }
-    //         }
-    //         console.log(`The closest location is ${closestLocation}, which is ${shortestDistance} meters away from the set point.`);
-    //     } else {
-    //         console.log(`Error: ${status}`);
-    //     }
+                directionsService
+    .route({
+      origin:userLocation,
+        destination: wpDest,
+      waypoints: remainingLocCoords,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+    .then((response) => {
+      directionsRenderer.setDirections(response);
+
+      const myRoute = response.routes[0].overview_path;
+      console.log(myRoute)
+
+        console.log(response.routes[0].legs.length)
+    //   var routePath = new google.maps.Polyline({
+    //   path: myRoute,
     // });
+
+      for (let i = 0; i < response.routes[0].legs.length; i++) {
+          const leg = response.routes[0].legs[i];
+          console.log(leg)
+
+          routePath[i] = new google.maps.Polyline({
+              path: leg.steps.map(step => step.path).flat(),
+              strokeColor: remainingLocCol[i],
+              strokeWeight: 4,
+              strokeOpacity: 0.8,
+              geodesic: true,
+          });
+
+          routePath[i].setMap(map);
+      }
+
+
+
+    })
+    .catch((e) => window.alert("Directions request failed due to " + e));
+
+
 }
 window.initMap = initMap;
 

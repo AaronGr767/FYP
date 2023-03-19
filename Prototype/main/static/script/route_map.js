@@ -91,6 +91,7 @@ function saveTrip(startCheck) {
     let descArray = [];
     let siteArray = [];
     let colourArray = [];
+    let statusArray = [];
     let finalStore = retrieveStore()
 
     let details = localStorage.getItem("detailsStore");
@@ -136,7 +137,8 @@ function saveTrip(startCheck) {
             cDate:detailsObj.chosenDate,
             desc:descArray,
             site:siteArray,
-            mColours: colourArray
+            mColours: colourArray,
+            aStatus: statusArray
         }
     }).done(function (data, status, xhr) {
         console.log(data)
