@@ -27,6 +27,7 @@ class Attraction(models.Model):
     description = models.TextField(null=True)
     website = models.TextField(null=True)
     markerColour = models.CharField(max_length=7, null=True)
+    closingHours = ArrayField(models.TextField(), null=True)
 
 class SavedTrip(models.Model):
     #will probably need to set an id here as opposed to trying to use the one created by postgres
@@ -43,6 +44,7 @@ class SavedTrip(models.Model):
     tripSites = ArrayField(models.TextField(), null=True)
     completed = models.BooleanField(default=False)
     tripColours = ArrayField(models.TextField(), null=True)
+    attStatus = ArrayField(models.BooleanField(default=False), null=True)
 
 class AttractionRating(models.Model):
     attraction = models.ForeignKey(Attraction, null=True, on_delete=models.CASCADE)

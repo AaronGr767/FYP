@@ -48,13 +48,19 @@ function setFilters(){
     localStorage.setItem('filterStore', JSON.stringify(filterArray))
 
     // location.href='/choose'
+    cDate = new Date(document.getElementById("chosenDate").value)
+    let days = [0,1,2,3,4,5,6]
+
+    let chosenDay = days[cDate.getDay()]
+
+    console.log("Day of choice: "+ chosenDay)
 
     storeDetails();
 
-    postFilters(filterArray)
+    postFilters(filterArray, chosenDay)
 }
 
-function postFilters(filterArray){
+function postFilters(filterArray,chosenDay){
     let csrftoken = getCookie('csrftoken');
 
      $.ajax({
@@ -65,6 +71,7 @@ function postFilters(filterArray){
                     },
                     data: {
                         filters: filterArray,
+                        choseDay: chosenDay,
                         gSize : document.getElementById("groupSize").value,
                         mPrice : document.getElementById("maxPrice").value,
                         cDate : document.getElementById("chosenDate").value

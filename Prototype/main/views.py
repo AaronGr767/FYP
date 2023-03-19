@@ -92,7 +92,8 @@ def filterAttractions(request):
 	filterArray = request.POST.getlist('filters[]')
 	groupSize = request.POST.get('gSize')
 	maximumPrice = request.POST.get('mPrice')
-	filt_query = [];
+	chosenDay = int(request.POST.get('choseDay'))
+	# filt_query = [];
 
 	print(filterArray)
 
@@ -108,13 +109,14 @@ def filterAttractions(request):
 	print("priceo = ")
 	print(maximumPrice)
 	if maximumPrice != "":
-		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).values()
-		print("we vibin!")
-	else:
-		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxGroup__gte=groupSize).values()
-		print("we not vibin!")
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
+		# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
 
-	results = filt_query
+	else:
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
+		# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
+
+	results = filt_query.values()
 
 	# context = {
 	# 	'google_api_key': settings.API_KEY,
@@ -144,6 +146,7 @@ def saveTrip(request):
 	website = request.POST.getlist("site[]", None)
 	colours = request.POST.getlist("mColours[]", None)
 
+	attStat = [False] * len(savedNames)
 
 	try:
 
@@ -161,6 +164,7 @@ def saveTrip(request):
 		sTrip.groupSize = groupSize
 		sTrip.date = savedDate
 		sTrip.tripColours = colours
+		sTrip.attStatus =attStat
 		sTrip.save()
 
 		trip_query = SavedTrip.objects.values('id').filter(userOwner_id=request.user.id).order_by('-id')[0]
