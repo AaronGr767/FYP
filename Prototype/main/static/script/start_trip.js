@@ -54,8 +54,13 @@ function displayTrip(data){
 
     tripTags.innerHTML += `<p style="color: gray">${fullList}</p>`
 
+
     for(i=0;i<data[0].attNames.length;i++){
-        tripAtts.innerHTML += `<li>${data[0].attNames[i]}</li>`
+        tripAtts.innerHTML += `<div class="col">
+                                <div class="card">
+                                    <p class="card-text">${data[0].attNames[i]}</p>
+                                </div>
+                               </div>`
     }
 
     localStorage.setItem('currentTrip', JSON.stringify(data[0]))

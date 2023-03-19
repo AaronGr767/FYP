@@ -317,10 +317,20 @@ optionsContainer h5{
 #summaryContainer{
     border-radius: 10px;
     border: solid #7D84B2 3px;
-    text-align: center;
     margin: auto;
+    text-align: center;
     width:25%;
     background-color: whitesmoke;
+}
+
+.card{
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+border
+.card-text{
+   background-color: whitesmoke;
 }
 
 #summaryContainer ul{
