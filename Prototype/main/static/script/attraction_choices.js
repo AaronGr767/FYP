@@ -46,14 +46,20 @@ function setFilters(){
 
     console.log(filterArray)
     localStorage.setItem('filterStore', JSON.stringify(filterArray))
+    let chosenDay;
 
     // location.href='/choose'
-    cDate = new Date(document.getElementById("chosenDate").value)
-    let days = [0,1,2,3,4,5,6]
+    let cDate = new Date(document.getElementById("chosenDate").value)
+    if(!isNaN(cDate.getTime())){
+        let days = [0,1,2,3,4,5,6]
 
-    let chosenDay = days[cDate.getDay()]
+        chosenDay = days[cDate.getDay()]
 
-    console.log("Day of choice: "+ chosenDay)
+        console.log("Day of choice: "+ chosenDay)
+    } else{
+        chosenDay = "null"
+        console.log("No day chosen")
+    }
 
     storeDetails();
 

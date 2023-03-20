@@ -255,7 +255,7 @@ function finishAttraction(finAtt) {
     let popUp = document.getElementById("mapPopUp3")
     popUp.style.display = 'block';
     //Reference: https://codepen.io/anefzaoui/pen/NWPZzMa
-    popUp.innerHTML = `Would you like to rate this attraction?
+    popUp.innerHTML = `Would you like to rate this attraction?<br>
                     <fieldset class="rate">
                         <input type="radio" id="rating10" onclick=addRating(value,'${finAtt}') name="rating" value="10" /><label for="rating10" title="5 stars"></label>
                         <input type="radio" id="rating9" onclick=addRating(value,'${finAtt}')  name="rating" value="9" /><label class="half" for="rating9" title="4 1/2 stars"></label>

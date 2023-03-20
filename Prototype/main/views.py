@@ -92,8 +92,10 @@ def filterAttractions(request):
 	filterArray = request.POST.getlist('filters[]')
 	groupSize = request.POST.get('gSize')
 	maximumPrice = request.POST.get('mPrice')
-	chosenDay = int(request.POST.get('choseDay'))
+	chosenDay = request.POST.get('choseDay')
 	# filt_query = [];
+	if chosenDay != "null":
+		chosenDay = int(request.POST.get('choseDay'))
 
 	print(filterArray)
 
@@ -108,13 +110,27 @@ def filterAttractions(request):
 	print(Attraction.objects.values())
 	print("priceo = ")
 	print(maximumPrice)
-	if maximumPrice != "":
-		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
-		# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
+	if (maximumPrice != "") and (chosenDay != "null"):
+		filt_query = Attraction.objects.filter(
+			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,
+			maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
+	# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
+
+	elif chosenDay != "null":
+		filt_query = Attraction.objects.filter(
+			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray),
+			maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
+	# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
+
+	elif maximumPrice != "":
+		filt_query = Attraction.objects.filter(
+			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,
+			maxGroup__gte=groupSize)
+	# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
 
 	else:
-		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
-		# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
+		filt_query = Attraction.objects.filter(
+			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxGroup__gte=groupSize)
 
 	results = filt_query.values()
 

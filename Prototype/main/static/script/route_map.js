@@ -167,15 +167,17 @@ function retrieveTimes(finalStore){
     let dayArray=[];
     let myDets = localStorage.getItem("detailsStore");
     myDets = JSON.parse(myDets)
-    let choseDay = new Date(myDets.chosenDate)
+    let choseDay = myDets.chosenDate
+    if(choseDay != "null"){
+        choseDay = new Date(choseDay)
+        let days = [0,1,2,3,4,5,6]
 
-    let days = [0,1,2,3,4,5,6]
+        let chosenDay = days[choseDay.getDay()]
 
-    let chosenDay = days[choseDay.getDay()]
-
-    finalStore.forEach((element) =>{
-        dayArray.push(element.closingHours[chosenDay])
-    })
+        finalStore.forEach((element) =>{
+            dayArray.push(element.closingHours[chosenDay])
+        })
+    }
 
     return dayArray;
 }
