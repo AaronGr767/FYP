@@ -233,8 +233,8 @@ img{
     background-color: whitesmoke;
     float: left;
     margin-left:4%;
-      height: 25em; /* The height is 400 pixels */
-      width: 50%; /* The width is the width of the web page */
+      height: 27em;
+      width: 50%;
     border: solid #DBF4A7 3px;
     padding: 15px;
     border-radius: 5px;

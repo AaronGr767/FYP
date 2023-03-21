@@ -82,7 +82,8 @@ function beginBreak(){
     let testRegex = new RegExp("^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$")
 
     if(testRegex.test(brTime)){
-        let closingArray = []
+        let closingNameArray = []
+        let closingTimeArray = []
         let currTime = new Date();
         let brTimeFormat = (parseInt(brHour) * 60) + parseInt(brMins)
         let compareTime = (currTime.getHours() * 60) + currTime.getMinutes()
@@ -94,26 +95,28 @@ function beginBreak(){
             alertBox.style.display = 'block'
             let errMsg = document.getElementById("errorMsg")
             errMsg.innerHTML = `No attractions will be open at this hour!`
-        } else{
+        }
+        else{
             for (i = 0; i < resultsObj.attClosing.length; i++) {
+                console.log(i)
                 let attHour = parseInt(resultsObj.attClosing[i].substring(0, 2)) * 60
                 let attMins = parseInt(resultsObj.attClosing[i].substring(2))
                 let attTime = attHour + attMins
                 let dif = attTime - combinedTime;
                 if (combinedTime > attTime || dif <= 60) {
-                    closingArray.push(resultsObj.attNames[i],resultsObj.attClosing[i])
+                    closingNameArray.push(resultsObj.attNames[i])
+                    closingTimeArray.push(resultsObj.attClosing[i])
                 }
             }
 
-            if (closingArray.length != 0) {
+            if (closingNameArray.length != 0) {
                 let alertBox = document.getElementById("breakAlert")
                 alertBox.style.display = 'block'
                 let alertList = document.getElementById("closingBreakAtts")
+                alertList.innerHTML=``;
 
-                let j=1
-                for(i=0; i<closingArray.length/2;i+2){
-                    alertList.innerHTML += `<li>${closingArray[i]} ${closingArray[j]}</li>`
-                    j = j+2
+                for(i=0; i<closingNameArray.length;i++){
+                    alertList.innerHTML += `<li>${closingNameArray[i]} / ${closingTimeArray[i].substring(0, 2)}:${closingTimeArray[i].substring(2)}</li>`
                 }
             }
         }
