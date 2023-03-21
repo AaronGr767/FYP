@@ -23,6 +23,7 @@ urlpatterns = [
     path('doingTrip/updatetripstatus/', views.updateTripStatus, name="updatetripstatus"),
     path('startTrip/', TemplateView.as_view(template_name="startTrip.html"), name="startTrip"),
     path('doingTrip/', TemplateView.as_view(template_name="doingTrip.html"), name="doingTrip"),
-    path('tripRoute', TemplateView.as_view(template_name="tripRoute.html"), name="tripRoute")
-
+    path('tripRoute', TemplateView.as_view(template_name="tripRoute.html"), name="tripRoute"),
+    path('managetripretrieve/', views.manageTripRetrieve, name="manageTripRetrieve"),
+    path('managetripdelete/', views.manageTripDelete, name="manageTripDelete"),
 ]

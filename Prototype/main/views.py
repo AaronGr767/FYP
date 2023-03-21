@@ -307,3 +307,23 @@ def compareSimilarity(request):
 	}
 
 	return JsonResponse(finalResults, status=200)
+
+def manageTripRetrieve(request):
+
+	userFilter = request.user.id
+
+	trip_query = SavedTrip.objects.filter(userOwner_id=userFilter).values()
+
+	results = {
+		"userTrips": list(trip_query)
+	}
+
+	return JsonResponse(results, status=200)
+
+def manageTripDelete(request):
+	delTripId = request.POST.get("delId", None)
+
+	delTrip = SavedTrip.objects.get(id=delTripId)
+	delTrip.delete()
+
+	return HttpResponse(status=200)

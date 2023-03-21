@@ -8,6 +8,14 @@
             Hi {{ user.username }}! Manage Trip!
         </div>
 
+        <div id="mainContainer">
+
+            <div id="savedTrips" class="list-group"></div>
+            <div id="previousTrips" class="list-group"></div>
+
+        </div>
+
+        <script src="{% static 'script/manage_trips.js' %}"></script>
 
     {% endif %}
 {% endblock %}

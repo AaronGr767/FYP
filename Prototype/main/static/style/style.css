@@ -575,6 +575,30 @@ select{
     margin: auto;
     margin-top:1%;
     margin-bottom: 1%;
-    text-align: center;
     display: none;
+}
+
+#breakInProg{
+    display: none;
+}
+
+#breakTabs{
+    border-collapse: separate;
+     border-spacing: 15px;
+}
+
+#savedTrips{
+    float: left;
+    width: 40%;
+    border-radius: 5px;
+}
+
+#savedTrips button{
+    float: right;
+}
+
+#previousTrips{
+    float: right;
+    width: 40%;
+    border-radius: 5px;
 }

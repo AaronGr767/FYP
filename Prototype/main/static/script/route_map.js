@@ -186,7 +186,7 @@ function saveTrip(startCheck) {
     }).done(function (data, status, xhr) {
         console.log(data)
         if(startCheck){
-            localStorage.setItem('saveAndStart', JSON.stringify(data))
+            localStorage.setItem('saveAndStart', JSON.stringify(data.id))
             location.href='/startTrip'
         }else{
             location.href='/home'
