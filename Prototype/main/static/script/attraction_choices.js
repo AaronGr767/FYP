@@ -57,9 +57,29 @@ function setFilters(){
 
         console.log("Day of choice: "+ chosenDay)
 
-        storeDetails();
+        let gSizeInput = document.getElementById("groupSize")
+        let mPriceInput = document.getElementById("maxPrice")
 
-        postFilters(filterArray, chosenDay)
+        let gSizeCheck = true;
+        let mPriceCheck = true;
+
+        if(gSizeInput.value != "") {
+            gSizeCheck = Number.isInteger(parseInt(gSizeInput.value))
+            console.log(gSizeCheck)
+        }
+        if(mPriceInput.value != ""){
+            mPriceCheck = Number.isInteger(parseInt(mPriceInput.value))
+        }
+
+        if(gSizeCheck && mPriceCheck) {
+            storeDetails();
+
+            postFilters(filterArray, chosenDay)
+        }else{
+            console.log("Incorrect format")
+            let alertFormBox = document.getElementById("invalidFormatAlert")
+            alertFormBox.style.display = 'block'
+        }
     } else{
         // chosenDay = "null"
         console.log("No day chosen")
