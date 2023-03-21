@@ -44,45 +44,79 @@
                     <br>
                 </div><br>
                 <div id="breakCont">
+                    <div id="breakSetUp">
                     <h5 style="margin-bottom: 10px">Want to take a Break? </h5>
                     <table style="margin:auto">
                         <tr>
-                            <td style="text-align: left">Type of Break:</td>
+                            <td style="text-align: left">Break Type:</td>
                             <td style="text-align: right">
-                                <select id="mode">
-                                    <option value="DRIVING">Food</option>
-                                    <option value="WALKING">Coffee/Snack</option>
-                                    <option value="BICYCLING">Shopping</option>
+                                <select id="breakType">
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="cafe">Coffee/Snack</option>
+                                    <option value="store">Shopping</option>
                                 </select>
                             </td>
                         </tr>
 
                         <tr>
-                            <td style="text-align: left;width: 100%">Length of Break:</td>
-                            <td style="text-align: right;width: 100%"><input id="breakHours" type="int" value="01">:<input id="breakMins" type="int"value="00"></td>
+                            <td style="text-align: left;width: 100%">Duration:</td>
+                            <td style="text-align: right;width: 100%"><input id="breakHours" type="int" value="01" >:<input id="breakMins" type="int"value="00"></td>
                         </tr>
                     </table>
                     <button type="button" onclick="beginBreak()" class="btn btn-outline-secondary">Start Break</button>
+                    </div>
+                    <div id="breakInProg">
+                        <h5 style="margin-bottom: 10px">Break in Progress:</h5>
+                        <table style="margin-left: auto;margin-right: auto" id="breakTabs">
+                        <tr>
+                            <td style="text-align: left">Break Type:</td>
+                            <td style="text-align: right">
+                                <select id="progBreakType">
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="cafe">Coffee/Snack</option>
+                                    <option value="store">Shopping</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr >
+                            <td style="text-align: left">Radius (metres):</td>
+                            <td style="text-align: right">
+                                <select id="searchRad">
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="300" selected>300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                        <button type="button" onclick="finishBreak()" class="btn btn-outline-secondary">Finish Break</button>
+                    </div>
                 </div>
 
             </div>
 
 
             <div id="clear"></div>
-            <div id="timeAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 40%;margin:auto">
-                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing in an
+            <div id="timeAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
+                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within an
                 hour:<br>
                 <button type="button" onclick="closeAlert('time')" class="btn-close" data-bs-dismiss="alert"
                         aria-label="Close"></button>
                 <ul id="closingAtts"></ul>
             </div>
-            <div id="breakAlert" class="alert alert-warning  alert-dismissible fade show" role="alert" style="width: 40%;margin:auto">
+            <div id="breakAlert" class="alert alert-warning  alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
                 <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Keep in mind the closing hour for these attractions:<br>
                 <button type="button" onclick="closeAlert('break')" class="btn-close" data-bs-dismiss="alert"
                         aria-label="Close"></button>
                 <ul id="closingBreakAtts"></ul>
+                <div style="margin-left: 10%;text-align: center">
+                    <button type="button" onclick=renderBreak() class="btn btn-outline-warning" style="color: slategray;">Confirm Break</button>
+                </div>
             </div>
-            <div id="invalidAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 40%;margin:auto">
+            <div id="invalidAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
                 <strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i><p id="errorMsg">Invalid time format!</p>
                 <button type="button" onclick="closeInvAlert()" class="btn-close" data-bs-dismiss="alert"
                         aria-label="Close"></button>
@@ -109,7 +143,7 @@
 
 
         <script src="{% static 'script/doing_trip.js' %}"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap&libraries=geometry&v=weekly"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap&libraries=geometry&libraries=places&v=weekly"
                 defer></script>
 
         {#        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap&libraries=geometry" async defer></script>#}

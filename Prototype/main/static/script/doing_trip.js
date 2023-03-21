@@ -1,6 +1,6 @@
 document.getElementById('optionsContainer').innerHTML = ``;
 let popup = document.getElementById("optPopUp");
-    popup.style.display = "none";
+popup.style.display = "none";
 
 let displayCounter = 0;
 let finishedAttractions = 0;
@@ -9,6 +9,8 @@ let userArray = []
 let chosenLatlng;
 let finishedArray = [];
 let routePath = [];
+let firstTimeCheck = 0;
+let nearbyMarker = [];
 
 let markCount = 0;
 let locMarker;
@@ -45,10 +47,11 @@ function tripName() {
 
 locationMarker(markCount)
 
-setInterval(checkTime, 60000)
+setInterval(checkTime, 1000)
 
 function checkTime() {
-    let closingArray = []
+    let closingNameArray = []
+    let closingTimeArray = []
     let currTime = new Date();
     let compareTime = (currTime.getHours() * 60) + currTime.getMinutes()
 
@@ -57,31 +60,140 @@ function checkTime() {
         let attMins = parseInt(resultsObj.attClosing[i].substring(2))
         let attTime = attHour + attMins
         let dif = attTime - compareTime;
-        if (dif == 60) {
-            closingArray.push(resultsObj.attNames[i])
+        if (dif == 60 || (firstTimeCheck == 0 && dif < 60)) {
+            closingNameArray.push(resultsObj.attNames[i])
+            closingTimeArray.push(resultsObj.attClosing[i])
+            firstTimeCheck++
         }
     }
 
-    if (closingArray.length != 0) {
-    let alertBox = document.getElementById("timeAlert")
+    if (closingNameArray.length != 0) {
+        let alertBox = document.getElementById("timeAlert")
         alertBox.style.display = 'block'
-    let alertList = document.getElementById("closingAtts")
+        let alertList = document.getElementById("closingAtts")
+        alertList.innerHTML =``;
 
-        for(i=0; i<closingArray.length;i++){
-            alertList.innerHTML += `<li>${closingArray[i]}</li>`
+        for (i = 0; i < closingNameArray.length; i++) {
+            alertList.innerHTML += `<li>${closingNameArray[i]} / ${closingTimeArray[i].substring(0, 2)}:${closingTimeArray[i].substring(2)}</li>`
         }
     }
 
 }
 
-function beginBreak(){
+function renderBreak(state,radius){
+    let alertBox = document.getElementById("breakAlert")
+    alertBox.style.display = 'none'
+
+    let sUBreak = document.getElementById("breakSetUp")
+    sUBreak.style.display = 'none'
+    let progBreak = document.getElementById("breakInProg")
+    progBreak.style.display = 'block'
+
+    let bType;
+
+    if(state=="start"){
+        bType = document.getElementById("breakType").value;
+
+        let progType = document.getElementById("progBreakType")
+        progType.value = bType;
+    }else{
+        bType = document.getElementById("progBreakType").value;
+    }
+
+
+    let formatType;
+
+    if(bType == "store"){
+        formatType = ["clothing_store", "jewelry_store"]
+        let request1 = {
+            location: userLocation,
+            radius: radius,
+            type: [formatType[0]]
+        }
+        let request2 = {
+            location: userLocation,
+            radius: radius,
+            type: [formatType[2]]
+        }
+
+        service = new google.maps.places.PlacesService(map);
+
+        service.nearbySearch(request1, callback);
+        service.nearbySearch(request2, callback);
+
+    } else{
+        formatType = [bType]
+        let request = {
+            location: userLocation,
+            radius: radius,
+            type: formatType
+        }
+
+        service = new google.maps.places.PlacesService(map);
+
+        service.nearbySearch(request, callback);
+    }
+
+
+}
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (i = 0; i < results.length; i++) {
+        console.log(results[i])
+        // if(results[i].opening_hours.isOpen){
+            createMarker(results[i]);
+        // }
+    }
+  }
+}
+
+function createMarker(place) {
+  if (!place.geometry || !place.geometry.location) return;
+
+  marker = new google.maps.Marker({
+    map,
+    position: place.geometry.location,
+  });
+
+  nearbyMarker.push(marker)
+
+  nearbyMarker[nearbyMarker.length-1].addListener('click', function () {
+        let infowindow = new google.maps.InfoWindow({
+            content: place.name
+        });
+        infowindow.open(map, nearbyMarker[nearbyMarker.length-1]); // Open the info window at the marker's position
+    });
+
+  // nearbyMarker[nearbyMarker.length-1].setMap(map)
+
+}
+
+function removeBreakLocs(){
+    for(i=0;i<nearbyMarker.length;i++){
+        nearbyMarker[i].setMap(null);
+    }
+}
+
+function finishBreak(){
+    for(i=0;i<nearbyMarker.length;i++){
+        nearbyMarker[i].setMap(null);
+    }
+
+    let sUBreak = document.getElementById("breakSetUp")
+    sUBreak.style.display = 'block'
+    let progBreak = document.getElementById("breakInProg")
+    progBreak.style.display = 'none'
+}
+
+function beginBreak() {
     let brHour = document.getElementById("breakHours").value
     let brMins = document.getElementById("breakMins").value
     let brTime = brHour + ":" + brMins
 
     let testRegex = new RegExp("^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$")
 
-    if(testRegex.test(brTime)){
+    if (testRegex.test(brTime)) {
         let closingNameArray = []
         let closingTimeArray = []
         let currTime = new Date();
@@ -90,13 +202,20 @@ function beginBreak(){
 
         let combinedTime = brTimeFormat + compareTime
 
-        if(combinedTime > (19*60)){
+        let intFormatTimes = resultsObj.attClosing.map(str => parseInt(str))
+        let maxTime = Math.max(...intFormatTimes)
+        let maxHours = parseInt(String(maxTime).substring(0, 2))
+        let maxMins = parseInt(String(maxTime).substring(2))
+
+        let finalTime = (maxHours * 60) + maxMins
+
+        //dont forget to flick this back
+        if (combinedTime < finalTime) {
             let alertBox = document.getElementById("invalidAlert")
             alertBox.style.display = 'block'
             let errMsg = document.getElementById("errorMsg")
             errMsg.innerHTML = `No attractions will be open at this hour!`
-        }
-        else{
+        } else {
             for (i = 0; i < resultsObj.attClosing.length; i++) {
                 console.log(i)
                 let attHour = parseInt(resultsObj.attClosing[i].substring(0, 2)) * 60
@@ -113,11 +232,13 @@ function beginBreak(){
                 let alertBox = document.getElementById("breakAlert")
                 alertBox.style.display = 'block'
                 let alertList = document.getElementById("closingBreakAtts")
-                alertList.innerHTML=``;
+                alertList.innerHTML = ``;
 
-                for(i=0; i<closingNameArray.length;i++){
+                for (i = 0; i < closingNameArray.length; i++) {
                     alertList.innerHTML += `<li>${closingNameArray[i]} / ${closingTimeArray[i].substring(0, 2)}:${closingTimeArray[i].substring(2)}</li>`
                 }
+            } else{
+                renderBreak("start","300")
             }
         }
 
@@ -130,13 +251,13 @@ function beginBreak(){
     }
 }
 
-function closeAlert(closeCheck){
-    if(closeCheck == "time"){
+function closeAlert(closeCheck) {
+    if (closeCheck == "time") {
         let alertBox = document.getElementById("timeAlert")
         let alertList = document.getElementById("closingAtts")
         alertList.innerHTML = ``
         alertBox.style.display = 'none'
-    } else if(closeCheck == "break"){
+    } else if (closeCheck == "break") {
         let alertBox = document.getElementById("breakAlert")
         let alertList = document.getElementById("closingBreakAtts")
         alertList.innerHTML = ``
@@ -145,15 +266,15 @@ function closeAlert(closeCheck){
 
 }
 
-function closeInvAlert(){
+function closeInvAlert() {
     let alertBox = document.getElementById("invalidAlert")
     alertBox.style.display = 'none'
 }
 
 function displayOptions() {
-    if(routePath.length != 0){
-        for(i=0;i<routePath.length;i++)
-        routePath[i].setMap(null);
+    if (routePath.length != 0) {
+        for (i = 0; i < routePath.length; i++)
+            routePath[i].setMap(null);
     }
     optCont.innerHTML = ``;
 
@@ -172,9 +293,9 @@ function displayOptions() {
         console.log("feck off " + document.getElementById(i).name)
 
     }
-    for(i = 0; i < finishedArray.length; i++){
-            document.getElementById(finishedArray[i]).disabled = true;
-        }
+    for (i = 0; i < finishedArray.length; i++) {
+        document.getElementById(finishedArray[i]).disabled = true;
+    }
 }
 
 function confirmBox(i) {
@@ -210,7 +331,6 @@ showMarkers()
 function initMap() {
     let dublin = {lat: 53.345302024709206, lng: -6.27215179129342};
 
-
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: 7,
         center: dublin,
@@ -219,6 +339,16 @@ function initMap() {
     addAttraction()
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
+
+    document.getElementById("progBreakType").addEventListener("change", () => {
+        removeBreakLocs()
+        renderBreak("progress",document.getElementById("searchRad").value)
+    });
+
+    document.getElementById("searchRad").addEventListener("change", () => {
+        removeBreakLocs()
+        renderBreak("progress",document.getElementById("searchRad").value)
+    });
 
     document.getElementById("mode").addEventListener("change", () => {
         if (document.getElementById("cust").checked) {
@@ -347,9 +477,9 @@ function addRating(rating, finAtt) {
 
     popUp.innerHTML = 'Thank you for rating this attraction!';
 
-     setTimeout(function() {
+    setTimeout(function () {
         popUp.classList.add('fadeOut');
-        setTimeout(function() {
+        setTimeout(function () {
             popUp.style.display = 'none';
             popUp.classList.remove('fadeOut');
         }, 2000);
@@ -382,14 +512,14 @@ function addRating(rating, finAtt) {
 
         finishedArray.push(finAtt)
 
-        for(i = 0; i < finishedArray.length; i++){
-             document.getElementById(finishedArray[i]).disabled = true;
+        for (i = 0; i < finishedArray.length; i++) {
+            document.getElementById(finishedArray[i]).disabled = true;
         }
         displayCounter = 0;
-        finishedAttractions ++;
+        finishedAttractions++;
         lastRoute.setMap(null);
         lastRoute = '';
-        delMarkers(markers[finAtt],finAtt)
+        delMarkers(markers[finAtt], finAtt)
         // delete markers[finAtt]
         // showMarkers()
 
@@ -481,13 +611,13 @@ function delMarkers(delMark, i) {
 }
 
 function addMarker(position, attName, colour, closing) {
-    let reformat = closing.substring(0,2) + ":" + closing.substring(2)
+    let reformat = closing.substring(0, 2) + ":" + closing.substring(2)
 
     const marker = new google.maps.Marker({
         map,
         position,
         title: attName,
-        subtitle:reformat,
+        subtitle: reformat,
         icon: {
             path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
             scale: 5,
@@ -497,9 +627,9 @@ function addMarker(position, attName, colour, closing) {
         }
     });
 
-    marker.addListener('click', function() {
-        const infowindow = new google.maps.InfoWindow({
-            content: "<strong>" +marker.title + "</strong>" + "<br>Closing Hours:" + marker.subtitle
+    marker.addListener('click', function () {
+        let infowindow = new google.maps.InfoWindow({
+            content: "<strong>" + marker.title + "</strong>" + "<br>Closing Hours:" + marker.subtitle
         });
         infowindow.open(map, marker); // Open the info window at the marker's position
     });
@@ -526,17 +656,17 @@ $(":checkbox").click(function (e) {
     $(e.target).prop('checked', true);
 });
 
-function optionsPopUp(check){
+function optionsPopUp(check) {
     var popup = document.getElementById("optPopUp");
-    if(check){
+    if (check) {
         popup.style.display = "block";
-    }else{
+    } else {
         popup.style.display = "none";
     }
 
 }
 
-function markFinished(){
+function markFinished() {
     let csrftoken = getCookie('csrftoken');
 
     $.ajax({
@@ -560,7 +690,7 @@ function markFinished(){
     });
 }
 
-function lockOptions(){
+function lockOptions() {
 
     for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
         document.getElementById(i).disabled = true;
@@ -569,9 +699,9 @@ function lockOptions(){
 }
 
 function calculateRoute() {
-    if(routePath.length != 0){
-        for(i=0;i<routePath.length;i++)
-        routePath[i].setMap(null);
+    if (routePath.length != 0) {
+        for (i = 0; i < routePath.length; i++)
+            routePath[i].setMap(null);
     }
 
     const selectedMode = document.getElementById("mode").value;
@@ -611,51 +741,51 @@ function calculateRoute() {
     let wpDest = remainingLocCoords[remainingLocCoords.length - 1].location
     remainingLocCoords.pop()
 
-                directionsService
-    .route({
-      origin:userLocation,
-        destination: wpDest,
-      waypoints: remainingLocCoords,
-      optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode[selectedMode],
-    })
-    .then((response) => {
-      directionsRenderer.setDirections(response);
+    directionsService
+        .route({
+            origin: userLocation,
+            destination: wpDest,
+            waypoints: remainingLocCoords,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode[selectedMode],
+        })
+        .then((response) => {
+            directionsRenderer.setDirections(response);
 
-      const myRoute = response.routes[0].overview_path;
-      console.log(myRoute)
+            const myRoute = response.routes[0].overview_path;
+            console.log(myRoute)
 
-        console.log(response.routes[0].legs.length)
-    //   var routePath = new google.maps.Polyline({
-    //   path: myRoute,
-    // });
+            console.log(response.routes[0].legs.length)
+            //   var routePath = new google.maps.Polyline({
+            //   path: myRoute,
+            // });
 
-      for (let i = 0; i < response.routes[0].legs.length; i++) {
-          const leg = response.routes[0].legs[i];
-          console.log(leg)
+            for (let i = 0; i < response.routes[0].legs.length; i++) {
+                const leg = response.routes[0].legs[i];
+                console.log(leg)
 
-          routePath[i] = new google.maps.Polyline({
-              path: leg.steps.map(step => step.path).flat(),
-              strokeColor: remainingLocCol[i],
-              strokeWeight: 4,
-              strokeOpacity: 0.8,
-              geodesic: true,
-          });
+                routePath[i] = new google.maps.Polyline({
+                    path: leg.steps.map(step => step.path).flat(),
+                    strokeColor: remainingLocCol[i],
+                    strokeWeight: 4,
+                    strokeOpacity: 0.8,
+                    geodesic: true,
+                });
 
-          routePath[i].setMap(map);
-      }
+                routePath[i].setMap(map);
+            }
 
 
-
-    })
-    .catch((e) => {
-        if (selectedMode == 'TRANSIT') {
-            window.alert("Unable to plot a route between these attractions using public transport. Sorry!")
-        }else{
-            window.alert("Directions request failed due to " + e)
-        }
-    })
+        })
+        .catch((e) => {
+            if (selectedMode == 'TRANSIT') {
+                window.alert("Unable to plot a route between these attractions using public transport. Sorry!")
+            } else {
+                window.alert("Directions request failed due to " + e)
+            }
+        })
 }
+
 window.initMap = initMap;
 
 
