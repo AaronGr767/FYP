@@ -56,14 +56,26 @@ function setFilters(){
         chosenDay = days[cDate.getDay()]
 
         console.log("Day of choice: "+ chosenDay)
+
+        storeDetails();
+
+        postFilters(filterArray, chosenDay)
     } else{
-        chosenDay = "null"
+        // chosenDay = "null"
         console.log("No day chosen")
+        let alertBox = document.getElementById("invalidAlert")
+        alertBox.style.display = 'block'
     }
+}
 
-    storeDetails();
-
-    postFilters(filterArray, chosenDay)
+function closeInvAlert(alertType){
+    if(alertType == "noDate"){
+        let alertBox = document.getElementById("invalidAlert")
+        alertBox.style.display = 'none'
+    } else{
+        let alertBox = document.getElementById("invalidFormatAlert")
+        alertBox.style.display = 'none'
+    }
 }
 
 function postFilters(filterArray,chosenDay){

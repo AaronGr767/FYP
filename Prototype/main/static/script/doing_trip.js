@@ -74,10 +74,76 @@ function checkTime() {
 
 }
 
-function closeAlert(){
-    let alertBox = document.getElementById("timeAlert")
-    let alertList = document.getElementById("closingAtts")
-    alertList.innerHTML = ``
+function beginBreak(){
+    let brHour = document.getElementById("breakHours").value
+    let brMins = document.getElementById("breakMins").value
+    let brTime = brHour + ":" + brMins
+
+    let testRegex = new RegExp("^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$")
+
+    if(testRegex.test(brTime)){
+        let closingArray = []
+        let currTime = new Date();
+        let brTimeFormat = (parseInt(brHour) * 60) + parseInt(brMins)
+        let compareTime = (currTime.getHours() * 60) + currTime.getMinutes()
+
+        let combinedTime = brTimeFormat + compareTime
+
+        if(combinedTime > (19*60)){
+            let alertBox = document.getElementById("invalidAlert")
+            alertBox.style.display = 'block'
+            let errMsg = document.getElementById("errorMsg")
+            errMsg.innerHTML = `No attractions will be open at this hour!`
+        } else{
+            for (i = 0; i < resultsObj.attClosing.length; i++) {
+                let attHour = parseInt(resultsObj.attClosing[i].substring(0, 2)) * 60
+                let attMins = parseInt(resultsObj.attClosing[i].substring(2))
+                let attTime = attHour + attMins
+                let dif = attTime - combinedTime;
+                if (combinedTime > attTime || dif <= 60) {
+                    closingArray.push(resultsObj.attNames[i],resultsObj.attClosing[i])
+                }
+            }
+
+            if (closingArray.length != 0) {
+                let alertBox = document.getElementById("breakAlert")
+                alertBox.style.display = 'block'
+                let alertList = document.getElementById("closingBreakAtts")
+
+                let j=1
+                for(i=0; i<closingArray.length/2;i+2){
+                    alertList.innerHTML += `<li>${closingArray[i]} ${closingArray[j]}</li>`
+                    j = j+2
+                }
+            }
+        }
+
+    } else {
+
+        let alertBox = document.getElementById("invalidAlert")
+        alertBox.style.display = 'block'
+        let errMsg = document.getElementById("errorMsg")
+        errMsg.innerHTML = `Invalid time format!`
+    }
+}
+
+function closeAlert(closeCheck){
+    if(closeCheck == "time"){
+        let alertBox = document.getElementById("timeAlert")
+        let alertList = document.getElementById("closingAtts")
+        alertList.innerHTML = ``
+        alertBox.style.display = 'none'
+    } else if(closeCheck == "break"){
+        let alertBox = document.getElementById("breakAlert")
+        let alertList = document.getElementById("closingBreakAtts")
+        alertList.innerHTML = ``
+        alertBox.style.display = 'none'
+    }
+
+}
+
+function closeInvAlert(){
+    let alertBox = document.getElementById("invalidAlert")
     alertBox.style.display = 'none'
 }
 

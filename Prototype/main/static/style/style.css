@@ -18,7 +18,7 @@ h1{
 }
 
 html, body{
-    min-height: 100vh;
+    min-height:100vh;
     background: rgb(249,249,237);
     background: linear-gradient(0deg, rgba(249,249,237,1) 0%, rgba(217,219,241,1) 100%);
 }
@@ -56,9 +56,9 @@ img{
     border: solid #7D84B2 3px;
     text-align: center;
     margin: auto;
-    width:35%;
+    width:25%;
     padding: 1%;
-
+    background-color: whitesmoke;
 }
 
 #nextStep{
@@ -71,15 +71,22 @@ img{
     height: 100%;
     background-color: white;
     margin: 10px;
+    text-align: center;
+}
+
+#allContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    margin: auto;
+    width: 40%;
 }
 
 #detailsContainer{
     border-radius: 10px;
-    border: solid #7D84B2 3px;
+    border: solid #7D84B2 1px;
     text-align: left;
-    margin: auto;
-    width:25%;
-    padding: 1%;
+    margin: 1%;
+    padding-top: 1%;
     background-color: rgba(245, 245, 245, .8)
 }
 
@@ -103,21 +110,19 @@ img{
 
 #filtersContainer{
     border-radius: 10px;
-    border: solid #7D84B2 3px;
+    border: solid #7D84B2 1px;
+    margin: 1%;
     padding-bottom: 1%;
     padding-top: 1%;
-    width:40%;
-    margin: auto;
     background-color: rgba(245, 245, 245, .8)
 }
 
 #nameContainer{
     border-radius: 10px;
-    border: solid #7D84B2 3px;
+    border: solid lightgray 1px;
     padding-bottom: 1%;
     padding-top: 1%;
-    width:25%;
-    margin: auto;
+    margin: 1%;
     background-color: rgba(245, 245, 245, .8)
 }
 
@@ -125,10 +130,14 @@ img{
     border:  solid #8E9DCC 2px;
     border-radius: 4px;
     background-color: white;
-    width:60%;
-
+    width:40%;
+    margin-left: 30%;
     text-align: center;
 }
+
+
+
+
 
 #filtersContainerTable{
     text-align: right;
@@ -197,20 +206,6 @@ img{
     background-color: transparent;
 }
 
-#optionsContainer{
-    float: left;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    text-align: left;
-    width:16%;
-    margin-left: 1%;
-    padding: 1%;
-    background-color: whitesmoke;
-}
-
-optionsContainer h5{
-    text-align: center;
-}
 
 /*#tripOptions{*/
 /*    float: right;*/
@@ -237,13 +232,23 @@ optionsContainer h5{
 #mapContainer {
     background-color: whitesmoke;
     float: left;
-    margin-left:8%;
+    margin-left:4%;
       height: 25em; /* The height is 400 pixels */
       width: 50%; /* The width is the width of the web page */
     border: solid #DBF4A7 3px;
     padding: 15px;
     border-radius: 5px;
 
+}
+
+#addDetails{
+    margin: auto;
+    width: 90%;
+    text-align: center;
+}
+
+#addDetails p{
+    text-align: left;
 }
 
 #mainContainer{
@@ -340,6 +345,11 @@ border
 
 #tripHeader{
     text-align: center;
+}
+
+header {
+    background-color: #364156;
+    color: white;
 }
 
 @keyframes fadeOut {
@@ -473,15 +483,91 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 #tripOptions{
     float: right;
     text-align: center;
-    width:22%;
-}
-
-#routeCont{
-    width: 72.8%;
+    width:20%;
+    margin-right: 1%;
+    padding: 1%;
     border-radius: 10px;
     border: solid #7D84B2 3px;
     background-color: whitesmoke;
+}
+
+#mainOptionsCont{
+    float: left;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    width:20%;
+    margin-left: 1%;
     padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+#attList{
+    width: 90%;
+    margin:auto;
+    text-align: left;
+}
+
+#recContainer{
+    margin:auto;
+}
+
+#reccChoices{
+    width: 90%;
+    margin:auto;
+}
+
+
+#optionsContainer{
+    width:90%;
+    margin: auto;
+}
+
+
+#routeCont{
+    margin:auto;
+    width: 90%;
+    border-radius: 10px;
+    border: solid #7D84B2 1px;
+    background-color: whitesmoke;
+    padding: 3%;
+}
+
+#breakCont{
+    margin:auto;
+    width: 90%;
+    border-radius: 10px;
+    border: solid #7D84B2 1px;
+    background-color: whitesmoke;
+    padding: 3%;
+    /*text-align: left;*/
+}
+
+#breakCont input[type=int]{
+    text-align: center;
+    border:  solid #8E9DCC 2px;
+  border-radius: 4px;
+    height: 100%;
+    background-color: white;
+    margin: 10px;
+    width: 30%;
+    min-width: 10px;
+}
+
+#invalidAlert{
+    display: none;
+}
+
+#invalidFormatAlert{
+    display: none;
+}
+
+#breakAlert{
+    display: none;
+}
+
+select{
+    text-align: center;
 }
 
 #timeAlert{

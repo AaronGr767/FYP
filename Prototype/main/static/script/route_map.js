@@ -3,6 +3,46 @@ let resultsObj = retrieveStore()
 
 displayAttractions(resultsObj)
 
+displayDetails()
+
+function displayDetails(){
+    let details = localStorage.getItem("detailsStore");
+    let detailsObj = JSON.parse(details);
+
+    console.log(detailsObj)
+
+    let detCont = document.getElementById("addDetails")
+
+    if(detailsObj.tripName == "" && detailsObj.groupSize == "" && detailsObj.maxPrice == "" && detailsObj.chosenDate == ""){
+        detCont.innerHTML =`<em>No additional details for this trip</em>`
+    }
+    if(detailsObj.tripName != ""){
+        detCont.innerHTML += `<div style="display: flex; justify-content: space-between;">
+                                <p style="text-align: left"><em>Trip Name: </em></p>
+                                <p style="text-align: right">${detailsObj.tripName}</p>
+                              </div>`
+    }
+    if(detailsObj.groupSize != ""){
+        detCont.innerHTML += `<div style="display: flex; justify-content: space-between;">
+                                <p style="text-align: left"><em>Group Size: </em></p>
+                                <p style="text-align: right">${detailsObj.groupSize}</p>
+                              </div>`
+    }
+    if(detailsObj.maxPrice != ""){
+        detCont.innerHTML += `<div style="display: flex; justify-content: space-between;">
+                                <p style="text-align: left"><em>Maximum Price: </em></p>
+                                <p style="text-align: right">${detailsObj.maxPrice}</p>
+                              </div>`
+    }
+    if(detailsObj.chosenDate != ""){
+        detCont.innerHTML += `<div style="display: flex; justify-content: space-between;">
+                                <p style="text-align: left"><em>Chosen Date: </em></p>
+                                <p style="text-align: right">${detailsObj.chosenDate}</p>
+                              </div>`
+    }
+
+}
+
 var popup = document.getElementById("optPopUp");
 popup.style.display = "none";
 //
@@ -78,7 +118,7 @@ function displayAttractions(resultsObj){
 
     resultsObj.forEach((element) =>{
                 console.log(element.name)
-                choiceHtml.innerHTML += `<li style="color: ${element.markerColour};"><p style="color: #111111;">${element.name}</p></li>`
+                choiceHtml.innerHTML += `<li style="color: ${element.markerColour};"><text style="color: #111111;">${element.name}</text></li>`
             })
 
     return resultsObj;

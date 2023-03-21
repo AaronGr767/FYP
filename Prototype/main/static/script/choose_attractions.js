@@ -5,10 +5,12 @@ let recData;
 let tempHold;
 let currHold;
 
+let disArray = []
+
 let i = 0
 let j = -1;
 
-document.getElementById('optionsContainer').innerHTML = `<span style="text-align: center">Your Choices:</span>`;
+document.getElementById('optionsContainer').innerHTML = `<h5 style="text-align: center">Attractions Based on<br> Your Choices:</h5>`;
 
 displayOptions()
 
@@ -34,7 +36,7 @@ function displayOptions(){
         console.log(resultsObj[i].name)
 
         checkHtml = `
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${resultsObj[i].tag1}" style="margin-bottom: 2%;width:100%">
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${resultsObj[i].tag1}" style="margin-bottom: 2%;width:99%">
                           <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i}  autocomplete="off">
                           <label class="btn btn-outline-secondary" for=${i}>${resultsObj[i].name}</label>
                         </div>
@@ -147,6 +149,15 @@ function addAttraction(buttonId) {
                     console.log(element.latitude)
                     console.log(myLatlng)
                     addMarker(myLatlng, element.name, element.markerColour)
+                }
+                for(j=0; j < recData.length; j++){
+
+                    tempHold = document.getElementById(j)
+                    if(tempHold.name == recData.attractions[i].name){
+                        currHold = tempHold;
+                        currHold.disabled = true;
+                        disArray.push(j)
+                    }
                 }
             })
 
@@ -329,6 +340,7 @@ function addRecAttraction(buttonId) {
                             if(tempHold.name == recData.attractions[i].name){
                                 currHold = tempHold;
                                 currHold.disabled = true;
+                                disArray.push(j)
                             }
                         }
                     }
@@ -336,9 +348,9 @@ function addRecAttraction(buttonId) {
             }
         }else
         {
-            if(currHold.disabled){
-                currHold.disabled = false;
-            }
+            // if(currHold.disabled){
+            //     currHold.disabled = false;
+            // }
 
             for(i=0; i < recData.frequency.length; i++) {
 
@@ -351,6 +363,16 @@ function addRecAttraction(buttonId) {
                         if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
                             console.log("no hope")
                             delMarkers(item, j)
+
+                            if(disArray.length != 0) {
+                                for (k = 0; k < disArray.length; k++) {
+                                    tempHold = document.getElementById(disArray[k])
+                                    if (tempHold.name == recData.attractions[i].name) {
+                                        tempHold.disabled = false;
+                                        disArray.splice(k, 1)
+                                    }
+                                }
+                            }
                             // showMarkers()
                             // console.log("del"+markers[j])
                             // delete markers[j]

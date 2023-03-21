@@ -19,27 +19,28 @@
         {% if user.is_authenticated %}
         <div class="container" >
               <div class="row">
-                    <div class="col" style="margin-top: 40px;text-align: left">
+                    <div class="col" style="margin-top: 40px;text-align: left" title="Home">
                         <button id="baseButton" onclick="location.href='{%  url 'main:home' %}'" class="btn btn-outline">
-                            <i id="baseHeaderHome" class="fa-solid fa-house fa-2x"></i>
+                            <i id="baseHeaderHome" class="fa-solid fa-house fa-2x" style="color: white"></i>
                         </button>
                     </div>
                     <div class="col-9">
-                      <img id="baseHeaderLogo" src="{% static 'images/logo.png' %}" class="center">
+                      <img id="baseHeaderLogo" src="{% static 'images/logo2.png' %}" class="center">
                     </div>
-                    <div class="col" style="margin-top: 40px">
+                    <div class="col" style="margin-top: 40px"title="Logout">
                         <button id="baseButton" onclick="location.href='{%  url 'logout' %}'" class="btn btn-outline">
-                            <i id="baseHeaderLogout" class="fa-solid fa-right-from-bracket fa-2x"></i>
+                            <i id="baseHeaderLogout" class="fa-solid fa-right-from-bracket fa-2x" style="color: white"></i>
                         </button>
                     </div>
               </div>
         </div>
         {% else %}
-        <img id="baseHeaderLogo" src="{% static 'images/logo.png' %}" class="center">
+        <img id="baseHeaderLogo" src="{% static 'images/logo1.png' %}" class="center">
         {% endif %}
     </header>
 
     <main>
+    <br>
         {% block content %}
         {% endblock %}
     </main>

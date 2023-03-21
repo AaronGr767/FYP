@@ -53,14 +53,20 @@ function displayTrip(data){
     }
 
     tripTags.innerHTML += `<p style="color: gray">${fullList}</p>`
-
+    let marginCounter = 0
 
     for(i=0;i<data[0].attNames.length;i++){
-        tripAtts.innerHTML += `<div class="col">
+        tripAtts.innerHTML += `<div class="col" id="colContainer">
                                 <div class="card">
                                     <p class="card-text">${data[0].attNames[i]}</p>
                                 </div>
                                </div>`
+        if(marginCounter==0){
+            let firstCard = document.getElementById("colContainer")
+            firstCard.style.marginTop = "0"
+        }
+
+        marginCounter ++
     }
 
     localStorage.setItem('currentTrip', JSON.stringify(data[0]))

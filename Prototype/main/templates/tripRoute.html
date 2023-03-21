@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-{% load static %}
+    {% load static %}
 
 
-{#<h3 id="map">Route:</h3>#}
+    {#<h3 id="map">Route:</h3>#}
 
     <div class="m-2 text-center">
-            <td><nobr>
-                <span >
+        <td>
+            <nobr>
+                <span>
                     Group Details
                     <i class="fa-solid fa-arrow-right"></i>
                     Choose Attractions
                     <i class="fa-solid fa-arrow-right"></i>
                     Choose Location
                     <i class="fa-solid fa-arrow-right"></i>
-                </span >
+                </span>
                 <span style="font-weight:bold">Trip Summary</span>
 
                 <span style="color:lightgray">
@@ -22,21 +23,31 @@
                     Finish
                 </span>
             </nobr>
-        </div>
-        <br>
-
-
-    <div id="optionsContainer"><ul id="attList"></ul></div>
-    <div id="mapContainer">
-   <div id="map"></div>
     </div>
-    <div id="clear"></div>
+    <br>
+    <div id="mainContainer">
+        <div id="mainOptionsCont">
+            <h5>Planned Attractions:</h5>
+            <ul id="attList"></ul>
+        </div>
+        <div id="mapContainer">
+            <div id="map"></div>
+        </div>
+        <div id="tripOptions">
+            <h5>Additional Details:</h5>
+            <div id="addDetails">
+
+            </div>
+        </div>
+        <div id="clear"></div>
+    </div>
     <br>
 
     <div id="nextStep">
         <div id="stepOptions">
-            <button onclick="location.href='/routeMap'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
-            <button onclick=optionsPopUp() type="button" class="btn btn-outline-dark" >FINISH TRIP</button>
+            <button onclick="location.href='/routeMap'" type="button" class="btn btn-outline-dark">PREVIOUS STEP
+            </button>
+            <button onclick=optionsPopUp() type="button" class="btn btn-outline-dark">FINISH TRIP</button>
         </div>
         <div id="optPopUp">Would you like to save this trip for future use or start right now?<br><br>
             <button onclick=saveTrip(false) type="button" class="btn btn-outline-secondary">Save Trip</button>
@@ -44,7 +55,8 @@
         </div>
     </div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&callback=initMap"
+            async defer></script>
     <script src="{% static 'script/route_map.js' %}"></script>
 
 
