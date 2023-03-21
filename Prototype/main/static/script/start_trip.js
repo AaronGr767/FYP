@@ -12,7 +12,7 @@ function retrieveTrip(){
         },
         url:"/retrievetrip/",
         data: {
-            sTripId:stId.id
+            sTripId:stId
         }
     }).done(function (data, status, xhr) {
         console.log(data)
