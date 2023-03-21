@@ -588,17 +588,43 @@ select{
 }
 
 #savedTrips{
-    float: left;
-    width: 40%;
+    width: 90%;
     border-radius: 5px;
+    margin:auto;
 }
 
 #savedTrips button{
     float: right;
 }
 
-#previousTrips{
+#previousTrips button{
     float: right;
-    width: 40%;
+}
+
+#previousTrips{
+    margin:auto;
+    width: 90%;
     border-radius: 5px;
+}
+
+#saveTripCont{
+    float: left;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    width:40%;
+    margin-left: 5%;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+#prevTripCont{
+    float: right;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    width:40%;
+    margin-right: 5%;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
 }
