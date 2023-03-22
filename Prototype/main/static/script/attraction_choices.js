@@ -1,4 +1,111 @@
+let presetObj = [];
 
+retrievePresets()
+
+function fillPreset(presetChoice){
+    console.log(presetObj[presetChoice])
+
+    let mPrice = document.getElementById("maxPrice")
+    mPrice.value = presetObj[presetChoice].presetPrice
+
+    let gSize = document.getElementById("groupSize")
+    gSize.value = presetObj[presetChoice].presetSize
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('artCheck').value)) {
+        document.getElementById('artCheck').checked = true
+    }else{
+        document.getElementById('artCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('histCheck').value)) {
+        document.getElementById('histCheck').checked = true
+    }else{
+        document.getElementById('histCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('archCheck').value)) {
+        document.getElementById('archCheck').checked = true
+    }else{
+        document.getElementById('archCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('cultCheck').value)) {
+        document.getElementById('cultCheck').checked = true
+    }else{
+        document.getElementById('cultCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('eduCheck').value)) {
+        document.getElementById('eduCheck').checked = true
+    }else{
+        document.getElementById('eduCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('famCheck').value)) {
+        document.getElementById('famCheck').checked = true
+    }else{
+        document.getElementById('famCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('outCheck').value)) {
+        document.getElementById('outCheck').checked = true
+    }else{
+        document.getElementById('outCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('recCheck').value)) {
+        document.getElementById('recCheck').checked = true
+    }else{
+        document.getElementById('recCheck').checked = false
+    }
+
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('relCheck').value)) {
+        document.getElementById('relCheck').checked = true
+    }else{
+        document.getElementById('relCheck').checked = false
+    }
+
+}
+
+function retrievePresets(){
+    $.ajax({
+        type: "GET",
+        url: "retrievecreatepreset/",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+    }).done(function (data, status, xhr) {
+        console.log(data);
+
+        if(data.results.length>0){
+            renderCreatePresets(data.results)
+        }
+
+    }).fail(function (xhr, status, error) {
+        var message = "Passing filters failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
+}
+
+function renderCreatePresets(data){
+    presetObj = data
+    let presCont = document.getElementById("presetContainer")
+
+    for(i=0;i<presetObj.length;i++){
+        let label = "inlineRadio" + i
+        let passParam = presetObj[i]
+
+        presCont.innerHTML+= `<div class="form-check form-check-inline">
+                                <input onclick=fillPreset(${i}) class="form-check-input" type="radio" name="inlineRadioOptions">
+                                <label class="form-check-label">Preset ${presetObj[i].preId}</label>
+                            </div>`
+
+    }
+
+    let presetBox = document.getElementById("presetOuter")
+    presetBox.style.display = 'block'
+}
 
 function setFilters(){
     let counter= 0;

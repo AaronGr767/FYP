@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from osgeo_utils.gdal2tiles import data
 
-from .models import Attraction, SavedTrip, AttractionRating
+from .models import Attraction, SavedTrip, AttractionRating, DetailsPreset
 from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
@@ -110,7 +110,7 @@ def filterAttractions(request):
 	print(Attraction.objects.values())
 	print("priceo = ")
 	print(maximumPrice)
-	if (maximumPrice != "") and (chosenDay != "null"):
+	if (maximumPrice != "" or maximumPrice != 0) and (chosenDay != "null"):
 		filt_query = Attraction.objects.filter(
 			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,
 			maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
@@ -122,7 +122,7 @@ def filterAttractions(request):
 			maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
 	# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
 
-	elif maximumPrice != "":
+	elif maximumPrice != "" or maximumPrice != 0:
 		filt_query = Attraction.objects.filter(
 			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,
 			maxGroup__gte=groupSize)
@@ -327,3 +327,70 @@ def manageTripDelete(request):
 	delTrip.delete()
 
 	return HttpResponse(status=200)
+
+def savePreset(request):
+	presetId = request.POST.get("presetId", None)
+	userFilter = request.user.id
+
+	presetFilters = request.POST.getlist('filters[]', None)
+	presetSize = request.POST.get("gSize", None)
+	presetPrice = request.POST.get("mPrice", None)
+
+	try:
+		delTrip = DetailsPreset.objects.get(preId=presetId,userOwner_id=userFilter)
+		print(delTrip)
+
+		delTrip.preId = presetId
+		delTrip.presetTags = presetFilters
+		if(presetSize != ''):
+			delTrip.presetSize = presetSize
+		else:
+			delTrip.presetSize = None
+
+		if (presetPrice != ''):
+			delTrip.presetPrice = presetPrice
+		else:
+			delTrip.presetPrice = None
+
+		delTrip.save()
+		return HttpResponse(status=200)
+
+	except DetailsPreset.DoesNotExist:
+		detPreset = DetailsPreset()
+		detPreset.userOwner = request.user
+		detPreset.preId = presetId
+		detPreset.presetTags = presetFilters
+
+		if (presetSize != ''):
+			detPreset.presetSize = presetSize
+		else:
+			detPreset.presetSize = None
+
+		if (presetPrice != ''):
+			detPreset.presetPrice = presetPrice
+		else:
+			detPreset.presetPrice = None
+
+		detPreset.save()
+		return HttpResponse(status=200)
+
+def retrievePreset(request):
+	presetId = request.POST.get("presetId", None)
+	userFilter = request.user.id
+
+	retTrip = DetailsPreset.objects.filter(preId=presetId, userOwner_id=userFilter).values()
+
+	context = {
+		"results": list(retTrip)
+	}
+	return JsonResponse(context, status=200)
+
+def retrieveCreatePreset(request):
+	userFilter = request.user.id
+
+	retTrip = DetailsPreset.objects.filter(userOwner_id=userFilter).values()
+
+	context = {
+		"results": list(retTrip)
+	}
+	return JsonResponse(context, status=200)

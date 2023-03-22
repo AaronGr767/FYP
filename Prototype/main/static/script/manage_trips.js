@@ -34,7 +34,7 @@ function deleteTrip(thisTrip){
             delId: thisTrip
         }
     }).done(function (data, status, xhr) {
-        console.log("Success");
+        console.log("data");
 
         getTrips()
 

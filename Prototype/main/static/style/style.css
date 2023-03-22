@@ -83,7 +83,7 @@ img{
 
 #detailsContainer{
     border-radius: 10px;
-    border: solid #7D84B2 1px;
+    border: solid lightgray 1px;
     text-align: left;
     margin: 1%;
     padding-top: 1%;
@@ -107,10 +107,23 @@ img{
     text-align: left;
 }
 
+#presetContainer{
+    text-align: center;
+    border-radius: 10px;
+    border: solid lightgray 1px;
+    margin: 1%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    background-color: rgba(245, 245, 245, .8)
+}
+
+#presetOuter{
+   display: none;
+}
 
 #filtersContainer{
     border-radius: 10px;
-    border: solid #7D84B2 1px;
+    border: solid lightgray 1px;
     margin: 1%;
     padding-bottom: 1%;
     padding-top: 1%;
@@ -591,6 +604,8 @@ select{
     width: 90%;
     border-radius: 5px;
     margin:auto;
+    max-height: 277px;
+    overflow: auto;
 }
 
 #savedTrips button{
@@ -605,6 +620,8 @@ select{
     margin:auto;
     width: 90%;
     border-radius: 5px;
+    max-height: 275px;
+    overflow: auto;
 }
 
 #saveTripCont{
@@ -624,6 +641,36 @@ select{
     border: solid #7D84B2 3px;
     width:40%;
     margin-right: 5%;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+#userPresets{
+}
+
+#presetsTable{
+
+}
+
+#preset1{
+    margin-right:5%;
+}
+
+#preset2{
+    margin-left:5%;
+    margin-right:5%;
+}
+
+#preset3{
+    margin-left:5%;
+}
+
+#presCont{
+    width: 50%;
+    margin: auto;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
     padding: 1%;
     background-color: whitesmoke;
     text-align: center;

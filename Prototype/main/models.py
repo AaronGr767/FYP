@@ -54,3 +54,10 @@ class AttractionRating(models.Model):
     averageRating = models.DecimalField(max_digits=4, decimal_places=2)
     sumOfRatings = models.IntegerField()
     totalNoRatings = models.IntegerField()
+
+class DetailsPreset(models.Model):
+    preId = models.IntegerField(null=False)
+    userOwner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    presetSize = models.CharField(max_length=3, null=True)
+    presetPrice = models.IntegerField(null=True)
+    presetTags = ArrayField(models.CharField(max_length=200), null=True)

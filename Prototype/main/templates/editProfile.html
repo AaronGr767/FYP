@@ -5,9 +5,105 @@
 
     {% if user.is_authenticated %}
         <div class="m-2 text-center">
-            Hi {{ user.username }}! Edit Profile!
+            <h3>{{ user.username }}'s Profile:</h3>
         </div>
 
+        <div id="mainContainer">
 
+            <div id="presCont">
+                <h4>Presets:</h4>
+                <p>Customise the presets below in order to speed up the process of creating a trip!</p>
+                <div id="nav-buttons">
+                    <button type="button" onclick=renderPresets(1) id="preset1" class="btn btn-outline"
+                            data-bs-toggle="modal" data-bs-target="#preset1Modal">
+                        <h5>Preset 1</h5>
+                        <i class="fa-solid fa-circle-plus fa-3x"></i>
+                    </button>
+
+                    <button type="button" onclick=renderPresets(2) id="preset2" class="btn btn-outline"
+                            data-bs-toggle="modal" data-bs-target="#preset2Modal">
+                        <h5>Preset 2</h5>
+                        <i class="fa-solid fa-circle-plus fa-3x"></i>
+                    </button>
+
+                    <button type="button" onclick=renderPresets(3) id="preset3" class="btn btn-outline"
+                            data-bs-toggle="modal" data-bs-target="#preset3Modal">
+                        <h5>Preset 3</h5>
+                        <i class="fa-solid fa-circle-plus fa-3x"></i>
+                    </button>
+                </div>
+
+                <div class="modal fade" id="preset1Modal" tabindex="-1" aria-labelledby="presetModal1Label"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="preset1ModalLabel" value="preset1"
+                                    style="text-align: center">Preset 1</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="mBody1">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick=setFilters(1)
+                                        data-bs-dismiss="modal">Save changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="preset2Modal" tabindex="-1" aria-labelledby="preset2ModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="preset2ModalLabel" value="preset2"
+                                    style="text-align: center">Preset 2</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="mBody2">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick=setFilters(2)
+                                        data-bs-dismiss="modal">Save changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="preset3Modal" tabindex="-1" aria-labelledby="preset3ModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="preset3ModalLabel" value="preset3"
+                                    style="text-align: center">Preset 3</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="mBody3">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick=setFilters(3)
+                                        data-bs-dismiss="modal">Save changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <script src="{% static 'script/manage_profile.js' %}"></script>
     {% endif %}
 {% endblock %}

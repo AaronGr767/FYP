@@ -26,4 +26,7 @@ urlpatterns = [
     path('tripRoute', TemplateView.as_view(template_name="tripRoute.html"), name="tripRoute"),
     path('managetripretrieve/', views.manageTripRetrieve, name="manageTripRetrieve"),
     path('managetripdelete/', views.manageTripDelete, name="manageTripDelete"),
+    path('retrievepreset/', views.retrievePreset, name="retrievePreset"),
+    path('retrievecreatepreset/', views.retrieveCreatePreset, name="retrieveCreatePreset"),
+    path('savepreset/', views.savePreset, name="savePreset"),
 ]
