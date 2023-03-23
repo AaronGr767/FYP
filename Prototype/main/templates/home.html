@@ -5,20 +5,20 @@
 
     {% if user.is_authenticated %}
         <div class="m-2 text-center">
-            Hi {{ user.username }}! Welcome to this site!
+            <h3><em>Hi {{ user.username }}, Lets get started!</em></h3>
         </div>
         <div id="nav-buttons">
-            <button onclick="location.href='/create'" type="button" class="btn btn-info btn-lg">
+            <button onclick="location.href='/create'" type="button" class="btn btn-info btn-lg" id="homeButtons">
             Create Trip<br>
             <i class="fa-regular fa-square-plus"></i>
             </button>
 
-            <button onclick="location.href='/manage'" type="button" class="btn btn-info btn-lg">
+            <button onclick="location.href='/manage'" type="button" class="btn btn-info btn-lg" id="homeButtons">
             Manage Trips<br>
             <i class="fa-solid fa-pen-to-square"></i>
             </button>
 
-            <button onclick="location.href='/edit'" type="button" class="btn btn-info btn-lg">
+            <button onclick="location.href='/edit'" type="button" class="btn btn-info btn-lg" id="homeButtons">
             Edit Profile<br>
             <i class="fa-solid fa-user-pen"></i>
             </button>
@@ -27,13 +27,13 @@
         <div id="carouselFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="{% static 'images/GPO_Dublin.jpg' %}" class="d-block w-100" alt="...">
+              <img src="{% static 'images/GPO_Dublin.jpg' %}" class="d-block w-90" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/trinity.jpg' %}" class="d-block w-100" alt="...">
+              <img src="{% static 'images/trinity.jpg' %}" class="d-block w-90" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/guiness.jpg' %}" class="d-block w-100" alt="...">
+              <img src="{% static 'images/guiness.jpg' %}" class="d-block w-90" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">

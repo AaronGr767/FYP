@@ -421,4 +421,19 @@ def checkAdmin(request):
 		return render(request,'home.html')
 	return JsonResponse(status=200)
 
+def saveAttractionChanges(request):
+	attId = request.POST.get("attId", None)
+	attDesc = request.POST.get("desc", None)
+	attOpHours = request.POST.getlist('oHours[]', None)
+	attClHours = request.POST.getlist('cHours[]', None)
+
+	thisAtt = Attraction.objects.get(id=attId)
+
+	thisAtt.description = attDesc
+	thisAtt.openingHours = attOpHours
+	thisAtt.closingHours = attClHours
+
+	thisAtt.save()
+
+	return HttpResponse(status=200)
 

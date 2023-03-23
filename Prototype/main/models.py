@@ -27,6 +27,7 @@ class Attraction(models.Model):
     description = models.TextField(null=True)
     website = models.TextField(null=True)
     markerColour = models.CharField(max_length=7, null=True)
+    openingHours = ArrayField(models.TextField(), null=True)
     closingHours = ArrayField(models.TextField(), null=True)
 
 class SavedTrip(models.Model):
