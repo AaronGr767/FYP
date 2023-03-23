@@ -144,19 +144,20 @@ function addAttraction(buttonId) {
 
             resultsObj.forEach((element) => {
                 // let id = element.id;
-                if(attBut.name == element.name){
-                    var myLatlng = new google.maps.LatLng(parseFloat(element.latitude),parseFloat(element.longitude));
+                if(attBut.name == element.name) {
+                    var myLatlng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
                     console.log(element.latitude)
                     console.log(myLatlng)
                     addMarker(myLatlng, element.name, element.markerColour)
-                }
-                for(j=0; j < recData.length; j++){
 
-                    tempHold = document.getElementById(j)
-                    if(tempHold.name == recData.attractions[i].name){
-                        currHold = tempHold;
-                        currHold.disabled = true;
-                        disArray.push(j)
+                    for (j = 0; j < recData.attractions.length; j++) {
+
+                        tempHold = document.getElementById("rec"+j)
+                        if (tempHold.name == element.name) {
+                            currHold = tempHold;
+                            currHold.disabled = true;
+                            disArray.push(j)
+                        }
                     }
                 }
             })
@@ -175,7 +176,18 @@ function addAttraction(buttonId) {
                         if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
                             console.log("no hope")
                             delMarkers(item, j)
+
+                            if(disArray.length != 0) {
+                                for (k = 0; k < disArray.length; k++) {
+                                    tempHold = document.getElementById("rec"+disArray[k])
+                                    if (tempHold.name == element.name) {
+                                        tempHold.disabled = false;
+                                        disArray.splice(k, 1)
+                                    }
+                                }
+                            }
                         }
+
                     })
                 }
 
@@ -308,7 +320,7 @@ function displayRecommendations(recAtt){
                     console.log(recId)
 
                     checkHtml = `
-                                    <div id="recOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${recAtt.attractions[i].tag1}" style="margin-bottom: 2%;width:100%">
+                                    <div id="recOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${recAtt.attractions[i].tag1}" style="margin-bottom: 2%;width:99%">
                                       <input type="checkbox"  onclick=addRecAttraction(${i}) class="btn-check" name="${recAtt.attractions[i].name}" id=${recId}  autocomplete="off">
                                       <label class="btn btn-outline-secondary" for=${recId}>${recAtt.attractions[i].name}</label>
                                     </div>
@@ -373,11 +385,6 @@ function addRecAttraction(buttonId) {
                                     }
                                 }
                             }
-                            // showMarkers()
-                            // console.log("del"+markers[j])
-                            // delete markers[j]
-                            //
-                            // setMapOnAll(map, markers)
                         }
                     })
                 }
