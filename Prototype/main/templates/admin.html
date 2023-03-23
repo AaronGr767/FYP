@@ -6,7 +6,9 @@
     {% if user.is_authenticated %}
 
         <div id="mainContainer">
+            <h3 id="attTitle" style="text-align: center"></h3>
             <div id="adminContainer">
+                <h4 style="text-align: center">Attraction Details:</h4>
                 <div id="adminContentLeft"></div><br>
                 <div id="adminContentRight">
                     <h5>Business Hours:</h5>
@@ -26,8 +28,8 @@
                             <input id="cHour0" type="int">:<input id="cMin0" type="int"><br>
                 </div><br>
                 <div id="updateCont"><button onclick=updateAttraction() type="button" class="btn btn-outline-dark" >Update Content</button></div>
-            </div>
-
+            </div><br>
+            <div id="dataContainer"></div>
         </div>
 
         <script type="text/javascript">

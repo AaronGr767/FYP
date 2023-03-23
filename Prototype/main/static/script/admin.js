@@ -4,13 +4,16 @@ homeButt.style.display = 'none';
 console.log(attraction)
 let attObj = attraction[0]
 
-
 renderDetails(attraction[0])
 
+// renderStats(attraction[0])
+
 function renderDetails(attraction){
+    let mainCont = document.getElementById("attTitle")
     let containerLeft = document.getElementById("adminContentLeft")
 
-    containerLeft.innerHTML+= `<h4>${attraction.name}</h4><br><h5>Description:</h5>`
+    mainCont.innerHTML+= `<em>${attraction.name}</em>`
+    containerLeft.innerHTML+= `<h5>Description:</h5>`
     containerLeft.innerHTML+= `<textarea rows="10" style="width: 80%" id="description">${attraction.description}</textarea>`
     
     renderTimes(attraction)

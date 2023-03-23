@@ -49,12 +49,14 @@ class SavedTrip(models.Model):
     attClosing = ArrayField(models.TextField(), null=True)
 
 
-class AttractionRating(models.Model):
+class AttractionData(models.Model):
     attraction = models.ForeignKey(Attraction, null=True, on_delete=models.CASCADE)
     attractionName = models.CharField(max_length=100)
     averageRating = models.DecimalField(max_digits=4, decimal_places=2)
     sumOfRatings = models.IntegerField()
     totalNoRatings = models.IntegerField()
+    otherAttractions = ArrayField(models.CharField(max_length=200), null=True)
+    occurrenceCount = ArrayField(models.IntegerField(), null=True)
 
 class DetailsPreset(models.Model):
     preId = models.IntegerField(null=False)
@@ -66,4 +68,4 @@ class DetailsPreset(models.Model):
 class ExternalADUser(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     associatedAttraction = models.OneToOneField(Attraction, null=True, on_delete=models.CASCADE)
-    attractionRating = models.OneToOneField(AttractionRating, null=True, on_delete=models.CASCADE)
+    attractionData = models.OneToOneField(AttractionData, null=True, on_delete=models.CASCADE)

@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from osgeo_utils.gdal2tiles import data
 
-from .models import Attraction, SavedTrip, AttractionRating, DetailsPreset, ExternalADUser
+from .models import Attraction, SavedTrip, AttractionData, DetailsPreset, ExternalADUser
 from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
@@ -110,27 +110,20 @@ def filterAttractions(request):
 	print(Attraction.objects.values())
 	print("priceo = ")
 	print(maximumPrice)
-	if (maximumPrice != "" or maximumPrice != 0) and (chosenDay != "null"):
-		filt_query = Attraction.objects.filter(
-			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,
-			maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
+	if maximumPrice != "" and chosenDay != "null":
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
 	# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
 
 	elif chosenDay != "null":
-		filt_query = Attraction.objects.filter(
-			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray),
-			maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray),maxGroup__gte=groupSize).exclude(closingHours__contains=[chosenDay, "0"])
 	# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
 
-	elif maximumPrice != "" or maximumPrice != 0:
-		filt_query = Attraction.objects.filter(
-			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,
-			maxGroup__gte=groupSize)
+	elif maximumPrice != "":
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxPrice__lte=maximumPrice,maxGroup__gte=groupSize)
 	# filt_query = [attraction for attraction in filt_query if attraction.closingHours[chosenDay] != "0"]
 
 	else:
-		filt_query = Attraction.objects.filter(
-			Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxGroup__gte=groupSize)
+		filt_query = Attraction.objects.filter(Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray), maxGroup__gte=groupSize)
 
 	results = filt_query.values()
 
@@ -165,6 +158,9 @@ def saveTrip(request):
 
 	attStat = [False] * len(savedNames)
 
+	counter = -1
+
+
 	try:
 
 		# my_coords = [float(coord) for coord in locations.split(", ")]
@@ -185,8 +181,19 @@ def saveTrip(request):
 		sTrip.attClosing = closing
 		sTrip.save()
 
+		#Update occurnce count for each attraction in trip
+		for item in savedNames:
+			tempAtt = AttractionData.objects.get(attractionName=item)
+			print("papa")
+			print(item)
+			otherAtts = [others for others in savedNames if others != item]
+			for tripAtt in otherAtts:
+				for i, countAtt in enumerate(tempAtt.otherAttractions):
+					if (tripAtt == countAtt):
+						tempAtt.occurrenceCount[i] = tempAtt.occurrenceCount[i] + 1
+						tempAtt.save()
+
 		trip_query = SavedTrip.objects.values('id').filter(userOwner_id=request.user.id).order_by('-id')[0]
-		print("feck")
 		print(trip_query)
 
 		# message = f"Updated {request.user.username} with {f'POINT({savedNames})'}"
@@ -194,7 +201,7 @@ def saveTrip(request):
 		return JsonResponse(trip_query, status=200)
 	except:
 
-		return JsonResponse({"message": request.user}, status=400)
+		return JsonResponse({"message": "Saved failed for " + request.user}, status=400)
 
 def retrieveTrip(request):
 	savedTripId = request.POST.get("sTripId", None)
@@ -213,8 +220,8 @@ def updateRating(request):
 	ratedTrip = request.POST.get("name", None)
 	tripRating = request.POST.get("rating", None)
 
-	# retrieveFilter = AttractionRating.objects.values("sumOfRatings","totalNoRatings").filter(attractionName=ratedTrip)
-	retrieveFilter = AttractionRating.objects.get(attractionName=ratedTrip)
+	# retrieveFilter = AttractionData.objects.values("sumOfRatings","totalNoRatings").filter(attractionName=ratedTrip)
+	retrieveFilter = AttractionData.objects.get(attractionName=ratedTrip)
 
 	print(retrieveFilter.sumOfRatings)
 
@@ -224,7 +231,7 @@ def updateRating(request):
 	roundRating = Decimal('{:.2f}'.format(avgRating))
 	print(roundRating)
 
-	AttractionRating.objects.filter(attractionName=ratedTrip).update(sumOfRatings=newRatingSum,totalNoRatings=newRatingCount, averageRating = roundRating)
+	AttractionData.objects.filter(attractionName=ratedTrip).update(sumOfRatings=newRatingSum,totalNoRatings=newRatingCount, averageRating = roundRating)
 
 	return HttpResponse(status=200)
 
@@ -267,7 +274,7 @@ def compareSimilarity(request):
 	#
 	# print(counts)
 
-	filterRating = AttractionRating.objects.filter(averageRating__gte=minRating).values_list("attractionName")
+	filterRating = AttractionData.objects.filter(averageRating__gte=minRating).values_list("attractionName")
 	print(filterRating)
 
 	checkForRating = []
@@ -402,7 +409,7 @@ def checkAdmin(request):
 
 		attQuery = Attraction.objects.filter(id = userQuery.associatedAttraction_id).values()
 
-		rateQuery = AttractionRating.objects.filter(id = userQuery.attractionRating_id).values()
+		rateQuery = AttractionData.objects.filter(id = userQuery.AttractionData_id).values()
 
 		print(attQuery[0])
 		print("AHHHHHH")
