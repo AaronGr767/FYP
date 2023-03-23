@@ -152,7 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 CRISPY_FAIL_SILENTLY = not DEBUG
 
-LOGIN_REDIRECT_URL = "/home"
+LOGIN_REDIRECT_URL = "/checkadmin/"
 LOGOUT_REDIRECT_URL = "/"
 
 API_KEY = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o"

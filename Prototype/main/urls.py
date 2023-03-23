@@ -29,4 +29,5 @@ urlpatterns = [
     path('retrievepreset/', views.retrievePreset, name="retrievePreset"),
     path('retrievecreatepreset/', views.retrieveCreatePreset, name="retrieveCreatePreset"),
     path('savepreset/', views.savePreset, name="savePreset"),
+    path('checkadmin/', views.checkAdmin, name="checkAdmin"),
 ]

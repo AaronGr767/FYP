@@ -215,7 +215,11 @@ img{
   display: table;
 }
 
-#baseButton{
+#baseButton1{
+    background-color: transparent;
+}
+
+#baseButton2{
     background-color: transparent;
 }
 
@@ -667,11 +671,43 @@ select{
 }
 
 #presCont{
-    width: 50%;
+    width: 40%;
     margin: auto;
     border-radius: 10px;
     border: solid #7D84B2 3px;
     padding: 1%;
     background-color: whitesmoke;
     text-align: center;
+}
+
+#adminContainer{
+    width: 40%;
+    margin: auto;
+    height:50%;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+/*#adminContentLeft{*/
+/*    float: left;*/
+/*    height: 100%;*/
+/*}*/
+
+#carouselFade{
+    margin:auto;
+    height:30vh;
+}
+
+.carousel-item img {
+    bottom: 0px;
+  height: 30vh;
+  object-fit: cover;
+}
+
+.btn-info {
+    background-color: lightsteelblue !important;
+    border-color: black !important;
 }

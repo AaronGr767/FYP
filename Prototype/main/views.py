@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from osgeo_utils.gdal2tiles import data
 
-from .models import Attraction, SavedTrip, AttractionRating, DetailsPreset
+from .models import Attraction, SavedTrip, AttractionRating, DetailsPreset, ExternalADUser
 from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
@@ -394,3 +394,31 @@ def retrieveCreatePreset(request):
 		"results": list(retTrip)
 	}
 	return JsonResponse(context, status=200)
+
+def checkAdmin(request):
+	currUser = request.user.id
+	try:
+		userQuery = ExternalADUser.objects.get(user_id = currUser)
+
+		attQuery = Attraction.objects.filter(id = userQuery.associatedAttraction_id).values()
+
+		rateQuery = AttractionRating.objects.filter(id = userQuery.attractionRating_id).values()
+
+		print(attQuery[0])
+		print("AHHHHHH")
+
+		context = {
+			"attraction":list(attQuery),
+			"rating": list(rateQuery)
+		}
+
+		print(context)
+
+		#Can only return attraction here as returning rating causes a problem with Decimal that doesnt allow for the object to be recieved
+		return render(request,'admin.html', {'attraction': list(attQuery)})
+
+	except ExternalADUser.DoesNotExist:
+		return render(request,'home.html')
+	return JsonResponse(status=200)
+
+

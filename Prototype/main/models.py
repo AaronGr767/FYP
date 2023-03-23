@@ -61,3 +61,8 @@ class DetailsPreset(models.Model):
     presetSize = models.CharField(max_length=3, null=True)
     presetPrice = models.IntegerField(null=True)
     presetTags = ArrayField(models.CharField(max_length=200), null=True)
+
+class ExternalADUser(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    associatedAttraction = models.OneToOneField(Attraction, null=True, on_delete=models.CASCADE)
+    attractionRating = models.OneToOneField(AttractionRating, null=True, on_delete=models.CASCADE)

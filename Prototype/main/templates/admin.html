@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+
+
+    {% if user.is_authenticated %}
+
+        <div id="mainContainer">
+            <div id="adminContainer">
+                <div id="adminContentLeft"></div><br>
+                <div id="adminContentRight"><h5>Business Hours:</h5></div><br>
+                <div id="updateCont"><button onclick="" type="button" class="btn btn-outline-dark" >Update Content</button></div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+
+
+            let attraction = {{ attraction | safe}};
+            {#let rating = {{ rating | safe}};#}
+        </script>
+
+        <script src="{% static 'script/admin.js' %}"></script>
+
+    {% endif %}
+{% endblock %}
