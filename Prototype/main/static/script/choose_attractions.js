@@ -313,23 +313,29 @@ window.onclick = function (event) {
 //End Reference
 
 function displayRecommendations(recAtt) {
-    let recOpt = document.getElementById('reccChoices')
+    let recChoice = document.getElementById('reccChoices')
+    let recOptions = document.getElementById('recOptions')
 
-    for (i = 0; i < recAtt.frequency.length; i++) {
+    if(recAtt.frequency.length > 0){
+        recOptions.style.display = 'block'
 
-        let recId = "rec" + i
+        for (i = 0; i < recAtt.frequency.length; i++) {
+            let recId = "rec" + i
 
-        console.log(recId)
+            console.log(recId)
 
-        checkHtml = `<div id="recOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${recAtt.attractions[i].tag1}" style="margin-bottom: 2%;width:99%">
-                      <input type="checkbox"  onclick=addRecAttraction(${i},"rec") class="btn-check" name="${recAtt.attractions[i].name}" id=${recId}  autocomplete="off">
-                      <label class="btn btn-outline-secondary" for=${recId}>${recAtt.attractions[i].name}</label>
-                    </div><br>`
+            recChoice.innerHTML += `<div id="recOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${recAtt.attractions[i].tag1}" style="margin-bottom: 2%;width:99%">
+                          <input type="checkbox"  onclick=addRecAttraction(${i},"rec") class="btn-check" name="${recAtt.attractions[i].name}" id=${recId}  autocomplete="off">
+                          <label class="btn btn-outline-secondary" for=${recId}>${recAtt.attractions[i].name}</label>
+                        </div><br>`
 
-        recOpt.innerHTML += checkHtml;
 
-        checkForSelected("rec", recId, recAtt.attractions[i].name)
+            checkForSelected("rec", recId, recAtt.attractions[i].name)
+        }
+    }else{
+        recOptions.style.display = 'none'
     }
+
 }
 
 function addRecAttraction(buttonId,type) {

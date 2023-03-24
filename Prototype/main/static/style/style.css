@@ -508,6 +508,18 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
     background-color: whitesmoke;
 }
 
+#recOptions{
+    display: none;
+    float: right;
+    text-align: center;
+    width:20%;
+    margin-right: 1%;
+    padding: 1%;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    background-color: whitesmoke;
+}
+
 #mainOptionsCont{
     float: left;
     border-radius: 10px;
@@ -536,6 +548,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
     max-height: 11em;
     overflow: auto;
 }
+
 
 #popChoices{
     display: none;

@@ -401,7 +401,7 @@ function locationMarker() {
                 );
 
                 //remember to reverse logic when done testing and uncomment the for loop
-                if (distanceToGeofence >= 50) {
+                if (distanceToGeofence <= 50) {
                     console.log("Within Range")
                     if (displayCounter == 0 && document.getElementById("mapPopUp").style.display == 'none') {
                         for (j = 0; j <= resultsObj.attNames.length - 1; j++) {
