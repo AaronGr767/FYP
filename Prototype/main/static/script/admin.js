@@ -37,11 +37,10 @@ function renderData(dataResults, accCount, planCount){
 
     let ratingCont =document.getElementById("rateContent")
 
-    ratingCont.innerHTML = `Average Rating: <input disabled="true" style="width:15%;text-align: center" value="${dataResults.averageRating}"><br>
-                            Average Rating: <input disabled="true" style="width:15%;text-align: center" value="${dataResults.averageRating}"><br>`
-
-    ratingCont.innerHTML+= `Planned Trips: <input disabled="true" style="width:15%;text-align: center" value="${planCount}"><strong> VS</strong>
-                            <input disabled="true" style="width:15%;text-align: center" value="${accCount}">: Actual Trips`
+    ratingCont.innerHTML = `<label>Average Rating: </label><input type="text" disabled="true" style="width:15%;text-align: center" value="${dataResults.averageRating}"><br>
+                            <label>No. of Ratings: </label><input type="text" disabled="true" style="width:15%;text-align: center" value="${dataResults.totalNoRatings}"><br>`
+    ratingCont.innerHTML+= `Planned: <input disabled="true" style="width:15%;text-align: center" value="${planCount}"><strong> VS</strong>
+                            <input disabled="true" style="width:15%;text-align: center" value="${accCount}"> :Actual`
 
     for(i=0;i<dataResults.occurrenceCount.length;i++){
         occTableBody.innerHTML += `<tr>

@@ -9,40 +9,48 @@
             <h3 id="attTitle" style="text-align: center"></h3>
             <div id="adminContainer">
                 <h4 style="text-align: center">Attraction Details:</h4>
-                <div id="adminContentLeft"></div><br>
+                <div id="adminContentLeft"></div>
+                <br>
                 <div id="adminContentRight">
                     <h5>Business Hours:</h5>
-                    Monday: <input id="oHour1" type="int">:<input id="oMin1" type="int"> <strong>/</strong>
-                            <input id="cHour1" type="int">:<input id="cMin1" type="int"><br>
-                    Tuesday: <input id="oHour2" type="int">:<input id="oMin2" type="int"> <strong>/</strong>
-                            <input id="cHour2" type="int">:<input id="cMin2" type="int"><br>
-                    Wednesday: <input id="oHour3" type="int">:<input id="oMin3" type="int"> <strong>/</strong>
-                            <input id="cHour3" type="int">:<input id="cMin3" type="int"><br>
-                    Thursday: <input id="oHour4" type="int">:<input id="oMin4" type="int"> <strong>/</strong>
-                            <input id="cHour4" type="int">:<input id="cMin4" type="int"><br>
-                    Friday: <input id="oHour5" type="int">:<input id="oMin5" type="int"> <strong>/</strong>
-                            <input id="cHour5" type="int">:<input id="cMin5" type="int"><br>
-                    Saturday: <input id="oHour6" type="int">:<input id="oMin6" type="int"> <strong>/</strong>
-                            <input id="cHour6" type="int">:<input id="cMin6" type="int"><br>
-                    Sunday: <input id="oHour0" type="int">:<input id="oMin0" type="int"> <strong>/</strong>
-                            <input id="cHour0" type="int">:<input id="cMin0" type="int"><br>
-                </div><br>
-                <div id="updateCont"><button onclick=updateAttraction() type="button" class="btn btn-outline-dark" >Update Content</button></div>
-            </div><br>
-            <div id="dataContainer">
-                <h4 style="text-align: center">Attraction Details:</h4>
-                <div id="rateContent">
-                    <h5>Rating Details:</h5>
+                    <label>Mon:</label> <input id="oHour1" type="int"><strong> : </strong><input id="oMin1" type="int"> <strong>/</strong>
+                    <input id="cHour1" type="int"><strong> : </strong><input id="cMin1" type="int"><br>
+                    <label>Tue:</label> <input id="oHour2" type="int"><strong> : </strong><input id="oMin2" type="int"> <strong>/</strong>
+                    <input id="cHour2" type="int"><strong> : </strong><input id="cMin2" type="int"><br>
+                    <label>Wed:</label> <input id="oHour3" type="int"><strong> : </strong><input id="oMin3" type="int"> <strong>/</strong>
+                    <input id="cHour3" type="int"><strong> : </strong><input id="cMin3" type="int"><br>
+                    <label>Thu:</label> <input id="oHour4" type="int"><strong> : </strong><input id="oMin4" type="int"> <strong>/</strong>
+                    <input id="cHour4" type="int"><strong> : </strong><input id="cMin4" type="int"><br>
+                    <label>Fri:</label> <input id="oHour5" type="int"><strong> : </strong><input id="oMin5" type="int"> <strong>/</strong>
+                    <input id="cHour5" type="int"><strong> : </strong><input id="cMin5" type="int"><br>
+                    <label>Sat:</label> <input id="oHour6" type="int"><strong> : </strong><input id="oMin6" type="int"> <strong>/</strong>
+                    <input id="cHour6" type="int"><strong> : </strong><input id="cMin6" type="int"><br>
+                    <label>Sun:</label> <input id="oHour0" type="int"><strong> : </strong><input id="oMin0" type="int"> <strong>/</strong>
+                    <input id="cHour0" type="int"><strong> : </strong><input id="cMin0" type="int"><br>
                 </div>
+                <div id="updateCont">
+                    <button onclick=updateAttraction() type="button" class="btn btn-outline-dark">Update Content
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div id="dataContainer">
+                <h4 style="text-align: center">Attraction Statistics:</h4>
+                <h5 style="text-align: center">Misc Data:</h5>
+                <p>Below is some data, regarding how users have rated this attraction, which consists of this attraction's average user rating as well as the number of ratings it has received.
+                    Further data shows the number of saved trips (completed & uncompleted) vs the number of actual completed trips which your attraction appears in.</p>
+                <div id="rateContent">
+                </div><br>
                 <div id="occContent">
                     <h5>Attraction Occurrence:</h5>
-                    <p>This table outlines how many times your attraction has been part of a trip with each attraction offered by our site.</p>
+                    <p>This table outlines how many times your attraction has been part of a trip with each attraction
+                        offered by our site.</p>
                     <table id="occTable" class="table table-bordered">
                         <thead>
-                            <tr>
-                                <th>Attraction</th>
-                                <th>Occurrence</th>
-                            </tr>
+                        <tr>
+                            <th>Attraction</th>
+                            <th>Occurrence</th>
+                        </tr>
                         </thead>
                         <tbody id="occBody"></tbody>
                     </table>
@@ -51,10 +59,7 @@
         </div>
 
         <script type="text/javascript">
-
-
             let attraction = {{ attraction | safe}};
-            {#let rating = {{ rating | safe}};#}
         </script>
 
         <script src="{% static 'script/admin.js' %}"></script>

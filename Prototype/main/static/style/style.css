@@ -87,7 +87,63 @@ h1{
 
 /*END LOGIN & REGISTER*/
 
+/*ADMIN*/
 
+#adminContainer{
+    width: min(90vw,100vh);
+    margin: auto;
+    height:50%;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+#adminContentRight input[type=int]{
+    text-align: center;
+    border:  solid #8E9DCC 2px;
+    border-radius: 4px;
+    height: 100%;
+    background-color: white;
+    width: min(10vw,5vh);
+    margin-bottom: 1%;
+}
+
+#adminContentRight label{
+    width: min(10vw,5vh);
+}
+
+#rateContent label{
+    width: min(33vw,20vh);
+}
+
+#rateContent input[type=text]{
+    text-align: center;
+    height: 100%;
+    width: min(10vw,5vh);
+    margin-bottom: 1%;
+}
+
+#updateCont{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+}
+
+#dataContainer{
+    width: min(90vw,100vh);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2%;
+    height:50%;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+/*END ADMIN*/
 
 img{
     height: 7em;
@@ -766,17 +822,6 @@ select{
     text-align: center;
 }
 
-#adminContainer{
-    width: 40%;
-    margin: auto;
-    height:50%;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    padding: 1%;
-    background-color: whitesmoke;
-    text-align: center;
-}
-
 /*#adminContentLeft{*/
 /*    float: left;*/
 /*    height: 100%;*/
@@ -790,24 +835,5 @@ select{
     border-color: black !important;
 }
 
-#adminContentRight input[type=int]{
-    text-align: center;
-    border:  solid #8E9DCC 2px;
-  border-radius: 4px;
-    height: 100%;
-    background-color: white;
-    margin: 10px;
-    width: 10%;
-    min-width: 10px;
-}
 
-#dataContainer{
-    width: 40%;
-    margin: auto;
-    height:50%;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    padding: 1%;
-    background-color: whitesmoke;
-    text-align: center;
-}
+
