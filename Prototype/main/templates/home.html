@@ -5,45 +5,63 @@
 
     {% if user.is_authenticated %}
         <div class="m-2 text-center">
-            <h3><em>Hi {{ user.username }}, Lets get started!</em></h3>
+            <h3><i class="fa-solid fa-hand-sparkles"></i><strong>Welcome!</strong></h3>
+            <p>Hi {{ user.username }},Treoraí is your one-stop site for planning a day of sightseeing in Dublin.<br>
+            Choose from one of the options below and let's get started!</p>
         </div>
         <div id="nav-buttons">
             <button onclick="location.href='/create'" type="button" class="btn btn-info btn-lg" id="homeButtons">
-            Create Trip<br>
-            <i class="fa-regular fa-square-plus"></i>
+                Create Trip<br>
+                <i class="fa-regular fa-square-plus"></i>
             </button>
 
             <button onclick="location.href='/manage'" type="button" class="btn btn-info btn-lg" id="homeButtons">
-            Manage Trips<br>
-            <i class="fa-solid fa-pen-to-square"></i>
+                Manage Trips<br>
+                <i class="fa-solid fa-pen-to-square"></i>
             </button>
 
             <button onclick="location.href='/edit'" type="button" class="btn btn-info btn-lg" id="homeButtons">
-            Edit Profile<br>
-            <i class="fa-solid fa-user-pen"></i>
+                Edit Profile<br>
+                <i class="fa-solid fa-user-pen"></i>
             </button>
         </div>
 
-        <div id="carouselFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="{% static 'images/GPO_Dublin.jpg' %}" class="d-block w-90" alt="...">
+        <div class="container-fluid" style="margin-bottom: 1%">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div id="carouselFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <a href="https://www.anpost.com/Witness-history" target="_blank">
+                                    <img src="{% static 'images/GPO_2.webp' %}" class="d-block" alt="gpo">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
+                                <a href="https://www.visittrinity.ie/trinity-trails/?gclid=Cj0KCQjwlPWgBhDHARIsAH2xdNei4IVch22NIxfEpSU1j7UjSJa0EgkhY92luVpzNihwRNH7DEeQ4rMaAvozEALw_wcB"
+                                   target="_blank">
+                                    <img src="{% static 'images/trinity.jpg' %}" class="d-block" alt="trinity">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
+                                <a href="https://www.guinness-storehouse.com/en/home?ds_rl=1298936&ds_rl=1298936&gclid=Cj0KCQjwlPWgBhDHARIsAH2xdNeMyjAnAX_cMGPVQFmMCvoj4kt7DgmPus8luoz1XKzA8B1vIw8EE4oaAvF-EALw_wcB&gclsrc=aw.ds"
+                                   target="_blank">
+                                    <img src="{% static 'images/guiness.jpg' %}" class="d-block" alt="guinness">
+                                </a>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselFade"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselFade"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="carousel-item">
-              <img src="{% static 'images/trinity.jpg' %}" class="d-block w-90" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'images/guiness.jpg' %}" class="d-block w-90" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
 
     {% endif %}

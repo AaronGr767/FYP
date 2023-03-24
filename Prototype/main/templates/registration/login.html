@@ -12,17 +12,17 @@
 
     <body>
     <div class="form_container">
-    <div class="container py-5">
-      <h1>Sign In</h1>
-      <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-          <div class="m-4 d-grid gap-2 col-2 mx-auto">
-          <button type="submit" class="btn btn-outline-primary">Log In</button>
-          </div>
-      </form>
-      <p class="text-center">Don't have an account? <a href="/registration">Create an account</a>.</p>
-    </div>
+        <div class="container py-5">
+            <h1>Sign In</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div id="divSubmit">
+                    <button  type="submit" class="btn btn-outline-primary">Login</button>
+                </div>
+            </form>
+            <p class="text-center">Don't have an account? <a href="/registration">Create an account</a>.</p>
+        </div>
     </div>
     </body>
 

@@ -1,27 +1,93 @@
+/*BASE*/
+html, body{
+    min-height:100vh;
+    background: rgb(249,249,237);
+    background: linear-gradient(0deg, rgba(249,249,237,1) 0%, rgba(217,219,241,1) 100%);
+}
+
+header {
+    background-color: #364156;
+    color: white;
+}
+
+#baseButton2 i {
+    font-size: min(8vh,5vw);
+    margin: auto;
+    color: white;
+}
+
+#baseButton1 i {
+    font-size: min(8vh,5vw);
+    margin: auto;
+    color: white;
+}
+/*END BASE*/
+
+/*HOME*/
+
+#nav-buttons{
+    text-align: center;
+
+}
+
+#homeButtons{
+    margin:5%;
+    width:min(30vh,30vw);
+}
+
+.carousel-inner{
+    background-color: #364156;
+    border: solid #364156 3px;
+    border-radius: 10px;
+}
+
+#carouselFade
+{
+    margin: auto;
+    width:min(82vw,101vh)
+}
+
+.carousel-item img {
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    margin: auto;
+    height: min(60vh,50vw);
+    width:min(80vw,100vh)
+}
+
+/*END HOME*/
+
+/*LOGIN & REGISTER*/
 .form_container {
-     display: block;
     background-color: white;
-   border-radius: 1em;
-    margin-top: 5%;
-    margin-left: 25%;
-    margin-right: 25%;
+    border-radius: 1em;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 2%;
+    width:min(80vw,100vh)
 }
 
 form{
     margin:5%;
     margin-left: 10%;
     margin-right: 10%;
+
+}
+
+#divSubmit{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:8%;
+    text-align: center;
 }
 
 h1{
     text-align: center;
 }
 
-html, body{
-    min-height:100vh;
-    background: rgb(249,249,237);
-    background: linear-gradient(0deg, rgba(249,249,237,1) 0%, rgba(217,219,241,1) 100%);
-}
+/*END LOGIN & REGISTER*/
+
+
 
 img{
     height: 7em;
@@ -33,9 +99,7 @@ img{
   margin-right: auto;
 }
 
-#nav-buttons{
-    text-align: center;
-}
+
 
 /*.map-container{*/
 /*    height: 30em;*/
@@ -219,9 +283,6 @@ img{
     background-color: transparent;
 }
 
-#baseButton2{
-    background-color: transparent;
-}
 
 
 /*#tripOptions{*/
@@ -364,10 +425,7 @@ border
     text-align: center;
 }
 
-header {
-    background-color: #364156;
-    color: white;
-}
+
 
 @keyframes fadeOut {
         from {
@@ -724,25 +782,8 @@ select{
 /*    height: 100%;*/
 /*}*/
 
-#homeButtons{
-    margin:5%;
-}
 
-#carouselFade{
-    position: fixed;
-    width:60%;
-    bottom:5%;
-    margin-left:20%;
-    border: solid #7D84B2 3px;
-    border-radius: 10px;
-    height:40vh;
-}
 
-.carousel-item img {
-    border-radius: 10px;
-    margin: 1vh;
-  height: 38vh;
-}
 
 .btn-info {
     background-color: lightsteelblue !important;
