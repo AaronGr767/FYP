@@ -138,8 +138,6 @@ function addAttraction(buttonId) {
     console.log("breaks here")
     console.log(attBut.name)
 
-    retrievePopular(attBut.name)
-
     if (attBut.checked) {
 
         let compare;
@@ -164,6 +162,7 @@ function addAttraction(buttonId) {
                 }
             }
         })
+        retrievePopular(attBut.name)
 
     } else {
         attBut.checked = false;
@@ -472,7 +471,7 @@ function renderPopular(popResults){
                       <label class="btn btn-outline-secondary" for=${popId}>${popResults[i].name}</label>
                     </div><br>`
 
-        checkForSelected("rec", popId, popResults[i].name)
+        checkForSelected("pop", popId, popResults[i].name)
     }
 
 }
@@ -480,28 +479,39 @@ function renderPopular(popResults){
 //If option is already selected elsewhere
 function checkForSelected(type, id, name) {
     let ifPopExists = document.getElementById("popChoices").style.display
+    if(disArray.length>0){
 
-    for (i = 0; i < disArray.length; i++) {
-        if (document.getElementById(disArray[i]).name == name) {
-            document.getElementById(id).disabled = true;
+        //breaks entire page by freezing when I iterate using 'i'
+        for (p = 0; p < disArray.length; p++) {
+            let existingSelects = document.getElementById(disArray[p]).name
+            if (existingSelects == name) {
+                document.getElementById(id).disabled = true;
+            }  else if (type!="pop") {
+                if(document.getElementById("pop"+disArray[p]).name == name){
+                    document.getElementById(id).disabled = true;
+                }
+            } else if(type!="rec"){
+                if(document.getElementById("rec"+disArray[p]).name == name){
+                    document.getElementById(id).disabled = true;
+                }
+            }
         }
-        // else if (document.getElementById("pop"+disArray[i]).name == name) {
-        //         document.getElementById(id).disabled = true;
-        //     }
-        //
-        // if (ifPopExists == 'block' && type == "rec") {
-        //
-        // }
 
-        // else if (type == "pop"){
-        //     if (document.getElementById(disArray[i]).name == name) {
-        //         document.getElementById(id).disabled = true;
-        //     }
-        //     if (document.getElementById("rec"+disArray[i]).name == name) {
-        //         document.getElementById(id).disabled = true;
-        //     }
-        // }
+
+    //     //
+    //     // if (ifPopExists == 'block' && type == "rec") {
+    //     //
+    //     // }
+    //
+    //     // else if (type == "pop"){
+    //     //     if (document.getElementById(disArray[i]).name == name) {
+    //     //         document.getElementById(id).disabled = true;
+    //     //     }
+    //     //     if (document.getElementById("rec"+disArray[i]).name == name) {
+    //     //         document.getElementById(id).disabled = true;
+    //     //     }
+    //     // }
+    // }
     }
-
 
 }
