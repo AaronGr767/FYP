@@ -156,42 +156,58 @@ function setFilters(){
     let chosenDay;
 
     // location.href='/choose'
+    let tName = document.getElementById("tripName").value
     let cDate = new Date(document.getElementById("chosenDate").value)
     if(!isNaN(cDate.getTime())){
-        let days = [0,1,2,3,4,5,6]
+        if(tName != ""){
+            let days = [0, 1, 2, 3, 4, 5, 6]
 
-        chosenDay = days[cDate.getDay()]
+            chosenDay = days[cDate.getDay()]
 
-        console.log("Day of choice: "+ chosenDay)
+            console.log("Day of choice: " + chosenDay)
 
-        let gSizeInput = document.getElementById("groupSize")
-        let mPriceInput = document.getElementById("maxPrice")
+            let gSizeInput = document.getElementById("groupSize")
+            let mPriceInput = document.getElementById("maxPrice")
 
-        let gSizeCheck = true;
-        let mPriceCheck = true;
+            let gSizeCheck = true;
+            let mPriceCheck = true;
 
-        if(gSizeInput.value != "") {
-            gSizeCheck = Number.isInteger(parseInt(gSizeInput.value))
-            console.log(gSizeCheck)
-        }
-        if(mPriceInput.value != ""){
-            mPriceCheck = Number.isInteger(parseInt(mPriceInput.value))
-        }
+            if (gSizeInput.value != "") {
+                gSizeCheck = Number.isInteger(parseInt(gSizeInput.value))
+                console.log(gSizeCheck)
+            }
+            if (mPriceInput.value != "") {
+                mPriceCheck = Number.isInteger(parseInt(mPriceInput.value))
+            }
 
-        if(gSizeCheck && mPriceCheck) {
-            storeDetails();
+            if (gSizeCheck && mPriceCheck) {
+                storeDetails();
 
-            postFilters(filterArray, chosenDay)
+                postFilters(filterArray, chosenDay)
+            } else {
+                console.log("Incorrect format")
+                let alertFormBox = document.getElementById("invalidFormatAlert")
+                let alertMessage = document.getElementById("formatErrorMsg")
+
+                alertFormBox.style.display = 'block'
+                alertMessage.innerHTML = `Invalid value entered!`
+            }
         }else{
-            console.log("Incorrect format")
-            let alertFormBox = document.getElementById("invalidFormatAlert")
-            alertFormBox.style.display = 'block'
+            let alertBox = document.getElementById("invalidAlert")
+            let alertNameMessage = document.getElementById("errorMsg")
+
+            alertNameMessage.innerHTML=`You must choose a name for your trip!`
+            alertBox.style.display = 'block'
         }
     } else{
         // chosenDay = "null"
         console.log("No day chosen")
         let alertBox = document.getElementById("invalidAlert")
+        let alertDateMessage = document.getElementById("errorMsg")
+
+        alertDateMessage.innerHTML=`You must enter a value for trip date as certain attractions may be closed on specific days!`
         alertBox.style.display = 'block'
+
     }
 }
 

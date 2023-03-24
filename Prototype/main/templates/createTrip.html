@@ -96,15 +96,14 @@
         <div id="invalidAlert" class="alert alert-danger alert-dismissible fade show" role="alert"
              style="width: 40%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
             <strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i>
-            <p id="errorMsg">You must enter a value for trip date as certain attractions may be closed on specific
-                days!</p>
-            <button type="button" onclick="closeInvAlert('noDate')" class="btn-close" data-bs-dismiss="alert"
+            <p id="errorMsg"></p>
+            <button type="button" onclick="closeInvAlert('noDate')" class="btn-close"
                     aria-label="Close"></button>
         </div>
         <div id="invalidFormatAlert" class="alert alert-danger alert-dismissible fade show" role="alert"
              style="width: 40%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
             <strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i>
-            <p id="errorMsg">Invalid value entered!</p>
+            <p id="formatErrorMsg"></p>
             <button type="button" onclick="closeInvAlert('incFormat')" class="btn-close" data-bs-dismiss="alert"
                     aria-label="Close"></button>
         </div>
