@@ -21,6 +21,12 @@ header {
     margin: auto;
     color: white;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 /*END BASE*/
 
 /*HOME*/
@@ -145,24 +151,90 @@ h1{
 }
 /*END ADMIN*/
 
+/*MANAGE TRIPS*/
+
+#savedTrips{
+    width: 90%;
+    border-radius: 5px;
+    margin:auto;
+    max-height: 277px;
+    overflow: auto;
+}
+
+#savedTrips button{
+    float: right;
+}
+
+#previousTrips button{
+    float: right;
+}
+
+#previousTrips{
+    margin:auto;
+    width: 90%;
+    border-radius: 5px;
+    max-height: 275px;
+    overflow: auto;
+}
+
+#saveTripCont{
+    float: left;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    width: min(80vw,80vh);
+    margin-top: 3%;
+    margin-left: 5.6%;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+#prevTripCont{
+    float: right;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    width: min(80vw,80vh);
+    margin-top: 3%;
+    margin-right: 5.6%;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+/*END MANAGE TRIPS*/
+
+/*PROFILE*/
+
+
+#preset1{
+    margin-right:5%;
+}
+
+#preset2{
+    margin-left:5%;
+    margin-right:5%;
+}
+
+#preset3{
+    margin-left:5%;
+}
+
+#presCont{
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+/*END PROFILE*/
+
 img{
     height: 7em;
 }
 
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-
-
-/*.map-container{*/
-/*    height: 30em;*/
-/*    width: 55em;*/
-/*    border: solid #DBF4A7 3px;*/
-/*    margin: auto;*/
-/*}*/
 
 #map-route{
     height: 95%;
@@ -746,81 +818,6 @@ select{
      border-spacing: 15px;
 }
 
-#savedTrips{
-    width: 90%;
-    border-radius: 5px;
-    margin:auto;
-    max-height: 277px;
-    overflow: auto;
-}
-
-#savedTrips button{
-    float: right;
-}
-
-#previousTrips button{
-    float: right;
-}
-
-#previousTrips{
-    margin:auto;
-    width: 90%;
-    border-radius: 5px;
-    max-height: 275px;
-    overflow: auto;
-}
-
-#saveTripCont{
-    float: left;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    width:40%;
-    margin-left: 5%;
-    padding: 1%;
-    background-color: whitesmoke;
-    text-align: center;
-}
-
-#prevTripCont{
-    float: right;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    width:40%;
-    margin-right: 5%;
-    padding: 1%;
-    background-color: whitesmoke;
-    text-align: center;
-}
-
-#userPresets{
-}
-
-#presetsTable{
-
-}
-
-#preset1{
-    margin-right:5%;
-}
-
-#preset2{
-    margin-left:5%;
-    margin-right:5%;
-}
-
-#preset3{
-    margin-left:5%;
-}
-
-#presCont{
-    width: 40%;
-    margin: auto;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    padding: 1%;
-    background-color: whitesmoke;
-    text-align: center;
-}
 
 /*#adminContentLeft{*/
 /*    float: left;*/
