@@ -6,7 +6,50 @@ let attObj = attraction[0]
 
 renderDetails(attraction[0])
 
-// renderStats(attraction[0])
+retrieveData(attraction[0].id,attraction[0].name)
+
+function retrieveData(attractionId,attractionName){
+    $.ajax({
+        type: "POST",
+        url: "retrievedata/",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        data: {
+            attId: attractionId,
+            attName: attractionName
+        }
+    }).done(function (data, status, xhr) {
+        console.log("Retrieval successful.");
+        console.log(data)
+
+        renderData(data.results[0],data.plannedCount, data.actualCount)
+
+    }).fail(function (xhr, status, error) {
+        var message = "Passing filters failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
+}
+
+function renderData(dataResults, accCount, planCount){
+    let occTableBody = document.getElementById("occBody")
+
+    let ratingCont =document.getElementById("rateContent")
+
+    ratingCont.innerHTML = `Average Rating: <input disabled="true" style="width:15%;text-align: center" value="${dataResults.averageRating}"><br>
+                            Average Rating: <input disabled="true" style="width:15%;text-align: center" value="${dataResults.averageRating}"><br>`
+
+    ratingCont.innerHTML+= `Planned Trips: <input disabled="true" style="width:15%;text-align: center" value="${planCount}"><strong> VS</strong>
+                            <input disabled="true" style="width:15%;text-align: center" value="${accCount}">: Actual Trips`
+
+    for(i=0;i<dataResults.occurrenceCount.length;i++){
+        occTableBody.innerHTML += `<tr>
+                                        <td>${dataResults.otherAttractions[i]}</td>
+                                        <td>${dataResults.occurrenceCount[i]}</td>
+                                  </tr>`
+    }
+}
 
 function renderDetails(attraction){
     let mainCont = document.getElementById("attTitle")

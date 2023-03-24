@@ -409,7 +409,7 @@ def checkAdmin(request):
 
 		attQuery = Attraction.objects.filter(id = userQuery.associatedAttraction_id).values()
 
-		rateQuery = AttractionData.objects.filter(id = userQuery.AttractionData_id).values()
+		rateQuery = AttractionData.objects.filter(id = userQuery.attractionData_id).values()
 
 		print(attQuery[0])
 		print("AHHHHHH")
@@ -458,6 +458,27 @@ def retrievePopularity(request):
 
 	context = {
 		"results": list(retrievePop)
+	}
+
+	return JsonResponse(context, status=200)
+
+def retrieveData(request):
+	attractionId = request.POST.get("attId", None)
+	attractionName = request.POST.get("attName", None)
+
+	retrieveRateData = AttractionData.objects.filter(attraction_id=attractionId).values()
+
+	retrievePlannedData = SavedTrip.objects.filter(attNames__contains=[attractionName])
+	print(retrievePlannedData)
+	plannedNumber = retrievePlannedData.count()
+
+	retrieveFinishedData = SavedTrip.objects.filter(attNames__contains=[attractionName], completed=True)
+	actualNumber = retrieveFinishedData.count()
+
+	context = {
+		"results": list(retrieveRateData),
+		"plannedCount": plannedNumber,
+		"actualCount": actualNumber
 	}
 
 	return JsonResponse(context, status=200)

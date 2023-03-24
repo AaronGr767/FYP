@@ -32,4 +32,5 @@ urlpatterns = [
     path('checkadmin/', views.checkAdmin, name="checkAdmin"),
     path('checkadmin/saveattractionchanges/', views.saveAttractionChanges, name="saveAttractionChanges"),
     path('retrievepopularity/', views.retrievePopularity, name="retrievePopularity"),
+    path('checkadmin/retrievedata/', views.retrieveData, name="retrieveData"),
 ]

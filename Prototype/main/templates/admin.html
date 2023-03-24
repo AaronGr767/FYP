@@ -29,7 +29,25 @@
                 </div><br>
                 <div id="updateCont"><button onclick=updateAttraction() type="button" class="btn btn-outline-dark" >Update Content</button></div>
             </div><br>
-            <div id="dataContainer"></div>
+            <div id="dataContainer">
+                <h4 style="text-align: center">Attraction Details:</h4>
+                <div id="rateContent">
+                    <h5>Rating Details:</h5>
+                </div>
+                <div id="occContent">
+                    <h5>Attraction Occurrence:</h5>
+                    <p>This table outlines how many times your attraction has been part of a trip with each attraction offered by our site.</p>
+                    <table id="occTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Attraction</th>
+                                <th>Occurrence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="occBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript">
