@@ -31,4 +31,5 @@ urlpatterns = [
     path('savepreset/', views.savePreset, name="savePreset"),
     path('checkadmin/', views.checkAdmin, name="checkAdmin"),
     path('checkadmin/saveattractionchanges/', views.saveAttractionChanges, name="saveAttractionChanges"),
+    path('retrievepopularity/', views.retrievePopularity, name="retrievePopularity"),
 ]

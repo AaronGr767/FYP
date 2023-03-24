@@ -527,13 +527,21 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 
 #recContainer{
     margin:auto;
-    max-height: 17.5em;
+    max-height: 35em;
 }
 
 #reccChoices{
     width: 90%;
     margin:auto;
-    max-height: 10em;
+    max-height: 11em;
+    overflow: auto;
+}
+
+#popChoices{
+    display: none;
+    width: 90%;
+    margin:auto;
+    max-height: 15em;
     overflow: auto;
 }
 

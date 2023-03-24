@@ -444,3 +444,20 @@ def saveAttractionChanges(request):
 
 	return HttpResponse(status=200)
 
+def retrievePopularity(request):
+	attraction = request.POST.get("attraction", None)
+
+	popQuery = AttractionData.objects.filter(attractionName=attraction).order_by('-occurrenceCount').values_list("otherAttractions",flat=True)[:3]
+
+	#Access just the array
+	popQuery = popQuery[0]
+
+	retrievePop = Attraction.objects.filter(name__in=popQuery).values()
+
+	print(retrievePop)
+
+	context = {
+		"results": list(retrievePop)
+	}
+
+	return JsonResponse(context, status=200)

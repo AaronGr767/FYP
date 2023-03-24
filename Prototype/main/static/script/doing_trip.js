@@ -47,7 +47,7 @@ function tripName() {
 
 locationMarker(markCount)
 
-setInterval(checkTime, 1000)
+setInterval(checkTime, 60000)
 
 function checkTime() {
     let closingNameArray = []
