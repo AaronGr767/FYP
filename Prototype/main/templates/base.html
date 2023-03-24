@@ -21,17 +21,17 @@
         {% if user.is_authenticated %}
         <div class="container" >
               <div class="row">
-                    <div class="col" style="margin-top: 40px;text-align: left" title="Home">
+                    <div class="col-md-2 col-4 col-md-2 col-4 d-flex align-items-center justify-content-start"  title="Home">
                         <button id="baseButton1" onclick="location.href='{%  url 'main:home' %}'" class="btn btn-outline">
-                            <i id="baseHeaderHome" class="fa-solid fa-house fa-2x" style="color: white"></i>
+                            <i id="baseHeaderHome" class="fa-solid fa-house fa-2x" ></i>
                         </button>
                     </div>
-                    <div class="col-9">
-                      <img id="baseHeaderLogo" src="{% static 'images/logo.png' %}" class="center">
+                    <div class="col-md-8 col-4" style="margin: auto">
+                      <img id="baseHeaderLogo" src="{% static 'images/logo.png' %}" class="center img-fluid">
                     </div>
-                    <div class="col" style="margin-top: 40px"title="Logout">
-                        <button id="baseButton2" onclick="location.href='{%  url 'logout' %}'" class="btn btn-outline">
-                            <i id="baseHeaderLogout" class="fa-solid fa-right-from-bracket fa-2x" style="color: white"></i>
+                    <div class="col-md-2 col-4 col-md-2 col-4 d-flex align-items-center justify-content-end"title="Logout">
+                        <button id="baseButton2" onclick="location.href='{%  url 'logout' %}'" class="btn btn-outline" >
+                            <i id="baseHeaderLogout" class="fa-solid fa-right-from-bracket fa-2x" style="color: white;"></i>
                         </button>
                     </div>
               </div>
