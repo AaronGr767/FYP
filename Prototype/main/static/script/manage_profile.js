@@ -1,6 +1,8 @@
 whitelistArray=[];
 blacklistArray=[];
 
+loadPreferences();
+
 function createOptions(preset){
     let modalBod3 = document.getElementById("mBody3")
     modalBod3.innerHTML=``
@@ -258,6 +260,42 @@ function savePreferences(){
             successMsg.style.display = 'none';
         }, 2000);
     }, 2000);
+
+    }).fail(function (xhr, status, error) {
+        var message = "Passing filters failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
+}
+
+function loadPreferences(){
+    $.ajax({
+        type: "GET",
+        url: "retrievepreference/",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    }).done(function (data, status, xhr) {
+        console.log("Success");
+        console.log(data)
+
+        let whitelistData = data.results[0].whiteList
+
+        for(i=0;i<whitelistData.length;i++){
+            let attractionList = whitelistData[i]
+            let wId = "wh" + attractionList
+            let list = document.getElementById("whListAttractions");
+            list.innerHTML += `<div id="${wId}" class="card"><label>${attractionList} <button onclick="removeWh('${wId}','${attractionList}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
+            whitelistArray.push(attractionList)
+        }
+
+        // for(i=0;data.results[0].blackList.length;i++){
+        //     let attractionList = data.results[0].blackList[i]
+        //     let bId = "bl" + attractionList
+        //     let list = document.getElementById("blListAttractions");
+        //     list.innerHTML += `<div id="${bId}" class="card"><label>${attractionList} <button onclick="removeWh('${wId}','${attractionList}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
+        //     blacklistArray.push(attractionList)
+        // }
 
     }).fail(function (xhr, status, error) {
         var message = "Passing filters failed.<br/>";

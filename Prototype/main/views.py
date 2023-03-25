@@ -507,3 +507,12 @@ def savePreference(request):
         newUserPrefs.save()
 
         return HttpResponse(status=200)
+
+def retrievePreference(request):
+	currUser = request.user.id
+	userPrefs = PreferencesProfile.objects.filter(userOwner_id=currUser).values()
+
+	context = {
+		"results": list(userPrefs)
+	}
+	return  JsonResponse(context, status=200)
