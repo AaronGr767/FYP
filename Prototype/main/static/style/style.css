@@ -549,7 +549,39 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 #addDetails p{
     text-align: left;
 }
- /* END TRIP ROUTE */
+/* END TRIP ROUTE */
+
+/* START TRIP */
+#summaryContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    margin: auto;
+    text-align: center;
+    width:min(80vw,70vh);
+    background-color: whitesmoke;
+}
+
+.card{
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+border
+.card-text{
+   background-color: whitesmoke;
+}
+
+#summaryContainer ul{
+    text-align: left;
+    margin-left: 30%;
+}
+
+#trTag{
+    margin: auto;
+    width: 80%;
+}
+
+/* END START TRIP */
 img{
     height: 7em;
 }
@@ -686,29 +718,7 @@ img{
     margin-bottom: 10px;
 }
 
-#summaryContainer{
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    margin: auto;
-    text-align: center;
-    width:25%;
-    background-color: whitesmoke;
-}
 
-.card{
-    margin-left: 10px;
-    margin-right: 10px;
-
-}
-border
-.card-text{
-   background-color: whitesmoke;
-}
-
-#summaryContainer ul{
-    text-align: left;
-    margin-left: 30%;
-}
 
 #tripHeader{
     text-align: center;

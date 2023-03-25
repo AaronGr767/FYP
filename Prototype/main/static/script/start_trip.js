@@ -49,7 +49,7 @@ function displayTrip(data){
     let fullList = data[0].tripTags[0];
 
     for(i=1;i<data[0].tripTags.length;i++){
-        fullList =fullList + "," + data[0].tripTags[i]
+        fullList =fullList + ", " + data[0].tripTags[i]
     }
 
     tripTags.innerHTML += `<p style="color: gray">${fullList}</p>`
