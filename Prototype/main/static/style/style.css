@@ -410,6 +410,7 @@ h1{
       height: 100%; /* The height is 400 pixels */
       width: 100%; /* The width is the width of the web page */
     border-radius: 5px;
+    margin: auto;
 }
 
 #mapContainer {
@@ -421,6 +422,7 @@ h1{
     border: solid #DBF4A7 3px;
     padding: 15px;
     border-radius: 5px;
+    overflow:auto;
 }
 /*Reference: https://codepen.io/anefzaoui/pen/NWPZzMa*/
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
@@ -592,12 +594,13 @@ border
 }
 
 #mapPopUp{
+    width:min(70vw,60vh);
     display: none;
-    position: relative;
-    padding: 1%;
-    width: 16%;
-    margin:500px;
-    left:41%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
     background-color: rgba(245, 245, 245, .8);
     border: solid #DBF4A7 3px;
     border-radius: 5px;
@@ -608,11 +611,11 @@ border
     display: none;
     position: relative;
     padding: 1%;
-    width: 36%;
-    left: 32%;
+    width: 97%;
     background-color: rgba(245, 245, 245, .8);
-    border: solid #DBF4A7 3px;
+    border: solid slategray 3px;
     border-radius: 5px;
+    margin:auto
 }
 
 #mapPopUp3{
@@ -621,11 +624,11 @@ border
     display: none;
     position: relative;
     padding: 1%;
-    width: 36%;
-    left: 32%;
+    width: 97%;
     background-color: rgba(245, 245, 245, .8);
-    border: solid #DBF4A7 3px;
+    border: solid slategray 3px;
     border-radius: 5px;
+    margin:auto
 }
 
 #optPopUp {
@@ -712,31 +715,46 @@ border
 }
 
 #invalidAlert{
-    width: 40%;
+    width:100%;
     display: none;
-    position: absolute;
-    top: 40%;
-    left: 30%;
+    margin-top: 2%;
+    margin-bottom: 0px;
 }
 
 #breakAlert{
-    width: 80%;
+    width:100%;
     display: none;
-    position: absolute;
-    top: 20%;
-    left: 10%;
-    right:10%;
+    margin-top: 2%;
+    margin-bottom: 0px;
 }
+/*#mapContainer {*/
+/*    position: relative;*/
+/*    background-color: whitesmoke;*/
+/*    margin: auto;*/
+/*    height: min(90vw,60vh);*/
+/*    !*width:min(90vw,80vh);*!*/
+/*    border: solid #DBF4A7 3px;*/
+/*    padding: 15px;*/
+/*    border-radius: 5px;*/
+/*}*/
 
+/* over map*/
 #timeAlert{
-    width: 40%;
+    width:min(70vw,60vh);
     display: none;
     position: absolute;
-    top: 40%;
-    left: 30%;
+    top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    overflow: auto;
 }
 
 #closingBreakAtts{
+    overflow: auto;
+    max-height: 10vh;
+}
+
+#closingAtts{
     overflow: auto;
     max-height: 10vh;
 }

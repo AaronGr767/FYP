@@ -11,6 +11,7 @@ let finishedArray = [];
 let routePath = [];
 let firstTimeCheck = 0;
 let nearbyMarker = [];
+let routePending;
 
 let markCount = 0;
 let locMarker;
@@ -68,22 +69,22 @@ function checkTime() {
     }
 
     if (closingNameArray.length != 0) {
-        let mapCont = document.getElementById("mapContainer");
-            timeAlertBox = document.createElement("div");
-            timeAlertBox.setAttribute("id", "timeAlert");
-            timeAlertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
-            timeAlertBox.setAttribute("role", "alert")
-            timeAlertBox.innerHTML = `<strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within an hour:<br> <button type="button" onclick=closeAlert("time") class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button> <ul id="closingAtts"></ul>`;
+        let mapDiv = document.getElementById("map");
+        timeAlertBox = document.createElement("div");
+        timeAlertBox.setAttribute("id", "timeAlert");
+        timeAlertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+        timeAlertBox.setAttribute("role", "alert")
+        timeAlertBox.innerHTML = `<strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within an hour:<br> <button type="button" onclick=closeAlert("time") class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button> <ul id="closingAtts"></ul>`;
 
-            if (timeAlertBox.parentNode) {
-              timeAlertBox.parentNode.removeChild(timeAlertBox);
-            }
+        if (timeAlertBox.parentNode) {
+            timeAlertBox.parentNode.removeChild(timeAlertBox);
+        }
 
 
-            mapCont.appendChild(alertBox)
-        alertBox.style.display = 'block'
+        mapDiv.appendChild(timeAlertBox)
+        timeAlertBox.style.display = 'block'
         let alertList = document.getElementById("closingAtts")
-        alertList.innerHTML =``;
+        alertList.innerHTML = ``;
 
         for (i = 0; i < closingNameArray.length; i++) {
             alertList.innerHTML += `<li>${closingNameArray[i]} / ${closingTimeArray[i].substring(0, 2)}:${closingTimeArray[i].substring(2)}</li>`
@@ -92,7 +93,7 @@ function checkTime() {
 
 }
 
-function renderBreak(state,radius){
+function renderBreak(state, radius) {
     let alertBox = document.getElementById("breakAlert")
     alertBox.style.display = 'none'
 
@@ -103,19 +104,19 @@ function renderBreak(state,radius){
 
     let bType;
 
-    if(state=="start"){
+    if (state == "start") {
         bType = document.getElementById("breakType").value;
 
         let progType = document.getElementById("progBreakType")
         progType.value = bType;
-    }else{
+    } else {
         bType = document.getElementById("progBreakType").value;
     }
 
 
     let formatType;
 
-    if(bType == "store"){
+    if (bType == "store") {
         formatType = ["clothing_store", "jewelry_store"]
         let request1 = {
             location: userLocation,
@@ -133,7 +134,7 @@ function renderBreak(state,radius){
         service.nearbySearch(request1, callback);
         service.nearbySearch(request2, callback);
 
-    } else{
+    } else {
         formatType = [bType]
         let request = {
             location: userLocation,
@@ -150,45 +151,45 @@ function renderBreak(state,radius){
 }
 
 function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (i = 0; i < results.length; i++) {
-        console.log(results[i])
-        // if(results[i].opening_hours.isOpen){
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (i = 0; i < results.length; i++) {
+            console.log(results[i])
+            // if(results[i].opening_hours.isOpen){
             createMarker(results[i]);
-        // }
+            // }
+        }
     }
-  }
 }
 
 function createMarker(place) {
-  if (!place.geometry || !place.geometry.location) return;
+    if (!place.geometry || !place.geometry.location) return;
 
-  marker = new google.maps.Marker({
-    map,
-    position: place.geometry.location,
-  });
+    marker = new google.maps.Marker({
+        map,
+        position: place.geometry.location,
+    });
 
-  nearbyMarker.push(marker)
+    nearbyMarker.push(marker)
 
-  nearbyMarker[nearbyMarker.length-1].addListener('click', function () {
+    nearbyMarker[nearbyMarker.length - 1].addListener('click', function () {
         let infowindow = new google.maps.InfoWindow({
             content: place.name
         });
-        infowindow.open(map, nearbyMarker[nearbyMarker.length-1]); // Open the info window at the marker's position
+        infowindow.open(map, nearbyMarker[nearbyMarker.length - 1]); // Open the info window at the marker's position
     });
 
-  // nearbyMarker[nearbyMarker.length-1].setMap(map)
+    // nearbyMarker[nearbyMarker.length-1].setMap(map)
 
 }
 
-function removeBreakLocs(){
-    for(i=0;i<nearbyMarker.length;i++){
+function removeBreakLocs() {
+    for (i = 0; i < nearbyMarker.length; i++) {
         nearbyMarker[i].setMap(null);
     }
 }
 
-function finishBreak(){
-    for(i=0;i<nearbyMarker.length;i++){
+function finishBreak() {
+    for (i = 0; i < nearbyMarker.length; i++) {
         nearbyMarker[i].setMap(null);
     }
 
@@ -223,7 +224,7 @@ function beginBreak() {
 
         //don't forget to flick this back after testing
         if (combinedTime > finalTime) {
-            let mapCont = document.getElementById("mapContainer");
+            let breakSetup = document.getElementById("breakSetUp");
             alertBox = document.createElement("div");
             alertBox.setAttribute("id", "invalidAlert");
             alertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
@@ -232,12 +233,12 @@ function beginBreak() {
                 '                        aria-label="Close"></button>';
 
             if (alertBox.parentNode) {
-              alertBox.parentNode.removeChild(alertBox);
+                alertBox.parentNode.removeChild(alertBox);
             }
 
 
-            mapCont.appendChild(alertBox)
-                alertBox.style.display = 'block'
+            breakSetup.appendChild(alertBox)
+            alertBox.style.display = 'block'
             let errMsg = document.getElementById("errorMsg")
             errMsg.innerHTML = `No attractions will be open at this hour!`
         } else {
@@ -254,7 +255,7 @@ function beginBreak() {
             }
 
             if (closingNameArray.length != 0) {
-                let mapCont = document.getElementById("mapContainer");
+                let breakSetup = document.getElementById("breakSetUp");
                 breakAlertBox = document.createElement("div");
                 breakAlertBox.setAttribute("id", "breakAlert");
                 breakAlertBox.setAttribute("class", "alert alert-warning  alert-dismissible fade show");
@@ -262,11 +263,11 @@ function beginBreak() {
                 breakAlertBox.innerHTML = '<strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Keep in mind the closing hour for these attractions:<br> <button type="button" onclick=closeAlert("break") class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button> <ul id="closingBreakAtts"></ul> <div style="margin-left: 10%;text-align: center"> <button type="button" onclick=renderBreak() class="btn btn-outline-warning" style="color: slategray;">Confirm Break</button> </div>';
 
                 if (breakAlertBox.parentNode) {
-                  breakAlertBox.parentNode.removeChild(breakAlertBox);
+                    breakAlertBox.parentNode.removeChild(breakAlertBox);
                 }
 
 
-                mapCont.appendChild(breakAlertBox)
+                breakSetup.appendChild(breakAlertBox)
                 breakAlertBox.style.display = 'block'
                 let alertList = document.getElementById("closingBreakAtts")
                 alertList.innerHTML = ``;
@@ -274,13 +275,13 @@ function beginBreak() {
                 for (i = 0; i < closingNameArray.length; i++) {
                     alertList.innerHTML += `<li>${closingNameArray[i]} / ${closingTimeArray[i].substring(0, 2)}:${closingTimeArray[i].substring(2)}</li>`
                 }
-            } else{
-                renderBreak("start","300")
+            } else {
+                renderBreak("start", "300")
             }
         }
 
     } else {
-        let mapCont = document.getElementById("mapContainer");
+        let breakSetup = document.getElementById("breakSetUp");
         alertBox = document.createElement("div");
         alertBox.setAttribute("id", "invalidAlert");
         alertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
@@ -289,11 +290,11 @@ function beginBreak() {
             '                        aria-label="Close"></button>';
 
         if (alertBox.parentNode) {
-          alertBox.parentNode.removeChild(alertBox);
+            alertBox.parentNode.removeChild(alertBox);
         }
 
 
-        mapCont.appendChild(alertBox)
+        breakSetup.appendChild(alertBox)
         alertBox.style.display = 'block'
         let errMsg = document.getElementById("errorMsg")
         errMsg.innerHTML = `Invalid time format!`
@@ -348,17 +349,29 @@ function displayOptions() {
 }
 
 function confirmBox(i) {
-    let popUp = document.getElementById("mapPopUp")
-    popUp.innerHTML = ``;
-    popUp.innerHTML = `Would you like to map a route between you and your selected attraction?<br>
+    let mapDiv = document.getElementById("map");
+    ConfirmRouteBox = document.createElement("div");
+    ConfirmRouteBox.setAttribute("id", "mapPopUp");
+    ConfirmRouteBox.innerHTML = `Would you like to map a route between you and your selected attraction?<br>
                     <button onclick=startRoute(${i}) type="button" class="btn btn-outline-secondary">Yes</button>
-                    <button onclick=hideBox(${i}) type="button" class="btn btn-outline-secondary">No</button>`
-    popUp.style.display = 'block'
+                    <button onclick=hideBox(${i}) type="button" class="btn btn-outline-secondary">No</button>`;
+
+    if (ConfirmRouteBox.parentNode) {
+        ConfirmRouteBox.parentNode.removeChild(ConfirmRouteBox);
+    }
+
+
+    mapDiv.appendChild(ConfirmRouteBox)
+    ConfirmRouteBox.style.display = 'block'
+
 }
 
 function hideBox(i) {
     let popUp = document.getElementById("mapPopUp")
     popUp.style.display = 'none'
+    if (popUp.parentNode) {
+            popUp.parentNode.removeChild(popUp);
+        }
 
     document.getElementById(i).checked = false
 
@@ -391,12 +404,12 @@ function initMap() {
 
     document.getElementById("progBreakType").addEventListener("change", () => {
         removeBreakLocs()
-        renderBreak("progress",document.getElementById("searchRad").value)
+        renderBreak("progress", document.getElementById("searchRad").value)
     });
 
     document.getElementById("searchRad").addEventListener("change", () => {
         removeBreakLocs()
-        renderBreak("progress",document.getElementById("searchRad").value)
+        renderBreak("progress", document.getElementById("searchRad").value)
     });
 
     document.getElementById("mode").addEventListener("change", () => {
@@ -441,7 +454,7 @@ function locationMarker() {
         for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
 
             let checks = document.getElementById(i)
-            if (checks.checked == true) {
+            if (checks.checked == true && i == routePending) {
                 let chosenOption = i
                 let chosenLatlng = new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]));
                 let distanceToGeofence = google.maps.geometry.spherical.computeDistanceBetween(
@@ -450,9 +463,9 @@ function locationMarker() {
                 );
 
                 //remember to reverse logic when done testing and uncomment the for loop
-                if (distanceToGeofence <= 50) {
+                if (distanceToGeofence >= 50) {
                     console.log("Within Range")
-                    if (displayCounter == 0 && document.getElementById("mapPopUp").style.display == 'none') {
+                    if (displayCounter == 0) {
                         for (j = 0; j <= resultsObj.attNames.length - 1; j++) {
                             document.getElementById(j).disabled = true;
                         }
@@ -515,7 +528,7 @@ function finishAttraction(finAtt) {
                         <input type="radio" id="rating3" onclick=addRating(value,'${finAtt}') name="rating" value="3" /><label class="half" for="rating3" title="1 1/2 stars"></label>
                         <input type="radio" id="rating2" onclick=addRating(value,'${finAtt}') name="rating" value="2" /><label for="rating2" title="1 star"></label>
                         <input type="radio" id="rating1" onclick=addRating(value,'${finAtt}') name="rating" value="1" /><label class="half" for="rating1" title="1/2 star"></label>
-                    </fieldset>`
+                    </fieldset><br><button onclick=addRating("none",'${finAtt}') type="button" class="btn btn-outline-secondary">No Thanks!</button>\``
     //End reference
 }
 
@@ -524,7 +537,29 @@ function addRating(rating, finAtt) {
     resultsObj.att
     let popUp = document.getElementById("mapPopUp3")
 
-    popUp.innerHTML = 'Thank you for rating this attraction!';
+    let csrftoken = getCookie('csrftoken');
+
+    if(rating!="none") {
+        popUp.innerHTML = 'Thank you for rating this attraction!';
+        $.ajax({
+            type: "POST",
+            url: "updaterating/",
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            data: {
+                name: attName,
+                rating: rating
+            }
+        }).done(function (data, status, xhr) {
+            console.log("Success");
+
+        }).fail(function (xhr, status, error) {
+            var message = "Passing filters failed.<br/>";
+            console.log("Status: " + xhr.status + " " + xhr.responseText);
+        }).always(function () {
+        });
+    }
 
     setTimeout(function () {
         popUp.classList.add('fadeOut');
@@ -535,50 +570,23 @@ function addRating(rating, finAtt) {
     }, 2000);
     console.log(rating)
     console.log(attName)
-    console.log("Booyah!")
+
+    for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
+                document.getElementById(i).checked = false;
+                document.getElementById(i).disabled = false;
+            }
 
 
-    let csrftoken = getCookie('csrftoken');
+            finishedArray.push(finAtt)
 
-    $.ajax({
-        type: "POST",
-        url: "updaterating/",
-        headers: {
-            'X-CSRFToken': csrftoken
-        },
-        data: {
-            name: attName,
-            rating: rating
-        }
-    }).done(function (data, status, xhr) {
-        console.log("Success");
-
-        for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
-            document.getElementById(i).checked = false;
-            document.getElementById(i).disabled = false;
-        }
-
-
-        finishedArray.push(finAtt)
-
-        for (i = 0; i < finishedArray.length; i++) {
-            document.getElementById(finishedArray[i]).disabled = true;
-        }
-        displayCounter = 0;
-        finishedAttractions++;
-        lastRoute.setMap(null);
-        lastRoute = '';
-        delMarkers(markers[finAtt], finAtt)
-        // delete markers[finAtt]
-        // showMarkers()
-
-        // location.href = '/home'
-
-    }).fail(function (xhr, status, error) {
-        var message = "Passing filters failed.<br/>";
-        console.log("Status: " + xhr.status + " " + xhr.responseText);
-    }).always(function () {
-    });
+            for (i = 0; i < finishedArray.length; i++) {
+                document.getElementById(finishedArray[i]).disabled = true;
+            }
+            displayCounter = 0;
+            finishedAttractions++;
+            lastRoute.setMap(null);
+            lastRoute = '';
+            delMarkers(markers[finAtt], finAtt)
 }
 
 function getCookie(cname) {
@@ -594,11 +602,11 @@ function getCookie(cname) {
 }
 
 function startRoute(i) {
-    // for(i=0;i<=resultsObj.attNames.length-1;i++){
-    //     document.getElementById(i).disabled = true;
-    // }
+    routePending = i
     let popUp = document.getElementById("mapPopUp")
-    popUp.style.display = 'none'
+    if (popUp.parentNode) {
+            popUp.parentNode.removeChild(popUp);
+        }
 
     if (lastRoute) {
         lastRoute.setMap(null);

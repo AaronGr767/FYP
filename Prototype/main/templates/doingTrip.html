@@ -18,6 +18,10 @@
                 </div>
                 <div class="col-md-6" style="margin-top:2%">
                     <div id="mapContainer">
+                        <div id="mapPopUp2" class="m-2 text-center">
+                        </div>
+                        <div id="mapPopUp3" class="m-2 text-center">
+            </div>
                         <div id="map"></div>
                     </div>
                 </div>
@@ -103,12 +107,26 @@
             </div>
         </div>
     </div>
-                
-            <div id="mapPopUp" class="m-2 text-center">
+            <div id="timeAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
+                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within an
+                hour:<br>
+                <button type="button" onclick="closeAlert('time')" class="btn-close" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                <ul id="closingAtts"></ul>
             </div>
-            <div id="mapPopUp2" class="m-2 text-center">
+            <div id="breakAlert" class="alert alert-warning  alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
+                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Keep in mind the closing hour for these attractions:<br>
+                <button type="button" onclick="closeAlert('break')" class="btn-close" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                <ul id="closingBreakAtts"></ul>
+                <div style="margin-left: 10%;text-align: center">
+                    <button type="button" onclick=renderBreak() class="btn btn-outline-warning" style="color: slategray;">Confirm Break</button>
+                </div>
             </div>
-            <div id="mapPopUp3" class="m-2 text-center">
+            <div id="invalidAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
+                <strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i><p id="errorMsg">Invalid time format!</p>
+                <button type="button" onclick="closeInvAlert()" class="btn-close" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
             </div>
 
         </div>
