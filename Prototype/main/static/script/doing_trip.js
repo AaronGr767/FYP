@@ -10,8 +10,10 @@ let chosenLatlng;
 let finishedArray = [];
 let routePath = [];
 let firstTimeCheck = 0;
+let alreadyClosed = 0;
 let nearbyMarker = [];
 let routePending;
+let lockClosed = []
 
 let markCount = 0;
 let locMarker;
@@ -48,26 +50,39 @@ function tripName() {
 
 locationMarker(markCount)
 
-setInterval(checkTime, 60000)
+
+setTimeout(checkTime, 4000)
 
 function checkTime() {
     let closingNameArray = []
     let closingTimeArray = []
+    let closedNameArray = []
+    let closedTimeArray = []
     let currTime = new Date();
     let compareTime = (currTime.getHours() * 60) + currTime.getMinutes()
-
-    for (i = 0; i < resultsObj.attClosing.length; i++) {
+    console.log(resultsObj.attNames.length)
+    for (i = 0; i < resultsObj.attNames.length; i++) {
+        console.log(resultsObj.attNames.length)
         let attHour = parseInt(resultsObj.attClosing[i].substring(0, 2)) * 60
         let attMins = parseInt(resultsObj.attClosing[i].substring(2))
         let attTime = attHour + attMins
         let dif = attTime - compareTime;
-        if (dif == 60 || (firstTimeCheck == 0 && dif < 60)) {
+        console.log("dif for each= " + dif)
+        if (dif == 60 || (firstTimeCheck == 0 && dif < 60 && dif > 0)) {
             closingNameArray.push(resultsObj.attNames[i])
             closingTimeArray.push(resultsObj.attClosing[i])
-            firstTimeCheck++
         }
-    }
 
+        if (dif == 0 || (alreadyClosed == 0 && dif < 0)) {
+            closedNameArray.push(resultsObj.attNames[i])
+            closedTimeArray.push(resultsObj.attClosing[i])
+            lockClosed.push(resultsObj.attNames[i])
+        }
+
+    }
+    lockClosedAttraction(lockClosed)
+    firstTimeCheck++
+    alreadyClosed++
     if (closingNameArray.length != 0) {
         let mapDiv = document.getElementById("map");
         timeAlertBox = document.createElement("div");
@@ -89,6 +104,60 @@ function checkTime() {
         for (i = 0; i < closingNameArray.length; i++) {
             alertList.innerHTML += `<li>${closingNameArray[i]} / ${closingTimeArray[i].substring(0, 2)}:${closingTimeArray[i].substring(2)}</li>`
         }
+    }
+
+    if (closedNameArray.length != 0) {
+        let mapDiv = document.getElementById("map");
+        closeAlertBox = document.createElement("div");
+        closeAlertBox.setAttribute("id", "closedAlert");
+        closeAlertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+        closeAlertBox.setAttribute("role", "alert")
+        closeAlertBox.innerHTML = `<strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) now closed:<br> <button type="button" onclick=closeAlert("closed") class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button> <ul id="closedAtts"></ul>`;
+
+        if (closeAlertBox.parentNode) {
+            closeAlertBox.parentNode.removeChild(closeAlertBox);
+        }
+
+
+        mapDiv.appendChild(closeAlertBox)
+        closeAlertBox.style.display = 'block'
+        let clAlertList = document.getElementById("closedAtts")
+        clAlertList.innerHTML = ``;
+
+        for (i = 0; i < closedNameArray.length; i++) {
+            clAlertList.innerHTML += `<li>${closedNameArray[i]} / ${closedTimeArray[i].substring(0, 2)}:${closedTimeArray[i].substring(2)}</li>`
+        }
+    }
+
+}
+
+function lockClosedAttraction(closedNames){
+    for (i = 0; i < closedNames.length; i++) {
+        for(j = 0; j < resultsObj.attNames.length; j++){
+            let checkAttName = document.getElementById(j)
+                if(closedNames == checkAttName.name){
+                    checkAttName.disabled = true;
+                    let checkAttDiv = document.getElementById("title"+j)
+                    let checkAttLabel = document.getElementById("dis"+j)
+
+                    checkAttDiv.title = "Closed"
+                    checkAttLabel.innerHTML = `${closedNames} <i class="fa-solid fa-shop-lock"></i>`
+                }
+        }
+    }
+}
+
+function lockFinishedAttraction(finName){
+    for(j = 0; j < resultsObj.attNames.length; j++){
+        let checkAttName = document.getElementById(j)
+            if(finName == checkAttName.name){
+                checkAttName.disabled = true;
+                let checkAttDiv = document.getElementById("title"+j)
+                let checkAttLabel = document.getElementById("dis"+j)
+
+                checkAttDiv.title = "Finished"
+                checkAttLabel.innerHTML += ` <i class="fa-solid fa-circle-check"></i>`
+            }
     }
 
 }
@@ -312,6 +381,11 @@ function closeAlert(closeCheck) {
         let alertList = document.getElementById("closingBreakAtts")
         alertList.innerHTML = ``
         alertBox.style.display = 'none'
+    } else if (closeCheck == "closed"){
+        let alertBox = document.getElementById("closedAlert")
+        let alertList = document.getElementById("closedAtts")
+        alertList.innerHTML = ``
+        alertBox.style.display = 'none'
     }
 
 }
@@ -332,10 +406,13 @@ function displayOptions() {
 
         console.log(resultsObj.attNames[i])
 
+        let disId = "dis"+i
+        let titleId = "title"+i
+
         checkHtml = `
-                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:100%">
+                            <div id=${titleId} class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:100%">
                               <input type="checkbox" onclick=confirmBox(${i}) class="btn-check" name="${resultsObj.attNames[i]}" id=${i} autocomplete="off">
-                              <label class="btn btn-outline-secondary" for=${i}>${resultsObj.attNames[i]}</label>
+                              <label id=${disId} class="btn btn-outline-secondary" for=${i}>${resultsObj.attNames[i]}</label>
                             </div>
                 <br>`
 
@@ -370,8 +447,8 @@ function hideBox(i) {
     let popUp = document.getElementById("mapPopUp")
     popUp.style.display = 'none'
     if (popUp.parentNode) {
-            popUp.parentNode.removeChild(popUp);
-        }
+        popUp.parentNode.removeChild(popUp);
+    }
 
     document.getElementById(i).checked = false
 
@@ -539,7 +616,7 @@ function addRating(rating, finAtt) {
 
     let csrftoken = getCookie('csrftoken');
 
-    if(rating!="none") {
+    if (rating != "none") {
         popUp.innerHTML = 'Thank you for rating this attraction!';
         $.ajax({
             type: "POST",
@@ -572,21 +649,24 @@ function addRating(rating, finAtt) {
     console.log(attName)
 
     for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
-                document.getElementById(i).checked = false;
-                document.getElementById(i).disabled = false;
-            }
+        document.getElementById(i).checked = false;
+        document.getElementById(i).disabled = false;
+    }
 
 
-            finishedArray.push(finAtt)
+    finishedArray.push(finAtt)
 
-            for (i = 0; i < finishedArray.length; i++) {
-                document.getElementById(finishedArray[i]).disabled = true;
-            }
-            displayCounter = 0;
-            finishedAttractions++;
-            lastRoute.setMap(null);
-            lastRoute = '';
-            delMarkers(markers[finAtt], finAtt)
+    lockFinishedAttraction(attName)
+    lockClosedAttraction(lockClosed)
+
+    for (i = 0; i < finishedArray.length; i++) {
+        document.getElementById(finishedArray[i]).disabled = true;
+    }
+    displayCounter = 0;
+    finishedAttractions++;
+    lastRoute.setMap(null);
+    lastRoute = '';
+    delMarkers(markers[finAtt], finAtt)
 }
 
 function getCookie(cname) {
@@ -605,8 +685,8 @@ function startRoute(i) {
     routePending = i
     let popUp = document.getElementById("mapPopUp")
     if (popUp.parentNode) {
-            popUp.parentNode.removeChild(popUp);
-        }
+        popUp.parentNode.removeChild(popUp);
+    }
 
     if (lastRoute) {
         lastRoute.setMap(null);

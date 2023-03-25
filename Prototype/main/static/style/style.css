@@ -749,12 +749,26 @@ border
     overflow: auto;
 }
 
+#closedAlert{
+    width:min(70vw,60vh);
+    position: absolute;
+    top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    overflow: auto;
+}
+
 #closingBreakAtts{
     overflow: auto;
     max-height: 10vh;
 }
 
 #closingAtts{
+    overflow: auto;
+    max-height: 10vh;
+}
+
+#closedAtts{
     overflow: auto;
     max-height: 10vh;
 }
