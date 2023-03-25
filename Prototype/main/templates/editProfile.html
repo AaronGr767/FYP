@@ -14,24 +14,37 @@
                 <h4>Presets:</h4>
                 <p>Customise the presets below and select your chosen preset during trip creation in order to speed up
                     the process!</p>
-                <div id="nav-buttons">
-                    <button type="button" onclick=renderPresets(1) id="preset1" class="btn btn-outline"
+                <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4" style="margin-top:4%">
+                                <button type="button" onclick=renderPresets(1) id="preset1" class="btn btn-outline"
                             data-bs-toggle="modal" data-bs-target="#preset1Modal">
                         <h5>Preset 1</h5>
                         <i class="fa-solid fa-circle-plus fa-3x"></i>
                     </button>
-
-                    <button type="button" onclick=renderPresets(2) id="preset2" class="btn btn-outline"
+                            </div>
+                            <div class="col-md-4" style="margin-top:4%">
+                                <button type="button" onclick=renderPresets(2) id="preset2" class="btn btn-outline"
                             data-bs-toggle="modal" data-bs-target="#preset2Modal">
                         <h5>Preset 2</h5>
                         <i class="fa-solid fa-circle-plus fa-3x"></i>
                     </button>
-
-                    <button type="button" onclick=renderPresets(3) id="preset3" class="btn btn-outline"
+                            </div>
+                            <div class="col-md-4" style="margin-top:4%">
+                                <button type="button" onclick=renderPresets(3) id="preset3" class="btn btn-outline"
                             data-bs-toggle="modal" data-bs-target="#preset3Modal">
                         <h5>Preset 3</h5>
                         <i class="fa-solid fa-circle-plus fa-3x"></i>
                     </button>
+                            </div>
+                        </div>
+                    </div>
+                <div id="nav-buttons">
+
+
+
+
+
                 </div>
 
                 <div class="modal fade" id="preset1Modal" tabindex="-1" aria-labelledby="presetModal1Label"
