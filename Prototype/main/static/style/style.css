@@ -11,13 +11,13 @@ header {
 }
 
 #baseButton2 i {
-    font-size: min(8vh,5vw);
+    font-size: min(5vh,5vw);
     margin: auto;
     color: white;
 }
 
 #baseButton1 i {
-    font-size: min(8vh,5vw);
+    font-size: min(5vh,5vw);
     margin: auto;
     color: white;
 }
@@ -181,7 +181,7 @@ h1{
     float: left;
     border-radius: 10px;
     border: solid #7D84B2 3px;
-    width: min(80vw,80vh);
+    width: min(80vw,70vh);
     margin-top: 3%;
     margin-left: 5.6%;
     padding: 1%;
@@ -193,7 +193,7 @@ h1{
     float: right;
     border-radius: 10px;
     border: solid #7D84B2 3px;
-    width: min(80vw,80vh);
+    width: min(80vw,70vh);
     margin-top: 3%;
     margin-right: 5.6%;
     padding: 1%;
@@ -345,6 +345,85 @@ h1{
 }
 /*END CREATE TRIP*/
 
+/*CHOOSE ATTRACTIONS*/
+#recOptions{
+    display: none;
+    text-align: center;
+    /*width:min(80vw,33vh);*/
+    margin-right: 1%;
+    padding: 1%;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    background-color: whitesmoke;
+}
+
+#mainOptionsCont{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    /*width:min(80vw,33vh);*/
+    margin-left: 1%;
+    padding: 1%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+#attList{
+    width: 90%;
+    margin:auto;
+    text-align: left;
+    max-height: 50%;
+    overflow: auto;
+}
+
+#recContainer{
+    margin:auto;
+    max-height: 35em;
+}
+
+#reccChoices{
+    width: 90%;
+    margin:auto;
+    max-height: 100%;
+    overflow: auto;
+}
+
+
+#popChoices{
+    display: none;
+    width: 90%;
+    margin:auto;
+    max-height: 15em;
+    overflow: auto;
+}
+
+#reccChoices button{
+    width: 90%;
+}
+
+
+#optionsContainer{
+    width:90%;
+    margin: auto;
+}
+
+#map {
+      height: 100%; /* The height is 400 pixels */
+      width: 100%; /* The width is the width of the web page */
+    border-radius: 5px;
+}
+
+#mapContainer {
+    background-color: whitesmoke;
+    margin: auto;
+    height: min(90vw,60vh);
+    /*width:min(90vw,80vh);*/
+    border: solid #DBF4A7 3px;
+    padding: 15px;
+    border-radius: 5px;
+
+}
+/* END CHOOSE ATTRACTIONS */
+
 img{
     height: 7em;
 }
@@ -429,25 +508,6 @@ img{
 /*    padding: 1%;*/
 /*    background-color: whitesmoke;*/
 /*}*/
-
-#map {
-    float: left;
-      height: 100%; /* The height is 400 pixels */
-      width: 100%; /* The width is the width of the web page */
-    border-radius: 5px;
-}
-
-#mapContainer {
-    background-color: whitesmoke;
-    float: left;
-    margin-left:4%;
-      height: 35em;
-      width: 50%;
-    border: solid #DBF4A7 3px;
-    padding: 15px;
-    border-radius: 5px;
-
-}
 
 #addDetails{
     margin: auto;
@@ -696,65 +756,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
     background-color: whitesmoke;
 }
 
-#recOptions{
-    display: none;
-    float: right;
-    text-align: center;
-    width:20%;
-    margin-right: 1%;
-    padding: 1%;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    background-color: whitesmoke;
-}
 
-#mainOptionsCont{
-    float: left;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    width:20%;
-    margin-left: 1%;
-    padding: 1%;
-    background-color: whitesmoke;
-    text-align: center;
-}
-
-#attList{
-    width: 90%;
-    margin:auto;
-    text-align: left;
-}
-
-#recContainer{
-    margin:auto;
-    max-height: 35em;
-}
-
-#reccChoices{
-    width: 90%;
-    margin:auto;
-    max-height: 11em;
-    overflow: auto;
-}
-
-
-#popChoices{
-    display: none;
-    width: 90%;
-    margin:auto;
-    max-height: 15em;
-    overflow: auto;
-}
-
-#reccChoices button{
-    width: 90%;
-}
-
-
-#optionsContainer{
-    width:90%;
-    margin: auto;
-}
 
 
 #routeCont{

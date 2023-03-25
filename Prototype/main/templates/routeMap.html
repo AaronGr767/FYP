@@ -4,8 +4,8 @@
 
 
     {% if user.is_authenticated %}
-        <div class="m-2 text-center">
-            <td><nobr>
+        <div id="breadcrumbContainer" class="m-2 text-center">
+            <div id="breadcrumbContent">
                 <span>
                     <a href="/create" style="text-decoration: none; color: inherit;">Trip Details</a>
                     <i class="fa-solid fa-arrow-right"></i>
@@ -20,7 +20,7 @@
                     <i class="fa-solid fa-arrow-right"></i>
                     Finish
                 </span>
-            </nobr>
+            </div>
         </div>
         <br>
         <div id="locContainer">

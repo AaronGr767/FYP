@@ -333,7 +333,7 @@ function displayRecommendations(recAtt) {
             checkForSelected("rec", recId, recAtt.attractions[i].name)
         }
     }else{
-        recOptions.style.display = 'none'
+        recChoice.innerHTML = "<p>No options match this rating!</p>"
     }
 
 }
@@ -463,7 +463,7 @@ function renderPopular(popResults){
     let popCont = document.getElementById("popChoices")
     popCont.style.display = 'block'
     popCont.innerHTML = ``
-    popCont.innerHTML = `<h5>Most Commonly Paired with<br> these Attractions:</h5>`
+    popCont.innerHTML = `<h5>Chosen Attraction Commonly<br> Paired with:</h5>`
 
     console.log(popResults)
 

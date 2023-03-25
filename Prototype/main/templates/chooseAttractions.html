@@ -4,17 +4,16 @@
 
 
     {% if user.is_authenticated %}
-        <div class="m-2 text-center">
-            <td>
-                <nobr>
+        <div id="breadcrumbContainer" class="m-2 text-center">
+            <div id="breadcrumbContent">
                 <span>
                     <a href="/create" style="text-decoration: none; color: inherit;">Trip Details</a>
                     <i class="fa-solid fa-arrow-right"></i>
 
                 </span>
-                    <span style="font-weight:bold">Choose Attractions</span>
+                <span style="font-weight:bold">Choose Attractions</span>
 
-                    <span style="color:darkgray">
+                <span style="color:darkgray">
 
                     <i class="fa-solid fa-arrow-right"></i>
                     Choose Location
@@ -23,55 +22,55 @@
                     <i class="fa-solid fa-arrow-right"></i>
                     Finish
                 </span>
-                </nobr>
+            </div>
         </div>
-        <br>
-        <div id="mainContainer">
-            <div id="mainOptionsCont">
-                <div id="optionsContainer" class="scrollable-div">
-                </div>
-            </div>
-            <div id="mapContainer">
-                <div id="map"></div>
-            </div>
 
-            <div id="recOptions">
-                <div id="recContainer">
-                    <div id="recContent">
-                        <h5>Attractions Popular with <br>Similar Users:</h5>
-                        <div class="dropdown">
-                            <button onclick="showDropdown()" type="button" class="dropbtn"><i
+
+        <div id="mainContainer">
+        <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3" style="margin-top:2%">
+        <div id="mainOptionsCont">
+          <div id="optionsContainer" class="scrollable-div"></div>
+            <div id="popChoices"></div>
+        </div>
+    </div>
+    <div class="col-md-6" style="margin-top:2%">
+      <div id="mapContainer">
+        <div id="map"></div>
+      </div>
+    </div>
+    <div class="col-md-3" style="margin-top:2%">
+      <div id="recOptions">
+        <div id="recContainer">
+          <div id="recContent">
+            <h5>Attractions Popular with <br>Similar Users:</h5>
+            <div class="dropdown">
+              <button onclick="showDropdown()" type="button" class="dropbtn"><i
                                     class="fa-solid fa-circle-chevron-down"></i> Minimum Rating
                             </button>
-                            <div id="myDropdown" class="dropdown-content">
-                                <a onclick="compareTrips(10)"><i class="fa-solid fa-star"></i><i
+              <div id="myDropdown" class="dropdown-content">
+                <a onclick="compareTrips(10)"><i class="fa-solid fa-star"></i><i
                                         class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
                                         class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></a>
-                                <a onclick="compareTrips(8)"><i class="fa-solid fa-star"></i><i
+                <a onclick="compareTrips(8)"><i class="fa-solid fa-star"></i><i
                                         class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
                                         class="fa-solid fa-star"></i></a>
-                                <a onclick="compareTrips(6)"><i class="fa-solid fa-star"></i><i
+                <a onclick="compareTrips(6)"><i class="fa-solid fa-star"></i><i
                                         class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></a>
-                                <a onclick="compareTrips(4)"><i class="fa-solid fa-star"></i><i
+                <a onclick="compareTrips(4)"><i class="fa-solid fa-star"></i><i
                                         class="fa-solid fa-star"></i></a>
-                                <a onclick="compareTrips(2)"><i class="fa-solid fa-star"></i></a>
-                            </div>
-
-                        </div>
-                        <br>
-                        <div id="reccChoices">
-                        </div>
-                    </div>
-                    <br>
-                    <div id="popChoices">
-
-                    </div>
-                </div>
+                <a onclick="compareTrips(2)"><i class="fa-solid fa-star"></i></a>
+              </div>
             </div>
-
-
-            <div id="clear"></div>
-
+            <br>
+            <div id="reccChoices"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
 
         <br>
@@ -79,6 +78,7 @@
             <button onclick="location.href='/create'" type="button" class="btn btn-outline-dark">PREVIOUS STEP</button>
             <button onclick=collectChoices() type="button" class="btn btn-outline-dark">NEXT STEP</button>
         </div>
+        <br>
 
         <script type="text/javascript">
 
