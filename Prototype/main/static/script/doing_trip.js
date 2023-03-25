@@ -68,7 +68,19 @@ function checkTime() {
     }
 
     if (closingNameArray.length != 0) {
-        let alertBox = document.getElementById("timeAlert")
+        let mapCont = document.getElementById("mapContainer");
+            timeAlertBox = document.createElement("div");
+            timeAlertBox.setAttribute("id", "timeAlert");
+            timeAlertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+            timeAlertBox.setAttribute("role", "alert")
+            timeAlertBox.innerHTML = `<strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within an hour:<br> <button type="button" onclick=closeAlert("time") class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button> <ul id="closingAtts"></ul>`;
+
+            if (timeAlertBox.parentNode) {
+              timeAlertBox.parentNode.removeChild(timeAlertBox);
+            }
+
+
+            mapCont.appendChild(alertBox)
         alertBox.style.display = 'block'
         let alertList = document.getElementById("closingAtts")
         alertList.innerHTML =``;
@@ -209,10 +221,23 @@ function beginBreak() {
 
         let finalTime = (maxHours * 60) + maxMins
 
-        //dont forget to flick this back
-        if (combinedTime < finalTime) {
-            let alertBox = document.getElementById("invalidAlert")
-            alertBox.style.display = 'block'
+        //don't forget to flick this back after testing
+        if (combinedTime > finalTime) {
+            let mapCont = document.getElementById("mapContainer");
+            alertBox = document.createElement("div");
+            alertBox.setAttribute("id", "invalidAlert");
+            alertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+            alertBox.setAttribute("role", "alert")
+            alertBox.innerHTML = '<strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i><p id="errorMsg">Invalid time format!</p><button type="button" onclick="closeInvAlert()" class="btn-close" data-bs-dismiss="alert"\n' +
+                '                        aria-label="Close"></button>';
+
+            if (alertBox.parentNode) {
+              alertBox.parentNode.removeChild(alertBox);
+            }
+
+
+            mapCont.appendChild(alertBox)
+                alertBox.style.display = 'block'
             let errMsg = document.getElementById("errorMsg")
             errMsg.innerHTML = `No attractions will be open at this hour!`
         } else {
@@ -229,8 +254,20 @@ function beginBreak() {
             }
 
             if (closingNameArray.length != 0) {
-                let alertBox = document.getElementById("breakAlert")
-                alertBox.style.display = 'block'
+                let mapCont = document.getElementById("mapContainer");
+                breakAlertBox = document.createElement("div");
+                breakAlertBox.setAttribute("id", "breakAlert");
+                breakAlertBox.setAttribute("class", "alert alert-warning  alert-dismissible fade show");
+                breakAlertBox.setAttribute("role", "alert")
+                breakAlertBox.innerHTML = '<strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Keep in mind the closing hour for these attractions:<br> <button type="button" onclick=closeAlert("break") class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button> <ul id="closingBreakAtts"></ul> <div style="margin-left: 10%;text-align: center"> <button type="button" onclick=renderBreak() class="btn btn-outline-warning" style="color: slategray;">Confirm Break</button> </div>';
+
+                if (breakAlertBox.parentNode) {
+                  breakAlertBox.parentNode.removeChild(breakAlertBox);
+                }
+
+
+                mapCont.appendChild(breakAlertBox)
+                breakAlertBox.style.display = 'block'
                 let alertList = document.getElementById("closingBreakAtts")
                 alertList.innerHTML = ``;
 
@@ -243,8 +280,20 @@ function beginBreak() {
         }
 
     } else {
+        let mapCont = document.getElementById("mapContainer");
+        alertBox = document.createElement("div");
+        alertBox.setAttribute("id", "invalidAlert");
+        alertBox.setAttribute("class", "alert alert-danger alert-dismissible fade show");
+        alertBox.setAttribute("role", "alert")
+        alertBox.innerHTML = '<strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i><p id="errorMsg">Invalid time format!</p><button type="button" onclick="closeInvAlert()" class="btn-close" data-bs-dismiss="alert"\n' +
+            '                        aria-label="Close"></button>';
 
-        let alertBox = document.getElementById("invalidAlert")
+        if (alertBox.parentNode) {
+          alertBox.parentNode.removeChild(alertBox);
+        }
+
+
+        mapCont.appendChild(alertBox)
         alertBox.style.display = 'block'
         let errMsg = document.getElementById("errorMsg")
         errMsg.innerHTML = `Invalid time format!`

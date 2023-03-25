@@ -217,6 +217,7 @@ function closeInvAlert(alertType){
         alertBox.style.display = 'none'
     } else{
         let alertBox = document.getElementById("invalidFormatAlert")
+
         alertBox.style.display = 'none'
     }
 }

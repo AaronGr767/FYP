@@ -4,21 +4,25 @@
 
 
     {% if user.is_authenticated %}
-        <br>
         <h2 id="tripHeader" class="align-items-center justify-content-center">
         </h2>
         <div id="mainContainer">
-        <div id="mainOptionsCont">
-            <h5>Attractions:</h5>
-            <div id="optionsContainer">
-            </div>
-        </div>
-            <div id="mapContainer" style="z-index: 1">
-                <div id="map" style="z-index: 2">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3" style="margin-top:2%">
+                    <div id="mainOptionsCont">
+                        <h5>Attractions:</h5>
+                        <div id="optionsContainer">
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div id="tripOptions">
+                <div class="col-md-6" style="margin-top:2%">
+                    <div id="mapContainer">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top:2%">
+                    <div id="tripOptions">
                 <h4>Extra Options:</h4>
                 <div id="routeCont">
                     <h5>Route Type: </h5>
@@ -95,32 +99,11 @@
                         <button type="button" onclick="finishBreak()" class="btn btn-outline-secondary">Finish Break</button>
                     </div>
                 </div>
-
-            </div>
-
-
-            <div id="clear"></div>
-            <div id="timeAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
-                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within an
-                hour:<br>
-                <button type="button" onclick="closeAlert('time')" class="btn-close" data-bs-dismiss="alert"
-                        aria-label="Close"></button>
-                <ul id="closingAtts"></ul>
-            </div>
-            <div id="breakAlert" class="alert alert-warning  alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
-                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Keep in mind the closing hour for these attractions:<br>
-                <button type="button" onclick="closeAlert('break')" class="btn-close" data-bs-dismiss="alert"
-                        aria-label="Close"></button>
-                <ul id="closingBreakAtts"></ul>
-                <div style="margin-left: 10%;text-align: center">
-                    <button type="button" onclick=renderBreak() class="btn btn-outline-warning" style="color: slategray;">Confirm Break</button>
                 </div>
             </div>
-            <div id="invalidAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
-                <strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i><p id="errorMsg">Invalid time format!</p>
-                <button type="button" onclick="closeInvAlert()" class="btn-close" data-bs-dismiss="alert"
-                        aria-label="Close"></button>
-            </div>
+        </div>
+    </div>
+                
             <div id="mapPopUp" class="m-2 text-center">
             </div>
             <div id="mapPopUp2" class="m-2 text-center">

@@ -413,6 +413,7 @@ h1{
 }
 
 #mapContainer {
+    position: relative;
     background-color: whitesmoke;
     margin: auto;
     height: min(90vw,60vh);
@@ -582,6 +583,164 @@ border
 }
 
 /* END START TRIP */
+
+/* DOING TRIP */
+#map-route{
+    height: 95%;
+
+    margin: .75em;
+}
+
+#mapPopUp{
+    display: none;
+    position: relative;
+    padding: 1%;
+    width: 16%;
+    margin:500px;
+    left:41%;
+    background-color: rgba(245, 245, 245, .8);
+    border: solid #DBF4A7 3px;
+    border-radius: 5px;
+}
+
+
+#mapPopUp2{
+    display: none;
+    position: relative;
+    padding: 1%;
+    width: 36%;
+    left: 32%;
+    background-color: rgba(245, 245, 245, .8);
+    border: solid #DBF4A7 3px;
+    border-radius: 5px;
+}
+
+#mapPopUp3{
+    opacity: 1;
+    transition: opacity 2s ease-out;
+    display: none;
+    position: relative;
+    padding: 1%;
+    width: 36%;
+    left: 32%;
+    background-color: rgba(245, 245, 245, .8);
+    border: solid #DBF4A7 3px;
+    border-radius: 5px;
+}
+
+#optPopUp {
+    /*top:0;*/
+    margin:auto;
+    width: 30%;
+    height: 100%;
+    border-radius: 10px;
+    border: solid darkgrey 3px;
+    text-align: center;
+    padding: 1%;
+    background-color: whitesmoke;
+}
+
+#tripHeader{
+    text-align: center;
+}
+
+
+
+@keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    /* Apply the animation to the div when a certain class is added */
+    #myDiv.fadeOut {
+        animation: fadeOut 1s;
+    }
+
+
+
+@keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+#mapPopUp3.fadeOut {
+    animation: fadeOut 2s;
+}
+
+.scrollable-div {
+    height: 100%; /* Set the maximum height for the div */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+
+#routeCont{
+    margin:auto;
+    width: 90%;
+    border-radius: 10px;
+    border: solid #7D84B2 1px;
+    background-color: whitesmoke;
+    padding: 3%;
+}
+
+#breakCont{
+    margin:auto;
+    width: 90%;
+    border-radius: 10px;
+    border: solid #7D84B2 1px;
+    background-color: whitesmoke;
+    padding: 3%;
+    margin-bottom: 3%;
+    /*text-align: left;*/
+}
+
+#breakCont input[type=int]{
+    text-align: center;
+    border:  solid #8E9DCC 2px;
+  border-radius: 4px;
+    height: 100%;
+    background-color: white;
+    margin: 10px;
+    width: 30%;
+    min-width: 10px;
+}
+
+#invalidAlert{
+    width: 40%;
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+}
+
+#breakAlert{
+    width: 80%;
+    display: none;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    right:10%;
+}
+
+#timeAlert{
+    width: 40%;
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+}
+
+#closingBreakAtts{
+    overflow: auto;
+    max-height: 10vh;
+}
+/* END DOING TRIP */
 img{
     height: 7em;
 }
@@ -589,11 +748,7 @@ img{
 
 
 
-#map-route{
-    height: 95%;
 
-    margin: .75em;
-}
 
 
 #nextStep{
@@ -645,52 +800,12 @@ img{
     background-color: transparent;
 }
 
-
-
-
-
-
 #mainContainer{
     margin: auto;
     width:90%;
 }
 
-#mapPopUp{
-    display: none;
-    position: relative;
-    padding: 1%;
-    width: 16%;
-    margin:500px;
-    left:41%;
-    background-color: rgba(245, 245, 245, .8);
-    border: solid #DBF4A7 3px;
-    border-radius: 5px;
-}
 
-
-#mapPopUp2{
-    display: none;
-    position: relative;
-    padding: 1%;
-    width: 36%;
-    left: 32%;
-    background-color: rgba(245, 245, 245, .8);
-    border: solid #DBF4A7 3px;
-    border-radius: 5px;
-}
-
-#mapPopUp3{
-    opacity: 1;
-    transition: opacity 2s ease-out;
-    display: none;
-    position: relative;
-    padding: 1%;
-    width: 36%;
-    left: 32%;
-    background-color: rgba(245, 245, 245, .8);
-    border: solid #DBF4A7 3px;
-    border-radius: 5px;
-}
 
 #clear {
     clear: both;
@@ -702,17 +817,7 @@ img{
     margin:auto;
 }
 
-#optPopUp {
-    /*top:0;*/
-    margin:auto;
-    width: 30%;
-    height: 100%;
-    border-radius: 10px;
-    border: solid darkgrey 3px;
-    text-align: center;
-    padding: 1%;
-    background-color: whitesmoke;
-}
+
 
 #stepOptions{
     margin-bottom: 10px;
@@ -720,104 +825,22 @@ img{
 
 
 
-#tripHeader{
-    text-align: center;
-}
 
 
 
-@keyframes fadeOut {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
-
-    /* Apply the animation to the div when a certain class is added */
-    #myDiv.fadeOut {
-        animation: fadeOut 1s;
-    }
-
-
-
-@keyframes fadeOut {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
-    }
-
-#mapPopUp3.fadeOut {
-    animation: fadeOut 2s;
-}
-
-.scrollable-div {
-    height: 100%; /* Set the maximum height for the div */
-    overflow-y: auto; /* Enable vertical scrolling */
-  }
-
-
-
-
-
-
-#routeCont{
-    margin:auto;
-    width: 90%;
-    border-radius: 10px;
-    border: solid #7D84B2 1px;
-    background-color: whitesmoke;
-    padding: 3%;
-}
-
-#breakCont{
-    margin:auto;
-    width: 90%;
-    border-radius: 10px;
-    border: solid #7D84B2 1px;
-    background-color: whitesmoke;
-    padding: 3%;
-    /*text-align: left;*/
-}
-
-#breakCont input[type=int]{
-    text-align: center;
-    border:  solid #8E9DCC 2px;
-  border-radius: 4px;
-    height: 100%;
-    background-color: white;
-    margin: 10px;
-    width: 30%;
-    min-width: 10px;
-}
-
-#invalidAlert{
-    display: none;
-}
 
 #invalidFormatAlert{
     display: none;
+
 }
 
-#breakAlert{
-    display: none;
-}
 
 select{
     text-align: center;
 }
 
-#timeAlert{
-    width: 35%;
-    margin: auto;
-    margin-top:1%;
-    margin-bottom: 1%;
-    display: none;
-}
+
+
 
 #breakInProg{
     display: none;
