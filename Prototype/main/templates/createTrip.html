@@ -4,13 +4,12 @@
 
 
     {% if user.is_authenticated %}
-        <div class="m-2 text-center">
-            <td>
-                <nobr>
+        <div id="breadcrumbContainer" class="m-2 text-center">
+            <div id="breadcrumbContent">
                 <span style="font-weight:bold">
                     Trip Details
                 </span>
-                    <span style="color:darkgray">
+                <span style="color:darkgray">
                     <i class="fa-solid fa-arrow-right"></i>
                     Choose Attractions
                     <i class="fa-solid fa-arrow-right"></i>
@@ -20,7 +19,7 @@
                     <i class="fa-solid fa-arrow-right"></i>
                     Finish
                 </span>
-                </nobr>
+            </div>
         </div>
         <br>
         <div id="allContainer">
@@ -36,27 +35,23 @@
                 <br>
             </div>
             <div id="filtersContainer">
-                <table id="filtersContainerTable">
+                <table id="filtersContainerTable" class="table">
                     <h5 style="text-align: center">Attraction Type:</h5>
-                    <tr>
-                        <div id="filtersContainerCheck">
-                            <td><label>Architecture</label><input type="checkbox" value="architecture" id="archCheck">
-                            </td>
-                            <td><label>Art</label><input type="checkbox" value="art" id="artCheck"></td>
-                            <td><label>Cultural</label><input type="checkbox" value="cultural" id="cultCheck"></td>
-                        </div>
+                    <tr class="row">
+                        <td class="col-sm-4"><label>Architecture</label><input type="checkbox" value="architecture" id="archCheck"></td>
+                        <td class="col-sm-4"><label>Art</label><input type="checkbox" value="art" id="artCheck"></td>
+                        <td class="col-sm-4"><label>Cultural</label><input type="checkbox" value="cultural"id="cultCheck"></td>
                     </tr>
-                    <tr>
-                        <td><label>Educational</label><input type="checkbox" value="educational" id="eduCheck"></td>
-                        <td><label>Family-Friendly</label><input type="checkbox" value="family-friendly" id="famCheck">
+                    <tr class="row">
+                        <td class="col-sm-4"><label>Educational</label><input type="checkbox" value="educational" id="eduCheck"></td>
+                        <td class="col-sm-4"><label>Family-Friendly</label><input type="checkbox" value="family-friendly" id="famCheck">
                         </td>
-                        <td><label>Historical</label><input type="checkbox" value="historical" id="histCheck"></td>
-
+                        <td class="col-sm-4"><label>Historical</label><input type="checkbox" value="historical" id="histCheck"></td>
                     </tr>
-                    <tr>
-                        <td><label>Outdoors</label><input type="checkbox" value="outdoors" id="outCheck"></td>
-                        <td><label>Recreational</label><input type="checkbox" value="recreational" id="recCheck"></td>
-                        <td><label>Religious</label><input type="checkbox" value="religious" id="relCheck"></td>
+                    <tr class="row">
+                        <td class="col-sm-4"><label>Outdoors</label><input type="checkbox" value="outdoors" id="outCheck"></td>
+                        <td class="col-sm-4"><label>Recreational</label><input type="checkbox" value="recreational" id="recCheck"></td>
+                        <td class="col-sm-4"><label>Religious</label><input type="checkbox" value="religious" id="relCheck"></td>
                     </tr>
                 </table>
             </div>
@@ -64,7 +59,7 @@
 
             <div id="detailsContainer">
                 <h4 style="text-align: center">Extra Details:</h4>
-                <table style="margin:auto">
+                <table id="extraDets" style="margin:auto">
                     <tr>
                         <td style="text-align: left"><label>Trip Date:</label></td>
                         <td style="text-align: right"><input type="date" placeholder="Enter address"
@@ -75,7 +70,6 @@
                         <td colspan="2"><br><h5 style="text-align: center">Optional:</h5></td>
                     </tr>
                     <tr>
-                        {#                    <td style="text-align: center"><label>*Group Size:</label></td>#}
                         <td style="text-align: left">Group Size:</td>
                         <td style="text-align: right"><input type="integer" placeholder="1,2,3" id="groupSize"></td>
                     </tr>
@@ -84,10 +78,6 @@
                         <td style="text-align: right"><input type="float" placeholder="€€€" id="maxPrice"
                                                              style="text-align: center"></td>
                     </tr>
-                    {#                <label >*Group Size:</label><input type="integer" placeholder="1,2,3" name="starting_address" id="groupSize" style="text-align: center"><br>#}
-                    {#                <label>*Maximum Price (per person):</label><input type="float" placeholder="€€€" name="starting_address" id="maxPrice" style="text-align: center"><br>#}
-                    {#                <label>*Trip Date:</label><input type="date" placeholder="Enter address" name="starting_address" id="chosenDate" style="color: gray"><br>#}
-
                 </table>
                 <p style="text-align: center;font-size: .7rem;color: gray">* ticket price for each attraction per
                     adult</p>

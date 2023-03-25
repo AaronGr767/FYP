@@ -10,39 +10,25 @@ function createOptions(preset){
     let chosenPreset = document.getElementById(formatPreset)
 
     chosenPreset.innerHTML = `<div id="filtersContainer">
-                        <table id="filtersContainerTable">
-                            <h5 style="text-align: center">Attraction Type:</h5>
-                            <tr>
-                                <div id="filtersContainerCheck">
-                                    <td><label>Architecture</label><input type="checkbox" value="architecture"
-                                                                          id="archCheck">
-                                    </td>
-                                    <td><label>Art</label><input type="checkbox" value="art" id="artCheck"></td>
-                                    <td><label>Cultural</label><input type="checkbox" value="cultural"
-                                                                      id="cultCheck">
-                                    </td>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td><label>Educational</label><input type="checkbox" value="educational"
-                                                                     id="eduCheck"></td>
-                                <td><label>Family-Friendly</label><input type="checkbox" value="family-friendly"
-                                                                         id="famCheck">
-                                </td>
-                                <td><label>Historical</label><input type="checkbox" value="historical"
-                                                                    id="histCheck">
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td><label>Outdoors</label><input type="checkbox" value="outdoors" id="outCheck">
-                                </td>
-                                <td><label>Recreational</label><input type="checkbox" value="recreational"
-                                                                      id="recCheck"></td>
-                                <td><label>Religious</label><input type="checkbox" value="religious" id="relCheck">
-                                </td>
-                            </tr>
-                        </table>
+                         <table id="filtersContainerTable" class="table">
+                    <h5 style="text-align: center">Attraction Type:</h5>
+                    <tr class="row">
+                        <td class="col-sm-4"><label>Architecture</label><input type="checkbox" value="architecture" id="archCheck"></td>
+                        <td class="col-sm-4"><label>Art</label><input type="checkbox" value="art" id="artCheck"></td>
+                        <td class="col-sm-4"><label>Cultural</label><input type="checkbox" value="cultural"id="cultCheck"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-sm-4"><label>Educational</label><input type="checkbox" value="educational" id="eduCheck"></td>
+                        <td class="col-sm-4"><label>Family-Friendly</label><input type="checkbox" value="family-friendly" id="famCheck">
+                        </td>
+                        <td class="col-sm-4"><label>Historical</label><input type="checkbox" value="historical" id="histCheck"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-sm-4"><label>Outdoors</label><input type="checkbox" value="outdoors" id="outCheck"></td>
+                        <td class="col-sm-4"><label>Recreational</label><input type="checkbox" value="recreational" id="recCheck"></td>
+                        <td class="col-sm-4"><label>Religious</label><input type="checkbox" value="religious" id="relCheck"></td>
+                    </tr>
+                </table>
                     </div>
                     <br>
 

@@ -219,7 +219,7 @@ h1{
 }
 
 #presCont{
-    width: 40%;
+    width: min(90vw,100vh);
     margin: auto;
     border-radius: 10px;
     border: solid #7D84B2 3px;
@@ -230,31 +230,24 @@ h1{
 
 /*END PROFILE*/
 
-img{
-    height: 7em;
-}
-
-
-
-#map-route{
-    height: 95%;
-
-    margin: .75em;
-}
-
-
-#locContainer{
+/*CREATE TRIP*/
+#presetContainer{
+    text-align: center;
     border-radius: 10px;
-    border: solid #7D84B2 3px;
-    text-align: center;
-    margin: auto;
-    width:25%;
-    padding: 1%;
-    background-color: whitesmoke;
+    border: solid lightgray 1px;
+    margin: 1%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    background-color: rgba(245, 245, 245, .8)
 }
 
-#nextStep{
-    text-align: center;
+#presetOuter{
+   display: none;
+}
+
+#breadcrumbContent{
+    width: min(90vw,160vh);
+    margin: auto;
 }
 
 #locContainer input[type=text], select {
@@ -270,7 +263,7 @@ img{
     border-radius: 10px;
     border: solid #7D84B2 3px;
     margin: auto;
-    width: 40%;
+    width: min(90vw,100vh);
 }
 
 #detailsContainer{
@@ -299,19 +292,6 @@ img{
     text-align: left;
 }
 
-#presetContainer{
-    text-align: center;
-    border-radius: 10px;
-    border: solid lightgray 1px;
-    margin: 1%;
-    padding-bottom: 1%;
-    padding-top: 1%;
-    background-color: rgba(245, 245, 245, .8)
-}
-
-#presetOuter{
-   display: none;
-}
 
 #filtersContainer{
     border-radius: 10px;
@@ -327,22 +307,19 @@ img{
     border: solid lightgray 1px;
     padding-bottom: 1%;
     padding-top: 1%;
-    margin: 1%;
-    background-color: rgba(245, 245, 245, .8)
+    background-color: rgba(245, 245, 245, .8);
+    text-align: center;
+    margin:1%;
 }
 
-#nameContainer input[type=text]{
+#tripName{
+    margin: auto;
     border:  solid #8E9DCC 2px;
     border-radius: 4px;
     background-color: white;
-    width:40%;
-    margin-left: 30%;
+    width:min(60vw,45vh);
     text-align: center;
 }
-
-
-
-
 
 #filtersContainerTable{
     text-align: right;
@@ -351,10 +328,11 @@ img{
 
 }
 
+
 #filtersContainer label{
     text-align: left;
     float:left;
-    padding-left: 2%;
+    padding-left: 1%;
 }
 
 #filtersContainer input[type=checkbox]{
@@ -362,10 +340,38 @@ img{
     border-radius: 4px;
     height: 100%;
     background-color: white;
-    margin: 10px;
-    width:10%;
+    width:min(5vw,2.5vh);
     text-align: right;
 }
+/*END CREATE TRIP*/
+
+img{
+    height: 7em;
+}
+
+
+
+#map-route{
+    height: 95%;
+
+    margin: .75em;
+}
+
+
+#locContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: center;
+    margin: auto;
+    width:25%;
+    padding: 1%;
+    background-color: whitesmoke;
+}
+
+#nextStep{
+    text-align: center;
+}
+
 
 
 #mapButton{
@@ -423,10 +429,6 @@ img{
 /*    padding: 1%;*/
 /*    background-color: whitesmoke;*/
 /*}*/
-
-#tripName{
-    margin-left:20%;
-}
 
 #map {
     float: left;
