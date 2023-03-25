@@ -420,9 +420,22 @@ h1{
     border: solid #DBF4A7 3px;
     padding: 15px;
     border-radius: 5px;
-
 }
 /* END CHOOSE ATTRACTIONS */
+
+/* CHOOSE LOCATION */
+
+#locContainer{
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: center;
+    margin: auto;
+    width:min(90vw,100vh);
+    padding: 1%;
+    background-color: whitesmoke;
+}
+
+/* END CHOOSE LOCATION */
 
 img{
     height: 7em;
@@ -436,16 +449,6 @@ img{
     margin: .75em;
 }
 
-
-#locContainer{
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    text-align: center;
-    margin: auto;
-    width:25%;
-    padding: 1%;
-    background-color: whitesmoke;
-}
 
 #nextStep{
     text-align: center;
