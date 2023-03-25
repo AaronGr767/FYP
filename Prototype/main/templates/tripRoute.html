@@ -6,7 +6,7 @@
     {#<h3 id="map">Route:</h3>#}
 
     <div id="breadcrumbContainer" class="m-2 text-center">
-            <div id="breadcrumbContent">
+        <div id="breadcrumbContent">
             <nobr>
                 <span>
                     <a href="/create" style="text-decoration: none; color: inherit;">Trip Details</a>
@@ -23,25 +23,37 @@
                     Finish
                 </span>
             </nobr>
-            </div>
+        </div>
     </div>
     <br>
-    <div id="mainContainer">
-        <div id="mainOptionsCont">
-            <h5>Planned Attractions:</h5>
-            <ul id="attList"></ul>
-        </div>
-        <div id="mapContainer">
-            <div id="map"></div>
-        </div>
-        <div id="tripOptions">
-            <h5>Additional Details:</h5>
-            <div id="addDetails">
 
+    <div id="mainContainer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3" style="margin-top:2%">
+                    <div id="mainOptionsCont">
+                        <h5>Planned Attractions:</h5>
+                        <ul id="attList"></ul>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top:2%">
+                    <div id="mapContainer">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="margin-top:2%">
+                    <div id="tripOptions">
+                        <h5>Additional Details:</h5>
+                        <div id="addDetails">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="clear"></div>
     </div>
+
     <br>
 
     <div id="nextStep">

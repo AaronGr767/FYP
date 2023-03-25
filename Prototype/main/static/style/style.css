@@ -421,6 +421,101 @@ h1{
     padding: 15px;
     border-radius: 5px;
 }
+/*Reference: https://codepen.io/anefzaoui/pen/NWPZzMa*/
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+/*body {*/
+/*    margin: 5%;*/
+/*    text-align: center;*/
+/*    background: #111;*/
+/*    color: #333;*/
+/*}*/
+    /*h1 {*/
+    /*    font-size: 2em;*/
+    /*    margin-bottom: .5rem;*/
+    /*}*/
+
+/* Ratings widget */
+.rate {
+    display: inline-block;
+    border: 0;
+}
+/* Hide radio */
+.rate > input {
+    display: none;
+}
+/* Order correctly by floating highest to the right */
+.rate > label {
+    float: right;
+}
+/* The star of the show */
+.rate > label:before {
+    display: inline-block;
+    font-size: 2rem;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 "; /* full star */
+}
+
+/* Half star trick */
+.rate .half:before {
+    content: "\f089 "; /* half star no outline */
+    position: absolute;
+    padding-right: 0;
+}
+/* Click + hover color */
+input:checked ~ label, /* color current and previous stars on checked */
+label:hover, label:hover ~ label { color: #73B100;  } /* color previous stars on hover */
+
+/* Hover highlights */
+input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #7D84B2;  }
+/*end reference*/
+
+/*Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown*/
+.dropbtn {
+  margin-bottom: 2%;
+  background-color: #7D84B2;
+  color: white;
+  /*padding: 16px;*/
+  /*font-size: 16px;*/
+    border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+/* End Reference */
 /* END CHOOSE ATTRACTIONS */
 
 /* CHOOSE LOCATION */
@@ -430,16 +525,35 @@ h1{
     border: solid #7D84B2 3px;
     text-align: center;
     margin: auto;
-    width:min(90vw,100vh);
+    width:min(90vw,80vh);
     padding: 1%;
     background-color: whitesmoke;
 }
 
 /* END CHOOSE LOCATION */
 
+/* TRIP ROUTE */
+#tripOptions{
+    text-align: center;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    background-color: whitesmoke;
+}
+
+#addDetails{
+    margin: auto;
+    width: 90%;
+    text-align: center;
+}
+
+#addDetails p{
+    text-align: left;
+}
+ /* END TRIP ROUTE */
 img{
     height: 7em;
 }
+
 
 
 
@@ -501,26 +615,8 @@ img{
 
 
 
-/*#tripOptions{*/
-/*    float: right;*/
-/*    border-radius: 10px;*/
-/*    border: solid #7D84B2 3px;*/
-/*    text-align: center;*/
-/*    width:16%;*/
-/*    margin-right: 1%;*/
-/*    padding: 1%;*/
-/*    background-color: whitesmoke;*/
-/*}*/
 
-#addDetails{
-    margin: auto;
-    width: 90%;
-    text-align: center;
-}
 
-#addDetails p{
-    text-align: left;
-}
 
 #mainContainer{
     margin: auto;
@@ -634,58 +730,7 @@ border
         animation: fadeOut 1s;
     }
 
-/*Reference: https://codepen.io/anefzaoui/pen/NWPZzMa*/
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-/*body {*/
-/*    margin: 5%;*/
-/*    text-align: center;*/
-/*    background: #111;*/
-/*    color: #333;*/
-/*}*/
-    /*h1 {*/
-    /*    font-size: 2em;*/
-    /*    margin-bottom: .5rem;*/
-    /*}*/
 
-/* Ratings widget */
-.rate {
-    display: inline-block;
-    border: 0;
-}
-/* Hide radio */
-.rate > input {
-    display: none;
-}
-/* Order correctly by floating highest to the right */
-.rate > label {
-    float: right;
-}
-/* The star of the show */
-.rate > label:before {
-    display: inline-block;
-    font-size: 2rem;
-    padding: .3rem .2rem;
-    margin: 0;
-    cursor: pointer;
-    font-family: FontAwesome;
-    content: "\f005 "; /* full star */
-}
-
-/* Half star trick */
-.rate .half:before {
-    content: "\f089 "; /* half star no outline */
-    position: absolute;
-    padding-right: 0;
-}
-/* Click + hover color */
-input:checked ~ label, /* color current and previous stars on checked */
-label:hover, label:hover ~ label { color: #73B100;  } /* color previous stars on hover */
-
-/* Hover highlights */
-input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
-input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
-label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #7D84B2;  }
-/*end reference*/
 
 @keyframes fadeOut {
         from {
@@ -705,59 +750,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
     overflow-y: auto; /* Enable vertical scrolling */
   }
 
-/*Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown*/
-.dropbtn {
-  margin-bottom: 2%;
-  background-color: #7D84B2;
-  color: white;
-  /*padding: 16px;*/
-  /*font-size: 16px;*/
-    border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
 
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown a:hover {background-color: #ddd;}
-
-.show {display: block;}
-/* End Reference */
-
-#tripOptions{
-    float: right;
-    text-align: center;
-    width:20%;
-    margin-right: 1%;
-    padding: 1%;
-    border-radius: 10px;
-    border: solid #7D84B2 3px;
-    background-color: whitesmoke;
-}
 
 
 
