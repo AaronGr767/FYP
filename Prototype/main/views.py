@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from osgeo_utils.gdal2tiles import data
 
-from .models import Attraction, SavedTrip, AttractionData, DetailsPreset, ExternalADUser
+from .models import Attraction, SavedTrip, AttractionData, DetailsPreset, ExternalADUser, PreferencesProfile
 from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
@@ -42,50 +42,6 @@ def logout_request(request):
 	messages.info(request, "Successfully logged out!")
 	return redirect("main:home")
 
-# def tripRoute(request):
-#
-# 	lat_0 = request.GET.get("lat_a", None)
-# 	long_0 = request.GET.get("long_a", None)
-#
-# 	# Come back to this to fix iteration through db, current problem is "list index out of range", think its a problem with query as models dont contain id while postgres does
-# 	# length = range(3)
-# 	# lat=[]
-# 	# long=[]
-# 	#
-# 	# for i in length:
-# 	# 	lat_query = Attraction.objects.values('latitude').filter(id=i).values_list('latitude', flat=True)
-# 	# 	lat_1 = lat_query[0]
-# 	# 	lat.append(lat_1)
-# 	#
-# 	# 	long_query = Attraction.objects.values('longitude').filter(id=i).values_list('longitude', flat=True)
-# 	# 	long_1 = long_query[0]
-# 	# 	long.append(long_1)
-#
-# 	lat_query = Attraction.objects.values('latitude').filter(name="General Post Office").values_list('latitude', flat = True)
-# 	lat_1 = lat_query[0]
-#
-# 	long_query = Attraction.objects.values('longitude').filter(name="General Post Office").values_list('longitude', flat=True)
-# 	long_1 = long_query[0]
-#
-# 	lat_query = Attraction.objects.values('latitude').filter(name="Hugh Lane Gallery").values_list('latitude', flat=True)
-# 	lat_2 = lat_query[0]
-#
-# 	long_query = Attraction.objects.all().filter(name="Hugh Lane Gallery").values_list('longitude', flat=True)
-# 	long_2 = long_query[0]
-#
-# 	context = {
-# 	"google_api_key": settings.API_KEY,
-# 	"lat_1": lat_1,
-# 	"long_1": long_1,
-# 	# "lat_1": lat_2,
-# 	# "long_1": long_2,
-# 	# "lat_1": lat[1],
-# 	# "long_1": long[1],
-# 	"origin": f'{lat_0}, {long_0}',
-# 	"destination": f'{lat_2}, {long_2}',
-# 	#"destination": f'{lat[2]}, {lat[2]}',
-# 	}
-# 	return render(request, 'tripRoute.html', context)
 
 def filterAttractions(request):
 	i = 0
@@ -216,6 +172,7 @@ def retrieveTrip(request):
 
 	return JsonResponse(thisTrip, safe=False)
 
+
 def updateRating(request):
 	ratedTrip = request.POST.get("name", None)
 	tripRating = request.POST.get("rating", None)
@@ -235,12 +192,14 @@ def updateRating(request):
 
 	return HttpResponse(status=200)
 
+
 def updateTripStatus(request):
 	thisTrip = request.POST.get("trId", None)
 
 	SavedTrip.objects.filter(id=thisTrip).update(completed=True)
 
 	return HttpResponse(status=200)
+
 
 def compareSimilarity(request):
 	savedFilt = request.POST.getlist('usedTags[]', None)
@@ -315,6 +274,7 @@ def compareSimilarity(request):
 
 	return JsonResponse(finalResults, status=200)
 
+
 def manageTripRetrieve(request):
 
 	userFilter = request.user.id
@@ -327,6 +287,7 @@ def manageTripRetrieve(request):
 
 	return JsonResponse(results, status=200)
 
+
 def manageTripDelete(request):
 	delTripId = request.POST.get("delId", None)
 
@@ -334,6 +295,7 @@ def manageTripDelete(request):
 	delTrip.delete()
 
 	return HttpResponse(status=200)
+
 
 def savePreset(request):
 	presetId = request.POST.get("presetId", None)
@@ -381,6 +343,7 @@ def savePreset(request):
 		detPreset.save()
 		return HttpResponse(status=200)
 
+
 def retrievePreset(request):
 	presetId = request.POST.get("presetId", None)
 	userFilter = request.user.id
@@ -392,6 +355,7 @@ def retrievePreset(request):
 	}
 	return JsonResponse(context, status=200)
 
+
 def retrieveCreatePreset(request):
 	userFilter = request.user.id
 
@@ -401,6 +365,7 @@ def retrieveCreatePreset(request):
 		"results": list(retTrip)
 	}
 	return JsonResponse(context, status=200)
+
 
 def checkAdmin(request):
 	currUser = request.user.id
@@ -428,6 +393,7 @@ def checkAdmin(request):
 		return render(request,'home.html')
 	return JsonResponse(status=200)
 
+
 def saveAttractionChanges(request):
 	attId = request.POST.get("attId", None)
 	attDesc = request.POST.get("desc", None)
@@ -443,6 +409,7 @@ def saveAttractionChanges(request):
 	thisAtt.save()
 
 	return HttpResponse(status=200)
+
 
 def retrievePopularity(request):
 	attraction = request.POST.get("attraction", None)
@@ -461,6 +428,7 @@ def retrievePopularity(request):
 	}
 
 	return JsonResponse(context, status=200)
+
 
 def retrieveData(request):
 	attractionId = request.POST.get("attId", None)
@@ -482,3 +450,29 @@ def retrieveData(request):
 	}
 
 	return JsonResponse(context, status=200)
+
+
+def savePreference(request):
+	whitelistArr = request.POST.getlist('whitelist[]', None)
+	blacklistArr = request.POST.getlist('blacklist[]', None)
+
+	currUser = request.user.id
+	try:
+		userPrefs = PreferencesProfile.objects.get(userOwner_id=currUser)
+
+		userPrefs.blackList = blacklistArr
+		userPrefs.whiteList = whitelistArr
+		userPrefs.save()
+
+		return HttpResponse(status=200)
+
+	except PreferencesProfile.DoesNotExist:
+
+		print(whitelistArr)
+		newUserPrefs = PreferencesProfile()
+		newUserPrefs.userOwner_id = currUser
+		newUserPrefs.blackList = blacklistArr
+		newUserPrefs.whiteList = whitelistArr
+		newUserPrefs.save()
+
+		return HttpResponse(status=200)

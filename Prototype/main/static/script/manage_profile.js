@@ -1,3 +1,6 @@
+whitelistArray=[];
+blacklistArray=[];
+
 function createOptions(preset){
     let modalBod3 = document.getElementById("mBody3")
     modalBod3.innerHTML=``
@@ -196,4 +199,69 @@ function getCookie(cname) {
            return c.substring(name.length,c.length);
      }
      return "";
+}
+
+function addWhList(attraction){
+    if(!whitelistArray.includes(attraction) && !blacklistArray.includes(attraction)){
+        let wId = "wh" + attraction
+        let list = document.getElementById("whListAttractions");
+        list.innerHTML += `<div id="${wId}" class="card"><label>${attraction} <button onclick="removeWh('${wId}','${attraction}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
+        whitelistArray.push(attraction)
+    }
+}
+
+function addBlList(attraction){
+    if(!blacklistArray.includes(attraction) && !whitelistArray.includes(attraction)){
+        let bId = "bl" + attraction
+        let list = document.getElementById("blListAttractions");
+        list.innerHTML += `<div id="${bId}" class="card"><label>${attraction} <button onclick="removeBl('${bId}','${attraction}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
+        blacklistArray.push(attraction)
+    }
+}
+
+function removeWh(id,name){
+    let removeIndex = whitelistArray.indexOf(name)
+    whitelistArray.splice(removeIndex,1)
+
+    let removeDiv= document.getElementById(id)
+    removeDiv.remove()
+}
+
+function removeBl(id,name){
+    let removeIndex = blacklistArray.indexOf(name)
+    blacklistArray.splice(removeIndex,1)
+    let removeDiv= document.getElementById(id)
+    removeDiv.remove()
+}
+
+function savePreferences(){
+    $.ajax({
+        type: "POST",
+        url: "savepreference/",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        data: {
+            whitelist: whitelistArray,
+            blacklist: blacklistArray,
+        }
+    }).done(function (data, status, xhr) {
+        console.log("Success");
+
+        let successMsg = document.getElementById("mapPopUp3")
+        successMsg.style.display = 'block';
+
+        setTimeout(function () {
+        successMsg.classList.add('fadeOut');
+        setTimeout(function () {
+            successMsg.classList.remove('fadeOut');
+            successMsg.style.display = 'none';
+        }, 2000);
+    }, 2000);
+
+    }).fail(function (xhr, status, error) {
+        var message = "Passing filters failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
 }

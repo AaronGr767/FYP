@@ -228,6 +228,19 @@ h1{
     text-align: center;
 }
 
+#successPopUp{
+    opacity: 1;
+    transition: opacity 2s ease-out;
+    display: none;
+    position: relative;
+    padding: 1%;
+    width: 97%;
+    background-color: rgba(245, 245, 245, .8);
+    border: solid slategray 3px;
+    border-radius: 5px;
+    margin:auto
+}
+
 /*END PROFILE*/
 
 /*CREATE TRIP*/

@@ -65,6 +65,11 @@ class DetailsPreset(models.Model):
     presetPrice = models.IntegerField(null=True)
     presetTags = ArrayField(models.CharField(max_length=200), null=True)
 
+class PreferencesProfile(models.Model):
+    userOwner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    whiteList = ArrayField(models.TextField(), null=True)
+    blackList = ArrayField(models.TextField(), null=True)
+
 class ExternalADUser(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     associatedAttraction = models.OneToOneField(Attraction, null=True, on_delete=models.CASCADE)

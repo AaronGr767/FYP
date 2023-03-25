@@ -7,124 +7,141 @@
         <h2 id="tripHeader" class="align-items-center justify-content-center">
         </h2>
         <div id="mainContainer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3" style="margin-top:2%">
-                    <div id="mainOptionsCont">
-                        <h5>Attractions:</h5>
-                        <div id="optionsContainer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3" style="margin-top:2%">
+                        <div id="mainOptionsCont">
+                            <h5>Attractions:</h5>
+                            <div id="optionsContainer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="margin-top:2%">
+                        <div id="mapContainer">
+                            <div id="mapPopUp2" class="m-2 text-center">
+                            </div>
+                            <div id="mapPopUp3" class="m-2 text-center">
+                            </div>
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top:2%">
+                        <div id="tripOptions">
+                            <h4>Extra Options:</h4>
+                            <div id="routeCont">
+                                <h5>Route Type: </h5>
+                                <div class="form-check form-check-inline">
+                                    <input onclick=displayOptions() class="form-check-input" type="radio"
+                                           name="inlineRadioOptions"
+                                           id="cust" value="cust" checked>
+                                    <label class="form-check-label" for="inlineRadio1">Custom</label>
+                                </div>
+                                <br>
+                                <div class="form-check form-check-inline">
+                                    <input onclick=lockOptions() class="form-check-input" type="radio"
+                                           name="inlineRadioOptions"
+                                           id="recc" value="recc">
+                                    <label class="form-check-label" for="inlineRadio2">Recommended</label>
+                                </div>
+                                <br><br>
+                                Mode of Travel:
+                                <select id="mode">
+                                    <option value="DRIVING">Driving</option>
+                                    <option value="WALKING">Walking</option>
+                                    <option value="BICYCLING">Bicycling</option>
+                                    <option value="TRANSIT">Transit</option>
+                                </select>
+                                <br>
+                            </div>
+                            <br>
+                            <div id="breakCont">
+                                <div id="breakSetUp">
+                                    <h5 style="margin-bottom: 10px">Want to take a Break? </h5>
+                                    <table style="margin:auto">
+                                        <tr>
+                                            <td style="text-align: left">Break Type:</td>
+                                            <td style="text-align: right">
+                                                <select id="breakType">
+                                                    <option value="restaurant">Restaurant</option>
+                                                    <option value="cafe">Coffee/Snack</option>
+                                                    <option value="store">Shopping</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left;width: 100%">Duration:</td>
+                                            <td style="text-align: right;width: 100%"><input id="breakHours" type="int"
+                                                                                             value="01">:<input
+                                                    id="breakMins" type="int" value="00"></td>
+                                        </tr>
+                                    </table>
+                                    <button type="button" onclick="beginBreak()" class="btn btn-outline-secondary">Start
+                                        Break
+                                    </button>
+                                </div>
+                                <div id="breakInProg">
+                                    <h5 style="margin-bottom: 10px">Break in Progress:</h5>
+                                    <table style="margin-left: auto;margin-right: auto" id="breakTabs">
+                                        <tr>
+                                            <td style="text-align: left">Break Type:</td>
+                                            <td style="text-align: right">
+                                                <select id="progBreakType">
+                                                    <option value="restaurant">Restaurant</option>
+                                                    <option value="cafe">Coffee/Snack</option>
+                                                    <option value="store">Shopping</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left">Radius (metres):</td>
+                                            <td style="text-align: right">
+                                                <select id="searchRad">
+                                                    <option value="100">100</option>
+                                                    <option value="200">200</option>
+                                                    <option value="300" selected>300</option>
+                                                    <option value="400">400</option>
+                                                    <option value="500">500</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <button type="button" onclick="finishBreak()" class="btn btn-outline-secondary">
+                                        Finish Break
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6" style="margin-top:2%">
-                    <div id="mapContainer">
-                        <div id="mapPopUp2" class="m-2 text-center">
-                        </div>
-                        <div id="mapPopUp3" class="m-2 text-center">
             </div>
-                        <div id="map"></div>
-                    </div>
-                </div>
-                <div class="col-md-3" style="margin-top:2%">
-                    <div id="tripOptions">
-                <h4>Extra Options:</h4>
-                <div id="routeCont">
-                    <h5>Route Type: </h5>
-                    <div class="form-check form-check-inline">
-                        <input onclick=displayOptions() class="form-check-input" type="radio" name="inlineRadioOptions"
-                               id="cust" value="cust" checked>
-                        <label class="form-check-label" for="inlineRadio1">Custom</label>
-                    </div>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input onclick=lockOptions() class="form-check-input" type="radio" name="inlineRadioOptions"
-                               id="recc" value="recc">
-                        <label class="form-check-label" for="inlineRadio2">Recommended</label>
-                    </div>
-                    <br><br>
-                    Mode of Travel:
-                    <select id="mode">
-                        <option value="DRIVING">Driving</option>
-                        <option value="WALKING">Walking</option>
-                        <option value="BICYCLING">Bicycling</option>
-                        <option value="TRANSIT">Transit</option>
-                    </select>
-                    <br>
-                </div><br>
-                <div id="breakCont">
-                    <div id="breakSetUp">
-                    <h5 style="margin-bottom: 10px">Want to take a Break? </h5>
-                    <table style="margin:auto">
-                        <tr>
-                            <td style="text-align: left">Break Type:</td>
-                            <td style="text-align: right">
-                                <select id="breakType">
-                                    <option value="restaurant">Restaurant</option>
-                                    <option value="cafe">Coffee/Snack</option>
-                                    <option value="store">Shopping</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td style="text-align: left;width: 100%">Duration:</td>
-                            <td style="text-align: right;width: 100%"><input id="breakHours" type="int" value="01" >:<input id="breakMins" type="int"value="00"></td>
-                        </tr>
-                    </table>
-                    <button type="button" onclick="beginBreak()" class="btn btn-outline-secondary">Start Break</button>
-                    </div>
-                    <div id="breakInProg">
-                        <h5 style="margin-bottom: 10px">Break in Progress:</h5>
-                        <table style="margin-left: auto;margin-right: auto" id="breakTabs">
-                        <tr>
-                            <td style="text-align: left">Break Type:</td>
-                            <td style="text-align: right">
-                                <select id="progBreakType">
-                                    <option value="restaurant">Restaurant</option>
-                                    <option value="cafe">Coffee/Snack</option>
-                                    <option value="store">Shopping</option>
-                                </select>
-                            </td>
-                        </tr>
-
-                        <tr >
-                            <td style="text-align: left">Radius (metres):</td>
-                            <td style="text-align: right">
-                                <select id="searchRad">
-                                    <option value="100">100</option>
-                                    <option value="200">200</option>
-                                    <option value="300" selected>300</option>
-                                    <option value="400">400</option>
-                                    <option value="500">500</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                        <button type="button" onclick="finishBreak()" class="btn btn-outline-secondary">Finish Break</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-            <div id="timeAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
-                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within an
+            <div id="timeAlert" class="alert alert-danger alert-dismissible fade show" role="alert"
+                 style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
+                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Attraction(s) closing within
+                an
                 hour:<br>
                 <button type="button" onclick="closeAlert('time')" class="btn-close" data-bs-dismiss="alert"
                         aria-label="Close"></button>
                 <ul id="closingAtts"></ul>
             </div>
-            <div id="breakAlert" class="alert alert-warning  alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
-                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Keep in mind the closing hour for these attractions:<br>
+            <div id="breakAlert" class="alert alert-warning  alert-dismissible fade show" role="alert"
+                 style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
+                <strong>Warning!</strong> <i class="fa-solid fa-clock-rotate-left"></i><br> Keep in mind the closing
+                hour for these attractions:<br>
                 <button type="button" onclick="closeAlert('break')" class="btn-close" data-bs-dismiss="alert"
                         aria-label="Close"></button>
                 <ul id="closingBreakAtts"></ul>
                 <div style="margin-left: 10%;text-align: center">
-                    <button type="button" onclick=renderBreak() class="btn btn-outline-warning" style="color: slategray;">Confirm Break</button>
+                    <button type="button" onclick=renderBreak() class="btn btn-outline-warning"
+                            style="color: slategray;">Confirm Break
+                    </button>
                 </div>
             </div>
-            <div id="invalidAlert" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
-                <strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i><p id="errorMsg">Invalid time format!</p>
+            <div id="invalidAlert" class="alert alert-danger alert-dismissible fade show" role="alert"
+                 style="width: 20%;margin-left:auto;margin-right: auto;margin-top: 10px;margin-bottom: 0;">
+                <strong>Error!</strong> <i class="fa-solid fa-circle-xmark"></i>
+                <p id="errorMsg">Invalid time format!</p>
                 <button type="button" onclick="closeInvAlert()" class="btn-close" data-bs-dismiss="alert"
                         aria-label="Close"></button>
             </div>

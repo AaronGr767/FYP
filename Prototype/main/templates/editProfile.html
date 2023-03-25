@@ -12,7 +12,8 @@
 
             <div id="presCont">
                 <h4>Presets:</h4>
-                <p>Customise the presets below in order to speed up the process of creating a trip!</p>
+                <p>Customise the presets below and select your chosen preset during trip creation in order to speed up
+                    the process!</p>
                 <div id="nav-buttons">
                     <button type="button" onclick=renderPresets(1) id="preset1" class="btn btn-outline"
                             data-bs-toggle="modal" data-bs-target="#preset1Modal">
@@ -99,8 +100,50 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <br><br>
+                <h4>Preferences:</h4>
+                <div id="prefCont">
+                    <p>Choose attractions that you wish to view (or not!) regardless of the filters you pick when creating a trip.</p>
 
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6" style="margin-top:4%">
+                                <h5>Whitelist Attractions</h5>
+                                <div id="whList">
+                                    <select id="mySelect" style="margin-bottom: 2%">
+                                        <option value="General Post Office" onclick="addWhList(value)">General Post Office</option>
+                                        <option value="Hugh Lane Gallery" onclick="addWhList(value)">Hugh Lane Gallery</option>
+                                        <option value="National Wax Museum" onclick="addWhList(value)">National Wax Museum</option>
+                                        <option value="Guinness Storehouse" onclick="addWhList(value)">Guinness Storehouse</option>
+                                    </select>
+                                    <div class="row row-cols-1 row-cols-md-1 g-4">
+                                        <div class="col" id="whListAttractions">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="margin-top:4%">
+                                <h5>Blacklist Attractions</h5>
+                                <div id="blList">
+                                    <select id="mySelect" style="margin-bottom: 2%">
+                                        <option value="General Post Office" onclick="addBlList(value)">General Post Office</option>
+                                        <option value="Hugh Lane Gallery" onclick="addBlList(value)">Hugh Lane Gallery</option>
+                                        <option value="National Wax Museum" onclick="addBlList(value)">National Wax Museum</option>
+                                        <option value="Guinness Storehouse" onclick="addBlList(value)">Guinness Storehouse</option>
+                                    </select>
+                                    <div class="row row-cols-1 row-cols-md-1 g-4">
+                                        <div class="col" id="blListAttractions">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="button" onclick="savePreferences()" class="btn btn-outline-secondary">Save Preference</button>
+                    <div id="mapPopUp3" style="width: 40%;margin-top: 2%" >Successfully Saved!</div>
+                </div>
+            </div>
 
         </div>
 
