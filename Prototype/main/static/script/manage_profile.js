@@ -280,6 +280,7 @@ function loadPreferences(){
         console.log(data)
 
         let whitelistData = data.results[0].whiteList
+        let blacklistData = data.results[0].blackList
 
         for(i=0;i<whitelistData.length;i++){
             let attractionList = whitelistData[i]
@@ -289,13 +290,13 @@ function loadPreferences(){
             whitelistArray.push(attractionList)
         }
 
-        // for(i=0;data.results[0].blackList.length;i++){
-        //     let attractionList = data.results[0].blackList[i]
-        //     let bId = "bl" + attractionList
-        //     let list = document.getElementById("blListAttractions");
-        //     list.innerHTML += `<div id="${bId}" class="card"><label>${attractionList} <button onclick="removeWh('${wId}','${attractionList}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
-        //     blacklistArray.push(attractionList)
-        // }
+        for(i=0;i<blacklistData.length;i++){
+            let attractionList = blacklistData[i]
+            let bId = "bl" + attractionList
+            let list = document.getElementById("blListAttractions");
+            list.innerHTML += `<div id="${bId}" class="card"><label>${attractionList} <button onclick="removeWh('${bId}','${attractionList}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
+            blacklistArray.push(attractionList)
+        }
 
     }).fail(function (xhr, status, error) {
         var message = "Passing filters failed.<br/>";
