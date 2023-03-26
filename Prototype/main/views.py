@@ -101,7 +101,7 @@ def filterAttractions(request):
 
         results = filt_query.values()
 
-        return HttpResponse(results)
+        return JsonResponse(list(results), safe=False)
 
     except PreferencesProfile.DoesNotExist:
 
@@ -127,7 +127,9 @@ def filterAttractions(request):
 
         results = filt_query.values()
 
-        return HttpResponse(results)
+
+
+        return JsonResponse(list(results), safe=False)
 
 
 def saveTrip(request):
@@ -444,13 +446,16 @@ def saveAttractionChanges(request):
 def retrievePopularity(request):
     attraction = request.POST.get("attraction", None)
 
-    popQuery = AttractionData.objects.filter(attractionName=attraction).order_by('-occurrenceCount').values_list(
-        "otherAttractions", flat=True)[:3]
+    popQuery = AttractionData.objects.filter(attractionName=attraction).order_by('-occurrenceCount').values_list("otherAttractions", flat=True)
 
     # Access just the array
-    popQuery = popQuery[0]
+    popResults = popQuery[0]
+    popResultsTop = popResults[:3]
 
-    retrievePop = Attraction.objects.filter(name__in=popQuery).values()
+    print("AYOOOOOO")
+    print(popResultsTop)
+
+    retrievePop = Attraction.objects.filter(name__in=popResultsTop).values()
 
     print(retrievePop)
 

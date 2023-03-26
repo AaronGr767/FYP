@@ -55,7 +55,7 @@ class AttractionData(models.Model):
     averageRating = models.DecimalField(max_digits=4, decimal_places=2)
     sumOfRatings = models.IntegerField()
     totalNoRatings = models.IntegerField()
-    otherAttractions = ArrayField(models.CharField(max_length=200), null=True)
+    otherAttractions = ArrayField(models.TextField(), null=True)
     occurrenceCount = ArrayField(models.IntegerField(), null=True)
 
 class DetailsPreset(models.Model):

@@ -246,44 +246,8 @@ function postFilters(filterArray,chosenDay){
 
                     // let jsonResp = JSON.parse('{"data"}');
                     console.log(data);
-                    // let test1 = JSON.parse(data)
-                    var dataJson = data.replace(/'/g, '"');
-                    console.log(dataJson);
 
-         //            let test2 = JSON.parse(dataJson)
-         // console.log(typeof test2)
-
-                    let placeholder='';
-                    let counter = 0;
-                    let dataObj = [];
-
-                    for(let i = 0; i <= dataJson.length; i++){
-                        if(dataJson[i] === "}"){
-                            placeholder = placeholder + dataJson[i];
-                            placeholder[counter] = placeholder[counter].replace('undefined','');
-                            console.log("unfinished beans")
-                            console.log(placeholder)
-
-                            dataObj[counter] = JSON.parse(placeholder)
-
-                            placeholder = ''
-                            counter = counter + 1;
-                        } else {
-                            placeholder = placeholder + dataJson[i]
-                        }
-                    }
-                    // var dataObj = JSON.stringify(dataJson)
-                    // dataObj[0] = JSON.parse(dataJson)
-                    // console.log(placeholder)
-                    // dataObj = JSON.parse(placeholder)
-
-                    console.log("finished beans = ")
-
-                    console.log(dataObj[0])
-                    console.log(dataObj[1])
-                    console.log(dataObj)
-
-                    localStorage.setItem('resultStore', JSON.stringify(dataObj))
+                    localStorage.setItem('resultStore', JSON.stringify(data))
 
                     location.href='/choose'
 

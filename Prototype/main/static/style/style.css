@@ -346,11 +346,19 @@ h1{
 /*END CREATE TRIP*/
 
 /*CHOOSE ATTRACTIONS*/
+/*#optionsList{*/
+/*    !*overflow: auto;*!*/
+/*    text-align: center;*/
+/*}*/
+
+/*#optionsList li{*/
+/*    width: 100%;*/
+/*}*/
+
 #recOptions{
     display: none;
     text-align: center;
     /*width:min(80vw,33vh);*/
-    margin-right: 1%;
     padding: 1%;
     border-radius: 10px;
     border: solid #7D84B2 3px;
@@ -361,7 +369,6 @@ h1{
     border-radius: 10px;
     border: solid #7D84B2 3px;
     /*width:min(80vw,33vh);*/
-    margin-left: 1%;
     padding: 1%;
     background-color: whitesmoke;
     text-align: center;
@@ -402,8 +409,11 @@ h1{
 
 
 #optionsContainer{
-    width:90%;
+    height: min(40vw,30vh);
+    width: 90%;
+    overflow: auto;
     margin: auto;
+    text-align: center;
 }
 
 #map {

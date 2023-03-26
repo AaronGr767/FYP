@@ -17,7 +17,7 @@ displayOptions()
 
 function displayOptions() {
     let resultsObj = [];
-    let optCont = document.getElementById('optionsContainer')
+    let optCont = document.getElementById("optionsContainer")
     let results = localStorage.getItem("resultStore");
 
     if (results == null) {
@@ -36,15 +36,12 @@ function displayOptions() {
 
         console.log(resultsObj[i].name)
 
-        checkHtml = `
+        optCont.innerHTML += `
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${resultsObj[i].tag1}" style="margin-bottom: 2%;width:99%">
                           <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i}  autocomplete="off">
                           <label class="btn btn-outline-secondary" for=${i}>${resultsObj[i].name}</label>
-                        </div>
-            <br>`
+                        </div>`
 
-        optCont.innerHTML += checkHtml;
-        console.log("feck off " + document.getElementById(i).name)
     }
 
 

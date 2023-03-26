@@ -29,9 +29,11 @@
         <div id="mainContainer">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3" style="margin-top:2%">
+                    <div class="col-md-3" style="margin-top:2%;">
                         <div id="mainOptionsCont">
-                            <div id="optionsContainer" class="scrollable-div"></div>
+                            <div id="optionsContainer">
+
+                            </div><br>
                             <div id="popChoices"></div>
                         </div>
                     </div>
@@ -40,7 +42,7 @@
                             <div id="map"></div>
                         </div>
                     </div>
-                    <div class="col-md-3" style="margin-top:2%">
+                    <div class="col-md-3" style="margin-top:2%;">
                         <div id="recOptions">
                             <div id="recContainer">
                                 <div id="recContent">
@@ -79,11 +81,6 @@
             <button onclick=collectChoices() type="button" class="btn btn-outline-dark">NEXT STEP</button>
         </div>
         <br>
-
-        <script type="text/javascript">
-
-            var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
-        </script>
 
         <script src="{% static 'script/choose_attractions.js' %}"></script>
         <script
