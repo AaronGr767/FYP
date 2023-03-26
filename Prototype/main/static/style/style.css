@@ -382,13 +382,6 @@ h1{
     text-align: center;
 }
 
-#attList{
-    width: 90%;
-    margin:auto;
-    text-align: left;
-    max-height: 50%;
-    overflow: auto;
-}
 
 #recContainer{
     margin:auto;
@@ -551,6 +544,15 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 /* END CHOOSE LOCATION */
 
 /* TRIP ROUTE */
+#attList{
+    list-style: none;
+    width: 90%;
+    margin:auto;
+    text-align: left;
+    max-height: 50%;
+    overflow: auto;
+}
+
 #tripOptions{
     text-align: center;
     border-radius: 10px;

@@ -118,7 +118,7 @@ function displayAttractions(resultsObj){
 
     resultsObj.forEach((element) =>{
                 console.log(element.name)
-                choiceHtml.innerHTML += `<li style="color: ${element.markerColour};"><text style="color: #111111;">${element.name}</text></li>`
+                choiceHtml.innerHTML += `<li><i class="fa-solid fa-flag-checkered"style="color: ${element.markerColour}"></i><text style="color: #111111;">  ${element.name}</text></li>`
             })
 
     return resultsObj;
