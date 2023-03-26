@@ -29,6 +29,7 @@ class Attraction(models.Model):
     markerColour = models.CharField(max_length=7, null=True)
     openingHours = ArrayField(models.TextField(), null=True)
     closingHours = ArrayField(models.TextField(), null=True)
+    averageTime = models.CharField(max_length=3, null=True)
 
 class SavedTrip(models.Model):
     #will probably need to set an id here as opposed to trying to use the one created by postgres

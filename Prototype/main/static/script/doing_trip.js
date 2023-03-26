@@ -135,13 +135,13 @@ function lockClosedAttraction(closedNames){
     for (i = 0; i < closedNames.length; i++) {
         for(j = 0; j < resultsObj.attNames.length; j++){
             let checkAttName = document.getElementById(j)
-                if(closedNames == checkAttName.name){
+                if(closedNames[i] == checkAttName.name){
                     checkAttName.disabled = true;
                     let checkAttDiv = document.getElementById("title"+j)
                     let checkAttLabel = document.getElementById("dis"+j)
 
                     checkAttDiv.title = "Closed"
-                    checkAttLabel.innerHTML = `${closedNames} <i class="fa-solid fa-shop-lock"></i>`
+                    checkAttLabel.innerHTML = `${closedNames[i]} <i class="fa-solid fa-shop-lock"></i>`
                 }
         }
     }
@@ -540,7 +540,7 @@ function locationMarker() {
                 );
 
                 //remember to reverse logic when done testing and uncomment the for loop
-                if (distanceToGeofence >= 50) {
+                if (distanceToGeofence <= 50) {
                     console.log("Within Range")
                     if (displayCounter == 0) {
                         for (j = 0; j <= resultsObj.attNames.length - 1; j++) {

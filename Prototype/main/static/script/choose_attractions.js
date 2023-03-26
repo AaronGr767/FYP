@@ -2,6 +2,7 @@ let removeCheck = 0;
 let map;
 let markers = [];
 let recData;
+let popularResults;
 let tempHold;
 let recHold;
 let currHold;
@@ -39,12 +40,63 @@ function displayOptions() {
         optCont.innerHTML += `
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${resultsObj[i].tag1}" style="margin-bottom: 2%;width:99%">
                           <input type="checkbox"  onclick=addAttraction(${i}) class="btn-check" name="${resultsObj[i].name}" id=${i}  autocomplete="off">
-                          <label class="btn btn-outline-secondary" for=${i}>${resultsObj[i].name}</label>
+                          <label class="btn btn-outline-secondary" for=${i}><button class="attInfo" title="info" onclick="displayDetails('${resultsObj[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${resultsObj[i].name}</label>
                         </div>`
 
     }
 
+}
 
+function displayDetails(chosenName){
+    let infoPopup = document.getElementById("mapPopUp4")
+    infoPopup.style.display ='block'
+    let done = 0;
+    let details = localStorage.getItem("detailsStore");
+    let parsedDetails= JSON.parse(details)
+    let dayIdx = parsedDetails.dayIndex
+
+    console.log(dayIdx)
+
+    console.log(recData.attractions[0].name)
+
+    for(i=0;i<resultsObj.length;i++){
+        if(chosenName==resultsObj[i].name){
+            infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${resultsObj[i].description}</p>
+                                    <p>Average Attraction Length : <strong>${resultsObj[i].averageTime} minutes</strong></p>
+                                    <p>Hours for Chosen Date : <strong>${resultsObj[i].openingHours[dayIdx].substring(0,2)}:${resultsObj[i].openingHours[dayIdx].substring(2)} - ${resultsObj[i].closingHours[dayIdx].substring(0,2)}:${resultsObj[i].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>`
+            done++
+        }
+    }
+
+    if(done == 0){
+        for(j=0;j<recData.attractions.length;j++){
+            if (chosenName == recData.attractions[j].name){
+            infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${recData.attractions[j].description}</p>
+                                    <p>Average Attraction Length : <strong>${recData.attractions[j].averageTime} minutes</strong></p>
+                                    <p>Hours for Chosen Date : <strong>${recData.attractions[j].openingHours[dayIdx].substring(0,2)}:${recData.attractions[j].openingHours[dayIdx].substring(2)} - ${recData.attractions[j].closingHours[dayIdx].substring(0,2)}:${recData.attractions[j].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>`
+                done++
+            }
+        }
+    }
+
+    console.log(popularResults)
+
+    if(done == 0){
+        for(k=0;k<popularResults.length;k++){
+            if (chosenName == popularResults[k].name){
+            infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${popularResults[k].description}</p>
+                                    <p>Average Attraction Length : <strong>${popularResults[k].averageTime} minutes</strong></p>
+                                    <p>Hours for Chosen Date : <strong>${popularResults[k].openingHours[dayIdx].substring(0,2)}:${popularResults[k].openingHours[dayIdx].substring(2)} - ${popularResults[k].closingHours[dayIdx].substring(0,2)}:${popularResults[k].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>`
+                done++
+            }
+        }
+    }
 }
 
 compareTrips(0)
@@ -316,15 +368,21 @@ function displayRecommendations(recAtt) {
     if(recAtt.frequency.length > 0){
         recOptions.style.display = 'block'
 
-        for (i = 0; i < recAtt.frequency.length; i++) {
+        for (i = 0; i < recAtt.attractions.length; i++) {
             let recId = "rec" + i
-
             console.log(recId)
 
             recChoice.innerHTML += `<div id="recOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${recAtt.attractions[i].tag1}" style="margin-bottom: 2%;width:99%">
                           <input type="checkbox"  onclick=addRecAttraction(${i},"rec") class="btn-check" name="${recAtt.attractions[i].name}" id=${recId}  autocomplete="off">
-                          <label class="btn btn-outline-secondary" for=${recId}>${recAtt.attractions[i].name}</label>
+                          <label class="btn btn-outline-secondary" for=${recId}><button class="attInfo" title="info" onclick="displayDetails('${recAtt.attractions[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${recAtt.attractions[i].name}</label>
                         </div><br>`
+
+                    //     `<div id="popOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${popResults[i].tag1}" style="margin-bottom: 2%;width:99%">
+                    //   <input type="checkbox"  onclick=addRecAttraction(${i},"pop") class="btn-check" name="${popResults[i].name}" id=${popId}  autocomplete="off">
+                    //   <label class="btn btn-outline-secondary" for=${popId}><button class="attInfo" title="info" onclick="displayDetails('${resultsObj[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${popResults[i].name}</label>
+                    // </div><br>`
+
+
 
 
             checkForSelected("rec", recId, recAtt.attractions[i].name)
@@ -444,6 +502,8 @@ function retrievePopular(attName){
     }).done(function (data, status, xhr) {
         console.log(data)
 
+        popularResults = data.results;
+
         renderPopular(data.results)
         var originalMsg = $(".toast-body").html();
         $(".toast-body").html(originalMsg + "<br/>Updateddatabase<br/>" + data["message"]);
@@ -471,7 +531,7 @@ function renderPopular(popResults){
 
         popCont.innerHTML += `<div id="popOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${popResults[i].tag1}" style="margin-bottom: 2%;width:99%">
                       <input type="checkbox"  onclick=addRecAttraction(${i},"pop") class="btn-check" name="${popResults[i].name}" id=${popId}  autocomplete="off">
-                      <label class="btn btn-outline-secondary" for=${popId}>${popResults[i].name}</label>
+                      <label class="btn btn-outline-secondary" for=${popId}><button class="attInfo" title="info" onclick="displayDetails('${popResults[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${popResults[i].name}</label>
                     </div><br>`
 
         checkForSelected("pop", popId, popResults[i].name)

@@ -181,7 +181,7 @@ function setFilters(){
             }
 
             if (gSizeCheck && mPriceCheck) {
-                storeDetails();
+                storeDetails(chosenDay);
 
                 postFilters(filterArray, chosenDay)
             } else {
@@ -223,6 +223,7 @@ function closeInvAlert(alertType){
 }
 
 function postFilters(filterArray,chosenDay){
+
     let csrftoken = getCookie('csrftoken');
 
      $.ajax({
@@ -272,7 +273,7 @@ function getCookie(cname) {
      return "";
     }
 
-function storeDetails(){
+function storeDetails(chosenday){
     tName = document.getElementById("tripName").value
     gSize = document.getElementById("groupSize").value
     mPrice = document.getElementById("maxPrice").value
@@ -284,7 +285,8 @@ function storeDetails(){
         tripName:tName,
         groupSize:gSize,
         maxPrice:mPrice,
-        chosenDate:cDate
+        chosenDate:cDate,
+        dayIndex: chosenday
     };
 
      localStorage.setItem('detailsStore', JSON.stringify(resultsObj1))
