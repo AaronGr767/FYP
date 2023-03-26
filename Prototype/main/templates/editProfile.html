@@ -9,7 +9,7 @@
         </div>
 
         <div id="mainContainer">
-
+            <div id="profCont">
             <div id="presCont">
                 <h4>Presets:</h4>
                 <p>Customise the presets below and select your chosen preset during trip creation in order to speed up
@@ -113,9 +113,10 @@
                         </div>
                     </div>
                 </div>
-                <br><br>
-                <h4>Preferences:</h4>
+                </div>
+                <br>
                 <div id="prefCont">
+                    <h4>Preferences:</h4>
                     <p>Choose attractions that you wish to view (or not!) regardless of the filters you pick when creating a trip.</p>
 
                     <div class="container-fluid">
@@ -145,17 +146,17 @@
                                         <option value="Jameson Distillery" onclick="addWhList(value)">Jameson Distillery</option>
 
                                         <option value="Marsh Library" onclick="addWhList(value)">Marsh Library</option>
-                                        <option value="Hugh Lane Gallery" onclick="addWhList(value)">Hugh Lane Gallery</option>
-                                        <option value="National Wax Museum" onclick="addWhList(value)">National Wax Museum</option>
-                                        <option value="Guinness Storehouse" onclick="addWhList(value)">Guinness Storehouse</option>
+                                        <option value="Croke Park" onclick="addWhList(value)">Croke Park</option>
+                                        <option value="Little Museum of Dublin" onclick="addWhList(value)">Little Museum of Dublin</option>
+                                        <option value="Glasnevin Cemetery Museum" onclick="addWhList(value)">Glasnevin Cemetery Museum</option>
 
-                                        <option value="General Post Office" onclick="addWhList(value)">General Post Office</option>
-                                        <option value="Hugh Lane Gallery" onclick="addWhList(value)">Hugh Lane Gallery</option>
-                                        <option value="National Wax Museum" onclick="addWhList(value)">National Wax Museum</option>
-                                        <option value="Guinness Storehouse" onclick="addWhList(value)">Guinness Storehouse</option>
+                                        <option value="Teeling Distillery" onclick="addWhList(value)">Teeling Distillery</option>
+                                        <option value="Museum of Modern Art" onclick="addWhList(value)">Museum of Modern Art</option>
+                                        <option value="Marlay Park" onclick="addWhList(value)">Marlay Park</option>
+                                        <option value="Temple Bar" onclick="addWhList(value)">Temple Bar</option>
 
-                                        <option value="National Wax Museum" onclick="addWhList(value)">National Wax Museum</option>
-                                        <option value="Guinness Storehouse" onclick="addWhList(value)">Guinness Storehouse</option>
+                                        <option value="Irish Whiskey Museum" onclick="addWhList(value)">Irish Whiskey Museum</option>
+                                        <option value="Jeanie Johnston" onclick="addWhList(value)">Jeanie Johnston</option>
                                     </select>
                                     <div class="row row-cols-1 row-cols-md-1 g-4">
                                         <div class="col" id="whListAttractions">
@@ -171,6 +172,34 @@
                                         <option value="Hugh Lane Gallery" onclick="addBlList(value)">Hugh Lane Gallery</option>
                                         <option value="National Wax Museum" onclick="addBlList(value)">National Wax Museum</option>
                                         <option value="Guinness Storehouse" onclick="addBlList(value)">Guinness Storehouse</option>
+
+                                        <option value="Kilmainham Gaol" onclick="addBlList(value)">Kilmainham Gaol</option>
+                                        <option value="National Gallery" onclick="addBlList(value)">National Gallery</option>
+                                        <option value="14 Henrietta Street" onclick="addBlList(value)">14 Henrietta Street</option>
+                                        <option value="St Patricks Cathedral" onclick="addBlList(value)">St Patricks Cathedral</option>
+
+                                        <option value="Phoenix Park" onclick="addBlList(value)">Phoenix Park</option>
+                                        <option value="Dublin Castle" onclick="addBlList(value)">Dublin Castle</option>
+                                        <option value="Christ Church Cathedral" onclick="addBlList(value)">Christ Church Cathedral</option>
+                                        <option value="National Museums of Ireland " onclick="addBlList(value)">National Museums of Ireland </option>
+
+                                        <option value="Chester Beatty Library" onclick="addBlList(value)">Chester Beatty Library</option>
+                                        <option value="St Stephens Green" onclick="addBlList(value)">St Stephens Green</option>
+                                        <option value="Merrion Square" onclick="addBlList(value)">Merrion Square</option>
+                                        <option value="Jameson Distillery" onclick="addBlList(value)">Jameson Distillery</option>
+
+                                        <option value="Marsh Library" onclick="addBlList(value)">Marsh Library</option>
+                                        <option value="Croke Park" onclick="addBlList(value)">Croke Park</option>
+                                        <option value="Little Museum of Dublin" onclick="addBlList(value)">Little Museum of Dublin</option>
+                                        <option value="Glasnevin Cemetery Museum" onclick="addBlList(value)">Glasnevin Cemetery Museum</option>
+
+                                        <option value="Teeling Distillery" onclick="addBlList(value)">Teeling Distillery</option>
+                                        <option value="Museum of Modern Art" onclick="addBlList(value)">Museum of Modern Art</option>
+                                        <option value="Marlay Park" onclick="addBlList(value)">Marlay Park</option>
+                                        <option value="Temple Bar" onclick="addBlList(value)">Temple Bar</option>
+
+                                        <option value="Irish Whiskey Museum" onclick="addBlList(value)">Irish Whiskey Museum</option>
+                                        <option value="Jeanie Johnston" onclick="addBlList(value)">Jeanie Johnston</option>
                                     </select>
                                     <div class="row row-cols-1 row-cols-md-1 g-4">
                                         <div class="col" id="blListAttractions">
@@ -181,11 +210,10 @@
                         </div>
                     </div>
                     <br>
-                    <button type="button" onclick="savePreferences()" class="btn btn-outline-secondary">Save Preference</button>
-                    <div id="mapPopUp3" style="width: 40%;margin-top: 2%" >Successfully Saved!</div>
+                    <button type="button" style="margin-bottom: 2%" onclick="savePreferences()" class="btn btn-outline-secondary">Save Preference</button>
+                    <div id="mapPopUp3" style="width: 40%;margin-bottom: 2%" >Successfully Saved!</div>
                 </div>
             </div>
-
         </div>
 
         <script src="{% static 'script/manage_profile.js' %}"></script>

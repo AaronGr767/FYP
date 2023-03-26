@@ -204,8 +204,17 @@ h1{
 
 /*PROFILE*/
 
-
 #presCont{
+    border-radius: 10px;
+    border: solid #7D84B2 1px;
+}
+
+#prefCont{
+    border-radius: 10px;
+    border: solid #7D84B2 1px;
+}
+
+#profCont{
     width: min(90vw,100vh);
     margin: auto;
     border-radius: 10px;
@@ -850,7 +859,9 @@ img{
 }
 
 #mainContainer{
-    margin: auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 2%;
     width:90%;
 }
 
