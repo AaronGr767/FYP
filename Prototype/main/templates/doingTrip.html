@@ -12,7 +12,7 @@
                     <div class="col-md-3" style="margin-top:2%">
                         <div id="mainOptionsCont">
                             <h5>Attractions:</h5>
-                            <div id="optionsContainer">
+                            <div id="doingOptionsContainer">
                             </div>
                         </div>
                     </div>
@@ -148,12 +148,11 @@
 
         </div>
 
-        <br>
         <div id="nextStep">
             <div id="stepOptions">
                 <button onclick=optionsPopUp(true) type="button" class="btn btn-outline-dark">FINISH TRIP</button>
             </div>
-            <div id="optPopUp">Are you certain you wish to finish this trip now?<br><br>
+            <div id="optPopUp" style="margin-bottom: 2%">Are you certain you wish to finish this trip now?<br><br>
                 <button onclick=optionsPopUp(false) type="button" class="btn btn-outline-secondary">Resume Trip</button>
                 <button onclick=markFinished() type="button" class="btn btn-outline-secondary">Finish Trip</button>
             </div>

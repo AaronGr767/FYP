@@ -288,8 +288,8 @@ h1{
     border:  solid #8E9DCC 2px;
     border-radius: 4px;
     background-color: white;
-    width:20%;
-    min-width: 30px;
+    width:22%;
+    min-width: 32px;
     text-align: center;
 }
 #detailsContainer input[type=date] {
@@ -416,10 +416,20 @@ h1{
 }
 
 #optionsContainer{
-    height: min(40vw,30vh);
+    max-height: min(40vw,30vh);
     width: 90%;
     overflow: auto;
     margin: auto;
+    text-align: center;
+}
+
+#doingOptionsContainer{
+    max-height: min(60vw,54.3vh);
+    width: 90%;
+    overflow: auto;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 2%;
     text-align: center;
 }
 
@@ -558,7 +568,7 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
     width: 90%;
     margin:auto;
     text-align: left;
-    max-height: 50%;
+    max-height: min(40vw,51.8vh);
     overflow: auto;
 }
 

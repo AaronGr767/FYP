@@ -285,9 +285,25 @@ function collectChoices() {
         }
     }
 
+    if(popularResults != null){
+        for (i = 0; i < popularResults.length; i++) {
+            let formatId = "pop" + i
+            checkRec = document.getElementById(formatId)
+            if (checkRec.checked) {
+                for (j = 0; j < popularResults.length; j++) {
+                    if (popularResults[j].name == checkRec.name) {
+                        finalChoices.push(popularResults[j])
+                        console.log(popularResults[j])
+                        console.log(finalChoices)
+                    }
+                }
+            }
+        }
+    }
+
 
     localStorage.setItem('finalChoice', JSON.stringify(finalChoices))
-    location.href = '/routeMap'
+    location.href = '/setLocation'
 }
 
 function compareTrips(minRating) {

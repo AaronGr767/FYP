@@ -1,4 +1,4 @@
-document.getElementById('optionsContainer').innerHTML = ``;
+document.getElementById('doingOptionsContainer').innerHTML = ``;
 let popup = document.getElementById("optPopUp");
 popup.style.display = "none";
 
@@ -25,7 +25,7 @@ let mapType = document.getElementById("cust")
 
 
 let resultsObj = [];
-let optCont = document.getElementById('optionsContainer')
+let optCont = document.getElementById('doingOptionsContainer')
 let results = localStorage.getItem("currentTrip");
 
 if (results == null) {
@@ -410,7 +410,7 @@ function displayOptions() {
         let titleId = "title"+i
 
         checkHtml = `
-                            <div id=${titleId} class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:100%">
+                            <div id=${titleId} class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:99%">
                               <input type="checkbox" onclick=confirmBox(${i}) class="btn-check" name="${resultsObj.attNames[i]}" id=${i} autocomplete="off">
                               <label id=${disId} class="btn btn-outline-secondary" for=${i}>${resultsObj.attNames[i]}</label>
                             </div>
@@ -852,7 +852,7 @@ function calculateRoute() {
     let remainingLocCol = [];
 
     for (i = 0; i < resultsObj.attNames.length; i++) {
-        if (resultsObj.attStatus[i] == false) {
+        if (resultsObj.attStatus[i] == false || !lockClosed.includes(resultsObj.attNames[i])) {
             remainingLocNames.push(resultsObj.attNames[i])
             remainingLocDesc.push(resultsObj.tripDescs[i])
             remainingLocSites.push(resultsObj.tripSites[i])

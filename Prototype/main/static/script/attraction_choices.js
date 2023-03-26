@@ -292,3 +292,4 @@ function storeDetails(chosenday){
      localStorage.setItem('detailsStore', JSON.stringify(resultsObj1))
 
 }
+
