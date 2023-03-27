@@ -36,6 +36,17 @@ if (results == null) {
 
 tripName()
 
+visitStatus()
+
+function visitStatus(){
+    let status = localStorage.getItem("editedTripStatus");
+    if(status=="true") {
+        for (j = 0; j < resultsObj.attStatus.length; j++) {
+            resultsObj.attStatus[j] = true;
+        }
+    }
+}
+
 // updateLocation()
 if (mapType.checked) {
 
@@ -341,8 +352,10 @@ function beginBreak() {
                 let alertList = document.getElementById("closingBreakAtts")
                 alertList.innerHTML = ``;
 
-                for (i = 0; i < closingNameArray.length; i++) {
-                    alertList.innerHTML += `<li>${closingNameArray[i]} / ${closingTimeArray[i].substring(0, 2)}:${closingTimeArray[i].substring(2)}</li>`
+                console.log(closingNameArray)
+
+                for (let k = 0; k < closingNameArray.length; k++) {
+                    alertList.innerHTML += `<li>${closingNameArray[k]} / ${closingTimeArray[k].substring(0, 2)}:${closingTimeArray[k].substring(2)}</li>`
                 }
             } else {
                 renderBreak("start", "300")
@@ -836,6 +849,11 @@ function lockOptions() {
 }
 
 function calculateRoute() {
+
+    if (lastRoute) {
+        lastRoute.setMap(null);
+    }
+
     if (routePath.length != 0) {
         for (i = 0; i < routePath.length; i++)
             routePath[i].setMap(null);

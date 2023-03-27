@@ -41,7 +41,7 @@ class SavedTrip(models.Model):
     attLng = ArrayField(models.TextField(), null=True)
     date = models.CharField(max_length=50,null=True)
     groupSize = models.CharField(max_length=3,null=True)
-    maxPrice = models.FloatField(max_length=10, null=True)
+    maxPrice = models.CharField(max_length=10, null=True)
     tripTags = ArrayField(models.CharField(max_length=200), null=True)
     tripDescs = ArrayField(models.TextField(), null=True)
     tripSites = ArrayField(models.TextField(), null=True)

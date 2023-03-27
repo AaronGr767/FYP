@@ -631,7 +631,7 @@ border
     border-radius: 10px;
     border: solid #7D84B2 3px;
     background-color: whitesmoke;
-    height: min(90vw,60vh);
+    /*height: min(90vw,60vh);*/
 }
 
 #map-route{

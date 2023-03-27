@@ -7,9 +7,9 @@ function displaySaved(savedArray){
     console.log(savedArray)
     for(i=0;i<savedArray.length;i++){
         if(i%2){
-            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${savedArray[i].tripName} <button type="button" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
+            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${savedArray[i].tripName} <button type="button" title="Delete Trip" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" title="Edit Trip" onclick=editTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
         } else{
-            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${savedArray[i].tripName} <button type="button" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button> </a>`
+            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${savedArray[i].tripName} <button type="button" title="Delete Trip" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" title="Edit Trip" onclick=editTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button> </a>`
         }
     }
 }
@@ -77,9 +77,9 @@ function displayPrevious(previousArray){
     console.log(previousArray)
     for(i=0;i<previousArray.length;i++){
         if(i%2){
-            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${previousArray[i].tripName}<button type="button" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
+            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${previousArray[i].tripName}<button type="button" title="Delete Trip" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" title="Edit Trip" onclick=editTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
         } else{
-            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${previousArray[i].tripName}<button type="button" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
+            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${previousArray[i].tripName}<button type="button" title="Delete Trip" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" title="Edit Trip" onclick=editTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
         }
     }
 }
