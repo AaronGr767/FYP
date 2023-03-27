@@ -77,9 +77,9 @@ function displayPrevious(previousArray){
     console.log(previousArray)
     for(i=0;i<previousArray.length;i++){
         if(i%2){
-            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${previousArray[i].tripName}<button type="button" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button></a>`
+            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${previousArray[i].tripName}<button type="button" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
         } else{
-            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${previousArray[i].tripName}<button type="button" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button></a>`
+            pTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${previousArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${previousArray[i].tripName}<button type="button" onclick=deleteTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${previousArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
         }
     }
 }
