@@ -7,6 +7,7 @@ let tempHold;
 let recHold;
 let currHold;
 
+let savedPopChoice = []
 let disArray = []
 
 let i = 0
@@ -47,35 +48,35 @@ function displayOptions() {
 
 }
 
-function displayDetails(chosenName){
+function displayDetails(chosenName) {
     let infoPopup = document.getElementById("mapPopUp4")
-    infoPopup.style.display ='block'
+    infoPopup.style.display = 'block'
     let done = 0;
     let details = localStorage.getItem("detailsStore");
-    let parsedDetails= JSON.parse(details)
+    let parsedDetails = JSON.parse(details)
     let dayIdx = parsedDetails.dayIndex
 
     console.log(dayIdx)
 
     console.log(recData.attractions[0].name)
 
-    for(i=0;i<resultsObj.length;i++){
-        if(chosenName==resultsObj[i].name){
+    for (i = 0; i < resultsObj.length; i++) {
+        if (chosenName == resultsObj[i].name) {
             infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${resultsObj[i].description}</p>
                                     <p>Average Attraction Length : <strong>${resultsObj[i].averageTime} minutes</strong></p>
-                                    <p>Hours for Chosen Date : <strong>${resultsObj[i].openingHours[dayIdx].substring(0,2)}:${resultsObj[i].openingHours[dayIdx].substring(2)} - ${resultsObj[i].closingHours[dayIdx].substring(0,2)}:${resultsObj[i].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <p>Hours for Chosen Date : <strong>${resultsObj[i].openingHours[dayIdx].substring(0, 2)}:${resultsObj[i].openingHours[dayIdx].substring(2)} - ${resultsObj[i].closingHours[dayIdx].substring(0, 2)}:${resultsObj[i].closingHours[dayIdx].substring(2)}</strong></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
             done++
         }
     }
 
-    if(done == 0){
-        for(j=0;j<recData.attractions.length;j++){
-            if (chosenName == recData.attractions[j].name){
-            infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${recData.attractions[j].description}</p>
+    if (done == 0) {
+        for (j = 0; j < recData.attractions.length; j++) {
+            if (chosenName == recData.attractions[j].name) {
+                infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${recData.attractions[j].description}</p>
                                     <p>Average Attraction Length : <strong>${recData.attractions[j].averageTime} minutes</strong></p>
-                                    <p>Hours for Chosen Date : <strong>${recData.attractions[j].openingHours[dayIdx].substring(0,2)}:${recData.attractions[j].openingHours[dayIdx].substring(2)} - ${recData.attractions[j].closingHours[dayIdx].substring(0,2)}:${recData.attractions[j].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <p>Hours for Chosen Date : <strong>${recData.attractions[j].openingHours[dayIdx].substring(0, 2)}:${recData.attractions[j].openingHours[dayIdx].substring(2)} - ${recData.attractions[j].closingHours[dayIdx].substring(0, 2)}:${recData.attractions[j].closingHours[dayIdx].substring(2)}</strong></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
                 done++
@@ -85,12 +86,12 @@ function displayDetails(chosenName){
 
     console.log(popularResults)
 
-    if(done == 0){
-        for(k=0;k<popularResults.length;k++){
-            if (chosenName == popularResults[k].name){
-            infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${popularResults[k].description}</p>
+    if (done == 0) {
+        for (k = 0; k < popularResults.length; k++) {
+            if (chosenName == popularResults[k].name) {
+                infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${popularResults[k].description}</p>
                                     <p>Average Attraction Length : <strong>${popularResults[k].averageTime} minutes</strong></p>
-                                    <p>Hours for Chosen Date : <strong>${popularResults[k].openingHours[dayIdx].substring(0,2)}:${popularResults[k].openingHours[dayIdx].substring(2)} - ${popularResults[k].closingHours[dayIdx].substring(0,2)}:${popularResults[k].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <p>Hours for Chosen Date : <strong>${popularResults[k].openingHours[dayIdx].substring(0, 2)}:${popularResults[k].openingHours[dayIdx].substring(2)} - ${popularResults[k].closingHours[dayIdx].substring(0, 2)}:${popularResults[k].closingHours[dayIdx].substring(2)}</strong></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
                 done++
@@ -191,16 +192,33 @@ function addAttraction(buttonId) {
 
         let compare;
 
+        if (popularResults != null) {
+            for (i = 0; i < popularResults.length; i++) {
+                let formatId = "pop" + i
+                checkRec = document.getElementById(formatId)
+                if (checkRec.checked && checkRec != null) {
+                    if(!savedPopChoice.includes(popularResults[i])){
+                        savedPopChoice.push(popularResults[i])
+                        console.log(savedPopChoice)
+                    }
+
+                    // console.log(popularResults[j])
+                    // console.log(finalChoices)
+
+                }
+            }
+
+        }
+
 
         resultsObj.forEach((element) => {
             // let id = element.id;
             if (attBut.name == element.name) {
-                var myLatlng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
+                let myLatlng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
                 console.log(element.latitude)
                 console.log(myLatlng)
                 addMarker(myLatlng, element.name, element.markerColour)
 
-                if(recData != undefined){
                     for (j = 0; j < recData.attractions.length; j++) {
 
                         tempHold = document.getElementById("rec" + j)
@@ -210,7 +228,7 @@ function addAttraction(buttonId) {
                             disArray.push(j)
                         }
                     }
-                }
+
             }
         })
         retrievePopular(attBut.name)
@@ -218,6 +236,7 @@ function addAttraction(buttonId) {
     } else {
         attBut.checked = false;
         resultsObj.forEach((element) => {
+
 
             if (attBut.name == element.name) {
                 var tempLatLng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
@@ -232,9 +251,18 @@ function addAttraction(buttonId) {
                         if (disArray.length != 0) {
                             for (k = 0; k < disArray.length; k++) {
                                 tempHold = document.getElementById("rec" + disArray[k])
-                                if (tempHold.name == element.name) {
+                                if (tempHold != null && tempHold.name == element.name) {
                                     tempHold.disabled = false;
                                     disArray.splice(k, 1)
+                                }
+                            }
+
+                            for (j = 0; j < disArray.length; j++) {
+
+                                tempHold = document.getElementById("pop" + j)
+                                if (tempHold != null && tempHold.name == element.name) {
+                                    tempHold.disabled = false;
+                                    disArray.splice(j, 1)
                                 }
                             }
                         }
@@ -273,7 +301,7 @@ function collectChoices() {
             })
         }
     }
-    if(recData != undefined) {
+    if (recData != undefined) {
         for (i = 0; i < recData.frequency.length; i++) {
             let formatId = "rec" + i
             checkRec = document.getElementById(formatId)
@@ -289,7 +317,7 @@ function collectChoices() {
         }
     }
 
-    if(popularResults != null){
+    if (popularResults != null) {
         for (i = 0; i < popularResults.length; i++) {
             let formatId = "pop" + i
             checkRec = document.getElementById(formatId)
@@ -385,7 +413,7 @@ function displayRecommendations(recAtt) {
     let recChoice = document.getElementById('reccChoices')
     let recOptions = document.getElementById('recOptions')
 
-    if(recAtt.frequency.length > 0){
+    if (recAtt.frequency.length > 0) {
         recOptions.style.display = 'block'
 
         for (i = 0; i < recAtt.attractions.length; i++) {
@@ -397,23 +425,21 @@ function displayRecommendations(recAtt) {
                           <label class="btn btn-outline-secondary" for=${recId}><button class="attInfo" title="info" onclick="displayDetails('${recAtt.attractions[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${recAtt.attractions[i].name}</label>
                         </div><br>`
 
-                    //     `<div id="popOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${popResults[i].tag1}" style="margin-bottom: 2%;width:99%">
-                    //   <input type="checkbox"  onclick=addRecAttraction(${i},"pop") class="btn-check" name="${popResults[i].name}" id=${popId}  autocomplete="off">
-                    //   <label class="btn btn-outline-secondary" for=${popId}><button class="attInfo" title="info" onclick="displayDetails('${resultsObj[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${popResults[i].name}</label>
-                    // </div><br>`
-
-
+            //     `<div id="popOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${popResults[i].tag1}" style="margin-bottom: 2%;width:99%">
+            //   <input type="checkbox"  onclick=addRecAttraction(${i},"pop") class="btn-check" name="${popResults[i].name}" id=${popId}  autocomplete="off">
+            //   <label class="btn btn-outline-secondary" for=${popId}><button class="attInfo" title="info" onclick="displayDetails('${resultsObj[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${popResults[i].name}</label>
+            // </div><br>`
 
 
             checkForSelected("rec", recId, recAtt.attractions[i].name)
         }
-    }else{
+    } else {
         recChoice.innerHTML = "<p>No options match this rating!</p>"
     }
 
 }
 
-function addRecAttraction(buttonId,type) {
+function addRecAttraction(buttonId, type) {
     realId = type + buttonId
     let attBut = document.getElementById(realId)
     console.log("Adding rec")
@@ -421,9 +447,9 @@ function addRecAttraction(buttonId,type) {
 
     let chosenData;
 
-    if(type=="rec"){
+    if (type == "rec") {
         chosenData = recData.attractions
-    } else{
+    } else {
         chosenData = popularResults
     }
 
@@ -447,14 +473,14 @@ function addRecAttraction(buttonId,type) {
                         disArray.push(j)
                     }
 
-                    if(document.getElementById("popChoices").style.display == 'block') {
+                    if (document.getElementById("popChoices").style.display == 'block') {
                         if (type == "rec") {
                             recHold = document.getElementById("pop" + j)
                         } else {
                             recHold = document.getElementById("rec" + j)
                         }
 
-                        if ( recHold != null && recHold.name == chosenData[i].name) {
+                        if (recHold != null && recHold.name == chosenData[i].name) {
                             currHold = recHold;
                             currHold.disabled = true;
                             disArray.push(j)
@@ -465,9 +491,9 @@ function addRecAttraction(buttonId,type) {
 
         }
         console.log("Testers:")
-    console.log(recHold)
-    console.log(currHold)
-    console.log(disArray)
+        console.log(recHold)
+        console.log(currHold)
+        console.log(disArray)
     } else {
         // if(currHold.disabled){
         //     currHold.disabled = false;
@@ -493,7 +519,7 @@ function addRecAttraction(buttonId,type) {
                                     disArray.splice(k, 1)
                                 }
 
-                                if(document.getElementById("popChoices").style.display == 'block') {
+                                if (document.getElementById("popChoices").style.display == 'block') {
                                     if (type == "rec") {
                                         recHold = document.getElementById("pop" + k)
                                     } else {
@@ -513,12 +539,59 @@ function addRecAttraction(buttonId,type) {
 
         }
         console.log("Testers:")
-    console.log(disArray)
+        console.log(disArray)
     }
 
 }
 
-function retrievePopular(attName){
+function retrievePopular(attName) {
+
+    // if (popularResults != undefined && popularResults != null) {
+    //     for (i = 0; i < popularResults.length; i++) {
+    //         for (j = 0; j < savedPopChoice.length; j++) {
+    //             if (popularResults[i].name == savedPopChoice[j].name) {
+    //                 for (k = 0; k < resultsObj.length; k++) {
+    //                     let optionsButton = document.getElementById(k)
+    //                     if (optionsButton.name == popularResults[i].name) {
+    //                         optionsButton.disabled = false
+    //
+    //                         var tempLatLng = new google.maps.LatLng(parseFloat(popularResults[i].latitude), parseFloat(popularResults[i].longitude));
+    //                         markers.forEach((item) => {
+    //                             j++;
+    //                             if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
+    //                                 console.log("no hope")
+    //                                 delMarkers(item, j)
+    //
+    //                                 if (disArray.length != 0) {
+    //                                     for (k = 0; k < disArray.length; k++) {
+    //                                         tempHold = document.getElementById(disArray[k])
+    //                                         if (tempHold.name == popularResults[i].name) {
+    //                                             tempHold.disabled = false;
+    //                                             disArray.splice(k, 1)
+    //                                         }
+    //
+    //
+    //                                                 recHold = document.getElementById("rec" + k)
+    //
+    //
+    //                                             if (recHold != null && recHold.name == popularResults[i].name) {
+    //                                                 recHold.disabled = false;
+    //                                                 disArray.splice(k, 1)
+    //                                             }
+    //                                         }
+    //
+    //                                 }
+    //                             }
+    //                         })
+    //                         optionsButton.click()
+    //                     }
+    //                 }
+    //                 savedPopChoice.splice(j, 1);
+    //             }
+    //         }
+    //     }
+    // }
+
     $.ajax({
         type: "POST",
         headers: {
@@ -545,7 +618,7 @@ function retrievePopular(attName){
     });
 }
 
-function renderPopular(popResults){
+function renderPopular(popResults) {
     let popCont = document.getElementById("popChoices")
     popCont.style.display = 'block'
     popCont.innerHTML = ``
@@ -571,39 +644,48 @@ function renderPopular(popResults){
 //If option is already selected elsewhere
 function checkForSelected(type, id, name) {
     let ifPopExists = document.getElementById("popChoices").style.display
-    if(disArray.length>0){
+
+    for (v=0;v<resultsObj.length;v++){
+        if(document.getElementById(v).checked){
+            if(document.getElementById(v).name == name){
+               disArray.push(v)
+            }
+
+        }
+    }
+    if (disArray.length > 0) {
 
         //breaks entire page by freezing when I iterate using 'i'
         for (p = 0; p < disArray.length; p++) {
             let existingSelects = document.getElementById(disArray[p]).name
             if (existingSelects == name) {
                 document.getElementById(id).disabled = true;
-            }  else if (type!="pop") {
-                if(document.getElementById("pop"+disArray[p]).name == name){
+            } else if (type != "pop") {
+                if (document.getElementById("pop" + disArray[p]).name == name) {
                     document.getElementById(id).disabled = true;
                 }
-            } else if(type!="rec"){
-                if(document.getElementById("rec"+disArray[p]).name == name){
+            } else if (type != "rec" && document.getElementById("rec" + disArray[p]) != null) {
+                if (document.getElementById("rec" + disArray[p]).name == name) {
                     document.getElementById(id).disabled = true;
                 }
             }
         }
 
 
-    //     //
-    //     // if (ifPopExists == 'block' && type == "rec") {
-    //     //
-    //     // }
-    //
-    //     // else if (type == "pop"){
-    //     //     if (document.getElementById(disArray[i]).name == name) {
-    //     //         document.getElementById(id).disabled = true;
-    //     //     }
-    //     //     if (document.getElementById("rec"+disArray[i]).name == name) {
-    //     //         document.getElementById(id).disabled = true;
-    //     //     }
-    //     // }
-    // }
+        //     //
+        //     // if (ifPopExists == 'block' && type == "rec") {
+        //     //
+        //     // }
+        //
+        //     // else if (type == "pop"){
+        //     //     if (document.getElementById(disArray[i]).name == name) {
+        //     //         document.getElementById(id).disabled = true;
+        //     //     }
+        //     //     if (document.getElementById("rec"+disArray[i]).name == name) {
+        //     //         document.getElementById(id).disabled = true;
+        //     //     }
+        //     // }
+        // }
     }
 
 }
