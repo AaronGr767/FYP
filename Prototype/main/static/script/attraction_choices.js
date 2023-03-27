@@ -2,6 +2,36 @@ let presetObj = [];
 
 retrievePresets()
 
+checkEdit()
+
+function checkEdit(){
+    let status = localStorage.getItem("editedTripStatus");
+    if(status=="true"){
+        let eTrip = localStorage.getItem("editedTrip")
+        let editedTrip = JSON.parse(eTrip)
+
+        console.log(editedTrip)
+
+        let trName = document.getElementById("tripName")
+        trName.value = editedTrip.tripName
+
+        let trSize = document.getElementById("groupSize")
+        trSize.value = editedTrip.groupSize
+
+        let trPrice = document.getElementById("maxPrice")
+        trPrice.value = editedTrip.maxPrice
+
+        let trDate = document.getElementById("chosenDate")
+        trDate.value = editedTrip.date
+
+        for(i=0;i<editedTrip.tripTags.length;i++){
+            let reformat = editedTrip.tripTags[i].substring(0,3) + "Check"
+            let filter = document.getElementById(reformat)
+            filter.checked = true;
+        }
+    }
+}
+
 function fillPreset(presetChoice){
     console.log(presetObj[presetChoice])
 
@@ -17,22 +47,22 @@ function fillPreset(presetChoice){
         document.getElementById('artCheck').checked = false
     }
 
-    if (presetObj[presetChoice].presetTags.includes(document.getElementById('histCheck').value)) {
-        document.getElementById('histCheck').checked = true
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('hisCheck').value)) {
+        document.getElementById('hisCheck').checked = true
     }else{
-        document.getElementById('histCheck').checked = false
+        document.getElementById('hisCheck').checked = false
     }
 
-    if (presetObj[presetChoice].presetTags.includes(document.getElementById('archCheck').value)) {
-        document.getElementById('archCheck').checked = true
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('arcCheck').value)) {
+        document.getElementById('arcCheck').checked = true
     }else{
-        document.getElementById('archCheck').checked = false
+        document.getElementById('arcCheck').checked = false
     }
 
-    if (presetObj[presetChoice].presetTags.includes(document.getElementById('cultCheck').value)) {
-        document.getElementById('cultCheck').checked = true
+    if (presetObj[presetChoice].presetTags.includes(document.getElementById('culCheck').value)) {
+        document.getElementById('culCheck').checked = true
     }else{
-        document.getElementById('cultCheck').checked = false
+        document.getElementById('culCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('eduCheck').value)) {
@@ -114,15 +144,15 @@ function setFilters(){
             filterArray[counter] = "art";
             counter ++;
     }
-    if (document.getElementById('histCheck').checked) {
+    if (document.getElementById('hisCheck').checked) {
             filterArray[counter] = "historical";
             counter ++;
     }
-    if (document.getElementById('archCheck').checked) {
+    if (document.getElementById('arcCheck').checked) {
             filterArray[counter] = "architecture";
             counter ++;
     }
-    if (document.getElementById('cultCheck').checked) {
+    if (document.getElementById('culCheck').checked) {
             filterArray[counter] = "cultural";
             counter ++;
     }

@@ -145,6 +145,7 @@ def saveTrip(request):
     website = request.POST.getlist("site[]", None)
     colours = request.POST.getlist("mColours[]", None)
     closing = request.POST.getlist("cArray[]", None)
+    maximumPrice = request.POST.get("mPrice", None)
 
     attStat = [False] * len(savedNames)
 
@@ -164,6 +165,7 @@ def saveTrip(request):
         sTrip.tripTags = savedFilt
         sTrip.tripName = tripName
         sTrip.groupSize = groupSize
+        sTrip.maxPrice = maximumPrice
         sTrip.date = savedDate
         sTrip.tripColours = colours
         sTrip.attStatus = attStat
@@ -513,11 +515,83 @@ def savePreference(request):
 
         return HttpResponse(status=200)
 
-def retrievePreference(request):
-	currUser = request.user.id
-	userPrefs = PreferencesProfile.objects.filter(userOwner_id=currUser).values()
 
-	context = {
-		"results": list(userPrefs)
-	}
-	return  JsonResponse(context, status=200)
+def retrievePreference(request):
+    currUser = request.user.id
+    userPrefs = PreferencesProfile.objects.filter(userOwner_id=currUser).values()
+
+    context = {
+        "results": list(userPrefs)
+    }
+    return JsonResponse(context, status=200)
+
+
+def editTrip(request):
+    tripId = request.POST.get("attId", None)
+
+    tripEdit = SavedTrip.objects.filter(id=tripId).values()
+
+    context = {
+        "results": list(tripEdit)
+    }
+
+    return JsonResponse(context,status=200)
+
+
+def saveEditedTrip(request):
+    editId = request.POST.get("tripId", None)
+    savedFilt = request.POST.getlist('tripTags[]', None)
+    savedStart = request.POST.get("sLocation", None)
+    savedNames = request.POST.getlist("attNames[]", None)
+    savedLat = request.POST.getlist("lats[]", None)
+    savedLng = request.POST.getlist("lngs[]", None)
+    tripName = request.POST.get("tName", None)
+    savedDate = request.POST.get("cDate", None)
+    groupSize = request.POST.get("gSize", None)
+    description = request.POST.getlist("desc[]", None)
+    website = request.POST.getlist("site[]", None)
+    colours = request.POST.getlist("mColours[]", None)
+    closing = request.POST.getlist("cArray[]", None)
+    maximumPrice = request.POST.get("mPrice", None)
+
+    attStat = [False] * len(savedNames)
+
+    counter = -1
+
+    try:
+
+        # my_coords = [float(coord) for coord in locations.split(", ")]
+        editedTrip = SavedTrip.objects.get(id=editId)
+
+        editedTrip.startLocation = savedStart
+        editedTrip.attNames = savedNames
+        editedTrip.attLat = savedLat
+        editedTrip.attLng = savedLng
+        editedTrip.tripDescs = description
+        editedTrip.tripSites = website
+        editedTrip.tripTags = savedFilt
+        editedTrip.tripName = tripName
+        editedTrip.groupSize = groupSize
+        editedTrip.maxPrice = maximumPrice
+        editedTrip.date = savedDate
+        editedTrip.tripColours = colours
+        editedTrip.attStatus = attStat
+        editedTrip.attClosing = closing
+        editedTrip.save()
+
+        # Update occurnce count for each attraction in trip
+        for item in savedNames:
+            tempAtt = AttractionData.objects.get(attractionName=item)
+            print("papa")
+            print(item)
+            otherAtts = [others for others in savedNames if others != item]
+            for tripAtt in otherAtts:
+                for i, countAtt in enumerate(tempAtt.otherAttractions):
+                    if (tripAtt == countAtt):
+                        tempAtt.occurrenceCount[i] = tempAtt.occurrenceCount[i] + 1
+                        tempAtt.save()
+
+        return JsonResponse({'id':editId}, status=200)
+    except:
+
+        return JsonResponse({"message": "Saved failed for " + request.user}, status=400)

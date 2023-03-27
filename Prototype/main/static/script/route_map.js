@@ -161,7 +161,54 @@ function saveTrip(startCheck) {
 
     // let csrftoken = getCookie('csrftoken');
 
-    $.ajax({
+    let status = localStorage.getItem("editedTripStatus");
+    if(status=="true") {
+        let eTrip = localStorage.getItem("editedTrip")
+        let editedTrip = JSON.parse(eTrip)
+
+        $.ajax({
+        type: "POST",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        url:"saveeditedtrip/",
+        data: {
+            tripId: editedTrip.id,
+            sLocation: startLoc,
+            attNames: resultsName,
+            lats: resultsLat,
+            lngs:resultsLng,
+            tripTags:filterArray,
+            tName:detailsObj.tripName,
+            gSize:detailsObj.groupSize,
+            mPrice:detailsObj.maxPrice,
+            cDate:detailsObj.chosenDate,
+            desc:descArray,
+            site:siteArray,
+            mColours: colourArray,
+            aStatus: statusArray,
+            cArray: closingArray
+        }
+    }).done(function (data, status, xhr) {
+        console.log(data)
+        if(startCheck){
+            localStorage.setItem('saveAndStart', JSON.stringify(data.id))
+            location.href='/startTrip'
+        }else{
+            location.href='/home'
+        }
+        var originalMsg = $(".toast-body").html();
+        $(".toast-body").html(originalMsg + "<br/>Updateddatabase<br/>" + data["message"]);
+    }).fail(function (xhr, status, error) {
+        console.log(error);
+        var originalMsg = $(".toast-body").html();
+        $(".toast-body").html(originalMsg + "<br/>" + error);
+    }).always(function () {
+        console.log("update finished");
+    });
+
+    }else{
+        $.ajax({
         type: "POST",
         headers: {
             'X-CSRFToken': getCookie('csrftoken')
@@ -200,6 +247,7 @@ function saveTrip(startCheck) {
     }).always(function () {
         console.log("save finished");
     });
+    }
 
 }
 

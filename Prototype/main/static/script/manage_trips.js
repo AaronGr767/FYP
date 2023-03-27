@@ -7,11 +7,36 @@ function displaySaved(savedArray){
     console.log(savedArray)
     for(i=0;i<savedArray.length;i++){
         if(i%2){
-            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${savedArray[i].tripName}<button type="button" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button></a>`
+            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-primary">${savedArray[i].tripName} <button type="button" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button></a>`
         } else{
-            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${savedArray[i].tripName}<button type="button" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button></a>`
+            sTrip.innerHTML += `<a id="viewTrip" onclick=setTrip(${savedArray[i].id}) class="list-group-item list-group-item-action list-group-item-light">${savedArray[i].tripName} <button type="button" onclick=deleteTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></button> <button type="button" onclick=editTrip(${savedArray[i].id}) class="btn btn-outline-dark"><i class="fa-solid fa-pen"></i></button> </a>`
         }
     }
+}
+
+function editTrip(editId){
+    event.stopPropagation()
+    $.ajax({
+        type: "POST",
+        url: "edittrip/",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        data: {
+            attId: editId
+        }
+    }).done(function (data, status, xhr) {
+        console.log(data);
+
+        localStorage.setItem('editedTrip', JSON.stringify(data.results[0]))
+        localStorage.setItem('editedTripStatus', "true")
+
+        location.href='/create'
+    }).fail(function (xhr, status, error) {
+        var message = "Passing filters failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
 }
 
 function setTrip(thisTrip){
@@ -34,7 +59,7 @@ function deleteTrip(thisTrip){
             delId: thisTrip
         }
     }).done(function (data, status, xhr) {
-        console.log("data");
+        console.log(status);
 
         getTrips()
 

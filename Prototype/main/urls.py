@@ -34,4 +34,6 @@ urlpatterns = [
     path('checkadmin/retrievedata/', views.retrieveData, name="retrieveData"),
     path('savepreference/', views.savePreference, name="savePreference"),
     path('retrievepreference/', views.retrievePreference, name="retrievePreference"),
+    path('edittrip/', views.editTrip, name="editTrip"),
+    path('saveeditedtrip/', views.saveEditedTrip, name="saveEditedTrip"),
 ]

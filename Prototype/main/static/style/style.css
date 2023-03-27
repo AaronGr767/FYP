@@ -163,10 +163,12 @@ h1{
 
 #savedTrips button{
     float: right;
+    margin:1%;
 }
 
 #previousTrips button{
     float: right;
+    margin:1%;
 }
 
 #previousTrips{
@@ -572,11 +574,12 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
     overflow: auto;
 }
 
-#tripOptions{
+#tripSum{
     text-align: center;
     border-radius: 10px;
     border: solid #7D84B2 3px;
     background-color: whitesmoke;
+    max-height: min(90vw,60vh);
 }
 
 #addDetails{
@@ -623,6 +626,14 @@ border
 /* END START TRIP */
 
 /* DOING TRIP */
+#tripOptions{
+    text-align: center;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    background-color: whitesmoke;
+    height: min(90vw,60vh);
+}
+
 #map-route{
     height: 95%;
 
@@ -763,16 +774,6 @@ border
     margin-top: 2%;
     margin-bottom: 0px;
 }
-/*#mapContainer {*/
-/*    position: relative;*/
-/*    background-color: whitesmoke;*/
-/*    margin: auto;*/
-/*    height: min(90vw,60vh);*/
-/*    !*width:min(90vw,80vh);*!*/
-/*    border: solid #DBF4A7 3px;*/
-/*    padding: 15px;*/
-/*    border-radius: 5px;*/
-/*}*/
 
 /* over map*/
 #timeAlert{
