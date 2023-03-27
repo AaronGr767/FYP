@@ -8,10 +8,13 @@
     <div class="m-2 text-center">
         <h4>Welcome to Treoraí!</h4>
         <h5>The one-stop site for planning the perfect day of sightseeing in Dublin. </h5>
-            <p>Login or register and let's start this adventure together! <i class="fa-brands fa-space-awesome"></i></p><br>
-            <button onclick="location.href='{%  url 'login' %}'" type="button"   class="btn btn-outline-primary btn-lg">
-             Login</button>
-            <button onclick="location.href='{% url 'main:registration' %}'" type="button" class="btn btn-outline-success btn-lg">
-             Registration</button>
+        <p>Login or register and let's start this adventure together! <i class="fa-brands fa-space-awesome"></i></p><br>
+        <button onclick="location.href='{% url 'login' %}'" type="button" class="btn btn-outline-primary btn-lg">
+            Login
+        </button>
+        <button onclick="location.href='{% url 'main:registration' %}'" type="button"
+                class="btn btn-outline-success btn-lg">
+            Registration
+        </button>
     </div>
 {% endblock %}

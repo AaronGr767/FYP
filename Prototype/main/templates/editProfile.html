@@ -10,114 +10,116 @@
 
         <div id="mainContainer">
             <div id="profCont">
-            <div id="presCont">
-                <h4>Presets:</h4>
-                <p>Customise the presets below and select your chosen preset during trip creation in order to speed up
-                    the process!</p>
-                <div class="container-fluid">
+                <div id="presCont">
+                    <h4>Presets:</h4>
+                    <p>Customise the presets below and select your chosen preset during trip creation in order to speed
+                        up
+                        the process!</p>
+                    <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-4" style="margin-top:4%">
                                 <button type="button" onclick=renderPresets(1) id="preset1" class="btn btn-outline"
-                            data-bs-toggle="modal" data-bs-target="#preset1Modal">
-                        <h5>Preset 1</h5>
-                        <i class="fa-solid fa-circle-plus fa-3x"></i>
-                    </button>
+                                        data-bs-toggle="modal" data-bs-target="#preset1Modal">
+                                    <h5>Preset 1</h5>
+                                    <i class="fa-solid fa-circle-plus fa-3x"></i>
+                                </button>
                             </div>
                             <div class="col-md-4" style="margin-top:4%">
                                 <button type="button" onclick=renderPresets(2) id="preset2" class="btn btn-outline"
-                            data-bs-toggle="modal" data-bs-target="#preset2Modal">
-                        <h5>Preset 2</h5>
-                        <i class="fa-solid fa-circle-plus fa-3x"></i>
-                    </button>
+                                        data-bs-toggle="modal" data-bs-target="#preset2Modal">
+                                    <h5>Preset 2</h5>
+                                    <i class="fa-solid fa-circle-plus fa-3x"></i>
+                                </button>
                             </div>
                             <div class="col-md-4" style="margin-top:4%">
                                 <button type="button" onclick=renderPresets(3) id="preset3" class="btn btn-outline"
-                            data-bs-toggle="modal" data-bs-target="#preset3Modal">
-                        <h5>Preset 3</h5>
-                        <i class="fa-solid fa-circle-plus fa-3x"></i>
-                    </button>
-                            </div>
-                        </div>
-                    </div>
-                <div id="nav-buttons">
-
-
-
-
-
-                </div>
-
-                <div class="modal fade" id="preset1Modal" tabindex="-1" aria-labelledby="presetModal1Label"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="preset1ModalLabel" value="preset1"
-                                    style="text-align: center">Preset 1</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="mBody1">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onclick=setFilters(1)
-                                        data-bs-dismiss="modal">Save changes
+                                        data-bs-toggle="modal" data-bs-target="#preset3Modal">
+                                    <h5>Preset 3</h5>
+                                    <i class="fa-solid fa-circle-plus fa-3x"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div id="nav-buttons">
 
-                <div class="modal fade" id="preset2Modal" tabindex="-1" aria-labelledby="preset2ModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="preset2ModalLabel" value="preset2"
-                                    style="text-align: center">Preset 2</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="mBody2">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onclick=setFilters(2)
-                                        data-bs-dismiss="modal">Save changes
-                                </button>
+
+                    </div>
+
+                    <div class="modal fade" id="preset1Modal" tabindex="-1" aria-labelledby="presetModal1Label"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="preset1ModalLabel" value="preset1"
+                                        style="text-align: center">Preset 1</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="mBody1">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick=setFilters(1)
+                                            data-bs-dismiss="modal">Save changes
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal fade" id="preset3Modal" tabindex="-1" aria-labelledby="preset3ModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="preset3ModalLabel" value="preset3"
-                                    style="text-align: center">Preset 3</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="mBody3">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onclick=setFilters(3)
-                                        data-bs-dismiss="modal">Save changes
-                                </button>
+                    <div class="modal fade" id="preset2Modal" tabindex="-1" aria-labelledby="preset2ModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="preset2ModalLabel" value="preset2"
+                                        style="text-align: center">Preset 2</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="mBody2">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick=setFilters(2)
+                                            data-bs-dismiss="modal">Save changes
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="modal fade" id="preset3Modal" tabindex="-1" aria-labelledby="preset3ModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="preset3ModalLabel" value="preset3"
+                                        style="text-align: center">Preset 3</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="mBody3">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick=setFilters(3)
+                                            data-bs-dismiss="modal">Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <div id="prefCont">
                     <h4>Preferences:</h4>
-                    <p>Choose attractions that you wish to view (or not!) regardless of the filters you pick when creating a trip.</p>
+                    <p>Choose attractions that you wish to view (or not!) regardless of the filters you pick when
+                        creating a trip.</p>
 
                     <div class="container-fluid">
                         <div class="row">
@@ -125,38 +127,72 @@
                                 <h5>Whitelist Attractions</h5>
                                 <div id="whList">
                                     <select id="mySelect" style="margin-bottom: 2%">
-                                        <option value="General Post Office" onclick="addWhList(value)">General Post Office</option>
-                                        <option value="Hugh Lane Gallery" onclick="addWhList(value)">Hugh Lane Gallery</option>
-                                        <option value="National Wax Museum" onclick="addWhList(value)">National Wax Museum</option>
-                                        <option value="Guinness Storehouse" onclick="addWhList(value)">Guinness Storehouse</option>
+                                        <option value="General Post Office" onclick="addWhList(value)">General Post
+                                            Office
+                                        </option>
+                                        <option value="Hugh Lane Gallery" onclick="addWhList(value)">Hugh Lane Gallery
+                                        </option>
+                                        <option value="National Wax Museum" onclick="addWhList(value)">National Wax
+                                            Museum
+                                        </option>
+                                        <option value="Guinness Storehouse" onclick="addWhList(value)">Guinness
+                                            Storehouse
+                                        </option>
 
-                                        <option value="Kilmainham Gaol" onclick="addWhList(value)">Kilmainham Gaol</option>
-                                        <option value="National Gallery" onclick="addWhList(value)">National Gallery</option>
-                                        <option value="14 Henrietta Street" onclick="addWhList(value)">14 Henrietta Street</option>
-                                        <option value="St Patricks Cathedral" onclick="addWhList(value)">St Patricks Cathedral</option>
+                                        <option value="Kilmainham Gaol" onclick="addWhList(value)">Kilmainham Gaol
+                                        </option>
+                                        <option value="National Gallery" onclick="addWhList(value)">National Gallery
+                                        </option>
+                                        <option value="14 Henrietta Street" onclick="addWhList(value)">14 Henrietta
+                                            Street
+                                        </option>
+                                        <option value="St Patricks Cathedral" onclick="addWhList(value)">St Patricks
+                                            Cathedral
+                                        </option>
 
                                         <option value="Phoenix Park" onclick="addWhList(value)">Phoenix Park</option>
                                         <option value="Dublin Castle" onclick="addWhList(value)">Dublin Castle</option>
-                                        <option value="Christ Church Cathedral" onclick="addWhList(value)">Christ Church Cathedral</option>
-                                        <option value="National Museums of Ireland " onclick="addWhList(value)">National Museums of Ireland </option>
+                                        <option value="Christ Church Cathedral" onclick="addWhList(value)">Christ Church
+                                            Cathedral
+                                        </option>
+                                        <option value="National Museums of Ireland " onclick="addWhList(value)">National
+                                            Museums of Ireland
+                                        </option>
 
-                                        <option value="Chester Beatty Library" onclick="addWhList(value)">Chester Beatty Library</option>
-                                        <option value="St Stephens Green" onclick="addWhList(value)">St Stephens Green</option>
-                                        <option value="Merrion Square" onclick="addWhList(value)">Merrion Square</option>
-                                        <option value="Jameson Distillery" onclick="addWhList(value)">Jameson Distillery</option>
+                                        <option value="Chester Beatty Library" onclick="addWhList(value)">Chester Beatty
+                                            Library
+                                        </option>
+                                        <option value="St Stephens Green" onclick="addWhList(value)">St Stephens Green
+                                        </option>
+                                        <option value="Merrion Square" onclick="addWhList(value)">Merrion Square
+                                        </option>
+                                        <option value="Jameson Distillery" onclick="addWhList(value)">Jameson
+                                            Distillery
+                                        </option>
 
                                         <option value="Marsh Library" onclick="addWhList(value)">Marsh Library</option>
                                         <option value="Croke Park" onclick="addWhList(value)">Croke Park</option>
-                                        <option value="Little Museum of Dublin" onclick="addWhList(value)">Little Museum of Dublin</option>
-                                        <option value="Glasnevin Cemetery Museum" onclick="addWhList(value)">Glasnevin Cemetery Museum</option>
+                                        <option value="Little Museum of Dublin" onclick="addWhList(value)">Little Museum
+                                            of Dublin
+                                        </option>
+                                        <option value="Glasnevin Cemetery Museum" onclick="addWhList(value)">Glasnevin
+                                            Cemetery Museum
+                                        </option>
 
-                                        <option value="Teeling Distillery" onclick="addWhList(value)">Teeling Distillery</option>
-                                        <option value="Museum of Modern Art" onclick="addWhList(value)">Museum of Modern Art</option>
+                                        <option value="Teeling Distillery" onclick="addWhList(value)">Teeling
+                                            Distillery
+                                        </option>
+                                        <option value="Museum of Modern Art" onclick="addWhList(value)">Museum of Modern
+                                            Art
+                                        </option>
                                         <option value="Marlay Park" onclick="addWhList(value)">Marlay Park</option>
                                         <option value="Temple Bar" onclick="addWhList(value)">Temple Bar</option>
 
-                                        <option value="Irish Whiskey Museum" onclick="addWhList(value)">Irish Whiskey Museum</option>
-                                        <option value="Jeanie Johnston" onclick="addWhList(value)">Jeanie Johnston</option>
+                                        <option value="Irish Whiskey Museum" onclick="addWhList(value)">Irish Whiskey
+                                            Museum
+                                        </option>
+                                        <option value="Jeanie Johnston" onclick="addWhList(value)">Jeanie Johnston
+                                        </option>
                                     </select>
                                     <div class="row row-cols-1 row-cols-md-1 g-4">
                                         <div class="col" id="whListAttractions">
@@ -168,38 +204,72 @@
                                 <h5>Blacklist Attractions</h5>
                                 <div id="blList">
                                     <select id="mySelect" style="margin-bottom: 2%">
-                                        <option value="General Post Office" onclick="addBlList(value)">General Post Office</option>
-                                        <option value="Hugh Lane Gallery" onclick="addBlList(value)">Hugh Lane Gallery</option>
-                                        <option value="National Wax Museum" onclick="addBlList(value)">National Wax Museum</option>
-                                        <option value="Guinness Storehouse" onclick="addBlList(value)">Guinness Storehouse</option>
+                                        <option value="General Post Office" onclick="addBlList(value)">General Post
+                                            Office
+                                        </option>
+                                        <option value="Hugh Lane Gallery" onclick="addBlList(value)">Hugh Lane Gallery
+                                        </option>
+                                        <option value="National Wax Museum" onclick="addBlList(value)">National Wax
+                                            Museum
+                                        </option>
+                                        <option value="Guinness Storehouse" onclick="addBlList(value)">Guinness
+                                            Storehouse
+                                        </option>
 
-                                        <option value="Kilmainham Gaol" onclick="addBlList(value)">Kilmainham Gaol</option>
-                                        <option value="National Gallery" onclick="addBlList(value)">National Gallery</option>
-                                        <option value="14 Henrietta Street" onclick="addBlList(value)">14 Henrietta Street</option>
-                                        <option value="St Patricks Cathedral" onclick="addBlList(value)">St Patricks Cathedral</option>
+                                        <option value="Kilmainham Gaol" onclick="addBlList(value)">Kilmainham Gaol
+                                        </option>
+                                        <option value="National Gallery" onclick="addBlList(value)">National Gallery
+                                        </option>
+                                        <option value="14 Henrietta Street" onclick="addBlList(value)">14 Henrietta
+                                            Street
+                                        </option>
+                                        <option value="St Patricks Cathedral" onclick="addBlList(value)">St Patricks
+                                            Cathedral
+                                        </option>
 
                                         <option value="Phoenix Park" onclick="addBlList(value)">Phoenix Park</option>
                                         <option value="Dublin Castle" onclick="addBlList(value)">Dublin Castle</option>
-                                        <option value="Christ Church Cathedral" onclick="addBlList(value)">Christ Church Cathedral</option>
-                                        <option value="National Museums of Ireland " onclick="addBlList(value)">National Museums of Ireland </option>
+                                        <option value="Christ Church Cathedral" onclick="addBlList(value)">Christ Church
+                                            Cathedral
+                                        </option>
+                                        <option value="National Museums of Ireland " onclick="addBlList(value)">National
+                                            Museums of Ireland
+                                        </option>
 
-                                        <option value="Chester Beatty Library" onclick="addBlList(value)">Chester Beatty Library</option>
-                                        <option value="St Stephens Green" onclick="addBlList(value)">St Stephens Green</option>
-                                        <option value="Merrion Square" onclick="addBlList(value)">Merrion Square</option>
-                                        <option value="Jameson Distillery" onclick="addBlList(value)">Jameson Distillery</option>
+                                        <option value="Chester Beatty Library" onclick="addBlList(value)">Chester Beatty
+                                            Library
+                                        </option>
+                                        <option value="St Stephens Green" onclick="addBlList(value)">St Stephens Green
+                                        </option>
+                                        <option value="Merrion Square" onclick="addBlList(value)">Merrion Square
+                                        </option>
+                                        <option value="Jameson Distillery" onclick="addBlList(value)">Jameson
+                                            Distillery
+                                        </option>
 
                                         <option value="Marsh Library" onclick="addBlList(value)">Marsh Library</option>
                                         <option value="Croke Park" onclick="addBlList(value)">Croke Park</option>
-                                        <option value="Little Museum of Dublin" onclick="addBlList(value)">Little Museum of Dublin</option>
-                                        <option value="Glasnevin Cemetery Museum" onclick="addBlList(value)">Glasnevin Cemetery Museum</option>
+                                        <option value="Little Museum of Dublin" onclick="addBlList(value)">Little Museum
+                                            of Dublin
+                                        </option>
+                                        <option value="Glasnevin Cemetery Museum" onclick="addBlList(value)">Glasnevin
+                                            Cemetery Museum
+                                        </option>
 
-                                        <option value="Teeling Distillery" onclick="addBlList(value)">Teeling Distillery</option>
-                                        <option value="Museum of Modern Art" onclick="addBlList(value)">Museum of Modern Art</option>
+                                        <option value="Teeling Distillery" onclick="addBlList(value)">Teeling
+                                            Distillery
+                                        </option>
+                                        <option value="Museum of Modern Art" onclick="addBlList(value)">Museum of Modern
+                                            Art
+                                        </option>
                                         <option value="Marlay Park" onclick="addBlList(value)">Marlay Park</option>
                                         <option value="Temple Bar" onclick="addBlList(value)">Temple Bar</option>
 
-                                        <option value="Irish Whiskey Museum" onclick="addBlList(value)">Irish Whiskey Museum</option>
-                                        <option value="Jeanie Johnston" onclick="addBlList(value)">Jeanie Johnston</option>
+                                        <option value="Irish Whiskey Museum" onclick="addBlList(value)">Irish Whiskey
+                                            Museum
+                                        </option>
+                                        <option value="Jeanie Johnston" onclick="addBlList(value)">Jeanie Johnston
+                                        </option>
                                     </select>
                                     <div class="row row-cols-1 row-cols-md-1 g-4">
                                         <div class="col" id="blListAttractions">
@@ -210,8 +280,10 @@
                         </div>
                     </div>
                     <br>
-                    <button type="button" style="margin-bottom: 2%" onclick="savePreferences()" class="btn btn-outline-secondary">Save Preference</button>
-                    <div id="mapPopUp3" style="width: 40%;margin-bottom: 2%" >Successfully Saved!</div>
+                    <button type="button" style="margin-bottom: 2%" onclick="savePreferences()"
+                            class="btn btn-outline-secondary">Save Preference
+                    </button>
+                    <div id="mapPopUp3" style="width: 40%;margin-bottom: 2%">Successfully Saved!</div>
                 </div>
             </div>
         </div>

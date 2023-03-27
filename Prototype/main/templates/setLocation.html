@@ -26,15 +26,17 @@
         <div id="locContainer">
 
 
-
             <h5>Choose Location</h5>
             <p>You may choose your planned starting location now or leave it blank!</p>
 
-           <input type="text" placeholder="Enter chosen address" id="starting_address" name="starting_address"><br>
-            <h7>OR</h7><br>
-            <button type="button" class="btn btn-primary btn-sm" onclick=getLocation() id="mapButton">Use Current Location</button>
-           <input type="hidden" class="geo" id="id-lat-a" value="">
-           <input type="hidden" class="geo" id="id-long-a" value="">
+            <input type="text" placeholder="Enter chosen address" id="starting_address" name="starting_address"><br>
+            <h7>OR</h7>
+            <br>
+            <button type="button" class="btn btn-primary btn-sm" onclick=getLocation() id="mapButton">Use Current
+                Location
+            </button>
+            <input type="hidden" class="geo" id="id-lat-a" value="">
+            <input type="hidden" class="geo" id="id-long-a" value="">
 
             <select id="mode" style="display: none">
                 <option value="DRIVING">Driving</option>
@@ -45,10 +47,10 @@
         <br>
         <div id="nextStep">
 
-                <button onclick="location.href='/choose'" type="button" class="btn btn-outline-dark" >PREVIOUS STEP</button>
-                <button onclick=checkType() type="button" class="btn btn-outline-dark" >NEXT STEP</button>
+            <button onclick="location.href='/choose'" type="button" class="btn btn-outline-dark">PREVIOUS STEP</button>
+            <button onclick=checkType() type="button" class="btn btn-outline-dark">NEXT STEP</button>
 
-            </div>
+        </div>
 
 
         </div>
@@ -58,7 +60,7 @@
             var api_key = "AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o";
 
         </script>
-        
+
         <script src="{% static 'script/set_location.js' %}"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrmoquE8t2MjJUWPMs7okt2dA63OXc2o&libraries=places&callback=initAutocomplete"></script>
 

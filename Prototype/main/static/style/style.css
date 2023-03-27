@@ -1,8 +1,8 @@
 /*BASE*/
-html, body{
-    min-height:100vh;
-    background: rgb(249,249,237);
-    background: linear-gradient(0deg, rgba(249,249,237,1) 0%, rgba(217,219,241,1) 100%);
+html, body {
+    min-height: 100vh;
+    background: rgb(249, 249, 237);
+    background: linear-gradient(0deg, rgba(249, 249, 237, 1) 0%, rgba(217, 219, 241, 1) 100%);
 }
 
 header {
@@ -11,54 +11,54 @@ header {
 }
 
 #baseButton2 i {
-    font-size: min(5vh,5vw);
+    font-size: min(5vh, 5vw);
     margin: auto;
     color: white;
 }
 
 #baseButton1 i {
-    font-size: min(5vh,5vw);
+    font-size: min(5vh, 5vw);
     margin: auto;
     color: white;
 }
 
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 /*END BASE*/
 
 /*HOME*/
 
-#nav-buttons{
+#nav-buttons {
     text-align: center;
 
 }
 
-#homeButtons{
-    margin:5%;
-    width:min(30vh,30vw);
+#homeButtons {
+    margin: 5%;
+    width: min(30vh, 30vw);
 }
 
-.carousel-inner{
+.carousel-inner {
     background-color: #364156;
     border: solid #364156 3px;
     border-radius: 10px;
 }
 
-#carouselFade
-{
+#carouselFade {
     margin: auto;
-    width:min(82vw,101vh)
+    width: min(82vw, 101vh)
 }
 
 .carousel-item img {
     border-radius: 10px;
     border: solid #7D84B2 3px;
     margin: auto;
-    height: min(60vh,50vw);
-    width:min(80vw,100vh)
+    height: min(60vh, 50vw);
+    width: min(80vw, 100vh)
 }
 
 /*END HOME*/
@@ -67,27 +67,27 @@ header {
 .form_container {
     background-color: white;
     border-radius: 1em;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 2%;
-    width:min(80vw,100vh)
+    width: min(80vw, 100vh)
 }
 
-form{
-    margin:5%;
+form {
+    margin: 5%;
     margin-left: 10%;
     margin-right: 10%;
 
 }
 
-#divSubmit{
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:8%;
+#divSubmit {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8%;
     text-align: center;
 }
 
-h1{
+h1 {
     text-align: center;
 }
 
@@ -95,10 +95,10 @@ h1{
 
 /*ADMIN*/
 
-#adminContainer{
-    width: min(90vw,100vh);
+#adminContainer {
+    width: min(90vw, 100vh);
     margin: auto;
-    height:50%;
+    height: 50%;
     border-radius: 10px;
     border: solid #7D84B2 3px;
     padding: 1%;
@@ -106,84 +106,85 @@ h1{
     text-align: center;
 }
 
-#adminContentRight input[type=int]{
+#adminContentRight input[type=int] {
     text-align: center;
-    border:  solid #8E9DCC 2px;
+    border: solid #8E9DCC 2px;
     border-radius: 4px;
     height: 100%;
     background-color: white;
-    width: min(10vw,5vh);
+    width: min(10vw, 5vh);
     margin-bottom: 1%;
 }
 
-#adminContentRight label{
-    width: min(10vw,5vh);
+#adminContentRight label {
+    width: min(10vw, 5vh);
 }
 
-#rateContent label{
-    width: min(33vw,20vh);
+#rateContent label {
+    width: min(33vw, 20vh);
 }
 
-#rateContent input[type=text]{
+#rateContent input[type=text] {
     text-align: center;
     height: 100%;
-    width: min(10vw,5vh);
+    width: min(10vw, 5vh);
     margin-bottom: 1%;
 }
 
-#updateCont{
+#updateCont {
     margin-left: auto;
     margin-right: auto;
     margin-top: 2%;
 }
 
-#dataContainer{
-    width: min(90vw,100vh);
+#dataContainer {
+    width: min(90vw, 100vh);
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 2%;
-    height:50%;
+    height: 50%;
     border-radius: 10px;
     border: solid #7D84B2 3px;
     padding: 1%;
     background-color: whitesmoke;
     text-align: center;
 }
+
 /*END ADMIN*/
 
 /*MANAGE TRIPS*/
 
-#savedTrips{
+#savedTrips {
     width: 90%;
     border-radius: 5px;
-    margin:auto;
+    margin: auto;
     max-height: 277px;
     overflow: auto;
 }
 
-#savedTrips button{
+#savedTrips button {
     float: right;
-    margin:1%;
+    margin: 1%;
 }
 
-#previousTrips button{
+#previousTrips button {
     float: right;
-    margin:1%;
+    margin: 1%;
 }
 
-#previousTrips{
-    margin:auto;
+#previousTrips {
+    margin: auto;
     width: 90%;
     border-radius: 5px;
     max-height: 275px;
     overflow: auto;
 }
 
-#saveTripCont{
+#saveTripCont {
     float: left;
     border-radius: 10px;
     border: solid #7D84B2 3px;
-    width: min(80vw,70vh);
+    width: min(80vw, 70vh);
     margin-top: 3%;
     margin-left: 5.6%;
     padding: 1%;
@@ -191,33 +192,34 @@ h1{
     text-align: center;
 }
 
-#prevTripCont{
+#prevTripCont {
     float: right;
     border-radius: 10px;
     border: solid #7D84B2 3px;
-    width: min(80vw,70vh);
+    width: min(80vw, 70vh);
     margin-top: 3%;
     margin-right: 5.6%;
     padding: 1%;
     background-color: whitesmoke;
     text-align: center;
 }
+
 /*END MANAGE TRIPS*/
 
 /*PROFILE*/
 
-#presCont{
+#presCont {
     border-radius: 10px;
     border: solid #7D84B2 1px;
 }
 
-#prefCont{
+#prefCont {
     border-radius: 10px;
     border: solid #7D84B2 1px;
 }
 
-#profCont{
-    width: min(90vw,100vh);
+#profCont {
+    width: min(90vw, 100vh);
     margin: auto;
     border-radius: 10px;
     border: solid #7D84B2 3px;
@@ -226,7 +228,7 @@ h1{
     text-align: center;
 }
 
-#successPopUp{
+#successPopUp {
     opacity: 1;
     transition: opacity 2s ease-out;
     display: none;
@@ -236,13 +238,13 @@ h1{
     background-color: rgba(245, 245, 245, .8);
     border: solid slategray 3px;
     border-radius: 5px;
-    margin:auto
+    margin: auto
 }
 
 /*END PROFILE*/
 
 /*CREATE TRIP*/
-#presetContainer{
+#presetContainer {
     text-align: center;
     border-radius: 10px;
     border: solid lightgray 1px;
@@ -252,32 +254,32 @@ h1{
     background-color: rgba(245, 245, 245, .8)
 }
 
-#presetOuter{
-   display: none;
+#presetOuter {
+    display: none;
 }
 
-#breadcrumbContent{
-    width: min(90vw,160vh);
+#breadcrumbContent {
+    width: min(90vw, 160vh);
     margin: auto;
 }
 
 #locContainer input[type=text], select {
-    border:  solid #8E9DCC 2px;
-  border-radius: 4px;
+    border: solid #8E9DCC 2px;
+    border-radius: 4px;
     height: 100%;
     background-color: white;
     margin: 10px;
     text-align: center;
 }
 
-#allContainer{
+#allContainer {
     border-radius: 10px;
     border: solid #7D84B2 3px;
     margin: auto;
-    width: min(90vw,100vh);
+    width: min(90vw, 100vh);
 }
 
-#detailsContainer{
+#detailsContainer {
     border-radius: 10px;
     border: solid lightgray 1px;
     text-align: left;
@@ -286,25 +288,26 @@ h1{
     background-color: rgba(245, 245, 245, .8)
 }
 
-#detailsContainer input[type=integer],input[type=float],input[type=date]{
-    border:  solid #8E9DCC 2px;
+#detailsContainer input[type=integer], input[type=float], input[type=date] {
+    border: solid #8E9DCC 2px;
     border-radius: 4px;
     background-color: white;
-    width:22%;
+    width: 22%;
     min-width: 32px;
     text-align: center;
 }
+
 #detailsContainer input[type=date] {
-    width:66%;
+    width: 66%;
     min-width: 60px;
 }
 
-#detailsContainer label{
+#detailsContainer label {
     text-align: left;
 }
 
 
-#filtersContainer{
+#filtersContainer {
     border-radius: 10px;
     border: solid lightgray 1px;
     margin: 1%;
@@ -313,26 +316,26 @@ h1{
     background-color: rgba(245, 245, 245, .8)
 }
 
-#nameContainer{
+#nameContainer {
     border-radius: 10px;
     border: solid lightgray 1px;
     padding-bottom: 1%;
     padding-top: 1%;
     background-color: rgba(245, 245, 245, .8);
     text-align: center;
-    margin:1%;
+    margin: 1%;
 }
 
-#tripName{
+#tripName {
     margin: auto;
-    border:  solid #8E9DCC 2px;
+    border: solid #8E9DCC 2px;
     border-radius: 4px;
     background-color: white;
-    width:min(60vw,45vh);
+    width: min(60vw, 45vh);
     text-align: center;
 }
 
-#filtersContainerTable{
+#filtersContainerTable {
     text-align: right;
     margin: auto;
     width: 95%;
@@ -340,43 +343,36 @@ h1{
 }
 
 
-#filtersContainer label{
+#filtersContainer label {
     text-align: left;
-    float:left;
+    float: left;
     padding-left: 1%;
 }
 
-#filtersContainer input[type=checkbox]{
-    border:  solid #8E9DCC 2px;
+#filtersContainer input[type=checkbox] {
+    border: solid #8E9DCC 2px;
     border-radius: 4px;
     height: 100%;
     background-color: white;
-    width:min(5vw,2.5vh);
+    width: min(5vw, 2.5vh);
     text-align: right;
 }
+
 /*END CREATE TRIP*/
 
 /*CHOOSE ATTRACTIONS*/
-/*#optionsList{*/
-/*    !*overflow: auto;*!*/
-/*    text-align: center;*/
-/*}*/
 
-/*#optionsList li{*/
-/*    width: 100%;*/
-/*}*/
-
-.attInfo{
+.attInfo {
     background: transparent;
-    border:none;
+    border: none;
     border-radius: 3px;
 }
 
-.attInfo:hover{
+.attInfo:hover {
     background-color: whitesmoke;
 }
 
-#recOptions{
+#recOptions {
     display: none;
     text-align: center;
     /*width:min(80vw,33vh);*/
@@ -385,7 +381,7 @@ h1{
     background-color: whitesmoke;
 }
 
-#mainOptionsCont{
+#mainOptionsCont {
     border-radius: 10px;
     border: solid #7D84B2 3px;
     /*width:min(80vw,33vh);*/
@@ -394,50 +390,50 @@ h1{
 }
 
 
-#recContainer{
-    margin:auto;
-    max-height: min(90vw,60vh);
+#recContainer {
+    margin: auto;
+    max-height: min(90vw, 60vh);
 }
 
-#reccChoices{
+#reccChoices {
     width: 90%;
     margin-bottom: 2%;
     margin-left: auto;
     margin-right: auto;
     overflow: auto;
-    max-height: min(60vw,47vh);
+    max-height: min(60vw, 47vh);
 }
 
 
-#popChoices{
+#popChoices {
     display: none;
     width: 90%;
-    margin:auto;
+    margin: auto;
     max-height: 15em;
     overflow: auto;
 }
 
-#optionsContainer{
-    max-height: min(40vw,30vh);
+#optionsContainer {
+    max-height: min(40vw, 30vh);
     width: 90%;
     overflow: auto;
     margin: auto;
     text-align: center;
 }
 
-#doingOptionsContainer{
-    max-height: min(60vw,54.3vh);
+#doingOptionsContainer {
+    max-height: min(60vw, 54.3vh);
     width: 90%;
     overflow: auto;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 2%;
     text-align: center;
 }
 
 #map {
-      height: 100%; /* The height is 400 pixels */
-      width: 100%; /* The width is the width of the web page */
+    height: 100%;
+    width: 100%;
     border-radius: 5px;
     margin: auto;
 }
@@ -446,13 +442,14 @@ h1{
     position: relative;
     background-color: whitesmoke;
     margin: auto;
-    height: min(90vw,60vh);
+    height: min(90vw, 60vh);
     /*width:min(90vw,80vh);*/
     border: solid #DBF4A7 3px;
     padding: 15px;
     border-radius: 5px;
-    overflow:auto;
+    overflow: auto;
 }
+
 /*Reference: https://codepen.io/anefzaoui/pen/NWPZzMa*/
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 /*body {*/
@@ -461,24 +458,27 @@ h1{
 /*    background: #111;*/
 /*    color: #333;*/
 /*}*/
-    /*h1 {*/
-    /*    font-size: 2em;*/
-    /*    margin-bottom: .5rem;*/
-    /*}*/
+/*h1 {*/
+/*    font-size: 2em;*/
+/*    margin-bottom: .5rem;*/
+/*}*/
 
 /* Ratings widget */
 .rate {
     display: inline-block;
     border: 0;
 }
+
 /* Hide radio */
 .rate > input {
     display: none;
 }
+
 /* Order correctly by floating highest to the right */
 .rate > label {
     float: right;
 }
+
 /* The star of the show */
 .rate > label:before {
     display: inline-block;
@@ -496,68 +496,82 @@ h1{
     position: absolute;
     padding-right: 0;
 }
+
 /* Click + hover color */
 input:checked ~ label, /* color current and previous stars on checked */
-label:hover, label:hover ~ label { color: #73B100;  } /* color previous stars on hover */
+label:hover, label:hover ~ label {
+    color: #73B100;
+}
+
+/* color previous stars on hover */
 
 /* Hover highlights */
 input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
 input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
-label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #7D84B2;  }
+label:hover ~ input:checked ~ label /* highlight previous selected stars */
+{
+    color: #7D84B2;
+}
+
 /*end reference*/
 
 /*Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown*/
 .dropbtn {
-  margin-bottom: 2%;
-  background-color: #7D84B2;
-  color: white;
-  /*padding: 16px;*/
-  /*font-size: 16px;*/
+    margin-bottom: 2%;
+    background-color: #7D84B2;
+    color: white;
+    /*padding: 16px;*/
+    /*font-size: 16px;*/
     border-radius: 5px;
-  border: none;
-  cursor: pointer;
+    border: none;
+    cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
+    background-color: #2980B9;
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown a:hover {
+    background-color: #ddd;
+}
 
-.show {display: block;}
+.show {
+    display: block;
+}
+
 /* End Reference */
 /* END CHOOSE ATTRACTIONS */
 
 /* CHOOSE LOCATION */
 
-#locContainer{
+#locContainer {
     border-radius: 10px;
     border: solid #7D84B2 3px;
     text-align: center;
     margin: auto;
-    width:min(90vw,80vh);
+    width: min(90vw, 80vh);
     padding: 1%;
     background-color: whitesmoke;
 }
@@ -565,60 +579,62 @@ label:hover ~ input:checked ~ label /* highlight previous selected stars */ { co
 /* END CHOOSE LOCATION */
 
 /* TRIP ROUTE */
-#attList{
+#attList {
     list-style: none;
     width: 90%;
-    margin:auto;
+    margin: auto;
     text-align: left;
-    max-height: min(40vw,51.8vh);
+    max-height: min(40vw, 51.8vh);
     overflow: auto;
 }
 
-#tripSum{
+#tripSum {
     text-align: center;
     border-radius: 10px;
     border: solid #7D84B2 3px;
     background-color: whitesmoke;
-    max-height: min(90vw,60vh);
+    max-height: min(90vw, 60vh);
 }
 
-#addDetails{
+#addDetails {
     margin: auto;
     width: 90%;
     text-align: center;
 }
 
-#addDetails p{
+#addDetails p {
     text-align: left;
 }
+
 /* END TRIP ROUTE */
 
 /* START TRIP */
-#summaryContainer{
+#summaryContainer {
     border-radius: 10px;
     border: solid #7D84B2 3px;
     margin: auto;
     text-align: center;
-    width:min(80vw,70vh);
+    width: min(80vw, 70vh);
     background-color: whitesmoke;
 }
 
-.card{
+.card {
     margin-left: 10px;
     margin-right: 10px;
 
 }
+
 border
-.card-text{
-   background-color: whitesmoke;
+.card-text {
+    background-color: whitesmoke;
 }
 
-#summaryContainer ul{
+#summaryContainer ul {
     text-align: left;
     margin-left: 30%;
 }
 
-#trTag{
+#trTag {
     margin: auto;
     width: 80%;
 }
@@ -626,22 +642,21 @@ border
 /* END START TRIP */
 
 /* DOING TRIP */
-#tripOptions{
+#tripOptions {
     text-align: center;
     border-radius: 10px;
     border: solid #7D84B2 3px;
     background-color: whitesmoke;
-    /*height: min(90vw,60vh);*/
 }
 
-#map-route{
+#map-route {
     height: 95%;
 
     margin: .75em;
 }
 
-#mapPopUp{
-    width:min(70vw,60vh);
+#mapPopUp {
+    width: min(70vw, 60vh);
     display: none;
     position: absolute;
     top: 50%;
@@ -654,7 +669,7 @@ border
 }
 
 
-#mapPopUp2{
+#mapPopUp2 {
     display: none;
     position: relative;
     padding: 1%;
@@ -662,10 +677,10 @@ border
     background-color: rgba(245, 245, 245, .8);
     border: solid slategray 3px;
     border-radius: 5px;
-    margin:auto
+    margin: auto
 }
 
-#mapPopUp3{
+#mapPopUp3 {
     opacity: 1;
     transition: opacity 2s ease-out;
     display: none;
@@ -675,12 +690,11 @@ border
     background-color: rgba(245, 245, 245, .8);
     border: solid slategray 3px;
     border-radius: 5px;
-    margin:auto
+    margin: auto
 }
 
 #optPopUp {
-    /*top:0;*/
-    margin:auto;
+    margin: auto;
     width: 30%;
     height: 100%;
     border-radius: 10px;
@@ -690,48 +704,41 @@ border
     background-color: whitesmoke;
 }
 
-#tripHeader{
+#tripHeader {
     text-align: center;
 }
 
 
-
 @keyframes fadeOut {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
+    from {
+        opacity: 1;
     }
-
-    /* Apply the animation to the div when a certain class is added */
-    #myDiv.fadeOut {
-        animation: fadeOut 1s;
+    to {
+        opacity: 0;
     }
+}
 
+/* Apply the animation to the div when a certain class is added */
+#myDiv.fadeOut {
+    animation: fadeOut 1s;
+}
 
 
 @keyframes fadeOut {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 0;
-        }
+    from {
+        opacity: 1;
     }
+    to {
+        opacity: 0;
+    }
+}
 
 #mapPopUp3.fadeOut {
     animation: fadeOut 2s;
 }
 
-.scrollable-div {
-    height: 100%; /* Set the maximum height for the div */
-    overflow-y: auto; /* Enable vertical scrolling */
-  }
-
-#routeCont{
-    margin:auto;
+#routeCont {
+    margin: auto;
     width: 90%;
     border-radius: 10px;
     border: solid #7D84B2 1px;
@@ -739,21 +746,20 @@ border
     padding: 3%;
 }
 
-#breakCont{
-    margin:auto;
+#breakCont {
+    margin: auto;
     width: 90%;
     border-radius: 10px;
     border: solid #7D84B2 1px;
     background-color: whitesmoke;
     padding: 3%;
     margin-bottom: 3%;
-    /*text-align: left;*/
 }
 
-#breakCont input[type=int]{
+#breakCont input[type=int] {
     text-align: center;
-    border:  solid #8E9DCC 2px;
-  border-radius: 4px;
+    border: solid #8E9DCC 2px;
+    border-radius: 4px;
     height: 100%;
     background-color: white;
     margin: 10px;
@@ -761,72 +767,78 @@ border
     min-width: 10px;
 }
 
-#invalidAlert{
-    width:100%;
+#invalidAlert {
+    width: 100%;
     display: none;
     margin-top: 2%;
     margin-bottom: 0px;
 }
 
-#breakAlert{
-    width:100%;
+#breakAlert {
+    width: 100%;
     display: none;
     margin-top: 2%;
     margin-bottom: 0px;
 }
 
 /* over map*/
-#timeAlert{
-    width:min(70vw,60vh);
+#timeAlert {
+    width: min(70vw, 60vh);
     display: none;
     position: absolute;
     top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: auto;
 }
 
-#closedAlert{
-    width:min(70vw,60vh);
+#closedAlert {
+    width: min(70vw, 60vh);
     position: absolute;
     top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: auto;
 }
 
-#closingBreakAtts{
+#closingBreakAtts {
     overflow: auto;
     max-height: 10vh;
 }
 
-#closingAtts{
+#closingAtts {
     overflow: auto;
     max-height: 10vh;
 }
 
-#closedAtts{
+#closedAtts {
     overflow: auto;
     max-height: 10vh;
 }
+
+#invalidFormatAlert {
+    display: none;
+
+}
+
+#breakInProg {
+    display: none;
+}
+
 /* END DOING TRIP */
-img{
+
+/* MISC */
+img {
     height: 7em;
 }
 
 
-
-
-
-
-
-#nextStep{
+#nextStep {
     text-align: center;
 }
 
 
-
-#mapButton{
+#mapButton {
     background-color: #8E9DCC;
     border: solid #7D84B2 1px;
     margin: 5px;
@@ -836,99 +848,52 @@ img{
     background-color: #D9DBF1;
 }
 
-.fa-solid fa-arrow-right{
+.fa-solid fa-arrow-right {
     color: red;
 }
 
-/*#baseHeaderLogo{*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*#baseHeaderHome{*/
-/*    margin: 50px;*/
-/*}*/
-
-/*#baseHeaderLogout{*/
-/*    float: right;*/
-/*}*/
-
 .column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
+    float: left;
+    width: 33.33%;
+    padding: 5px;
 }
 
-/* Clear floats after image containers */
 .row::after {
-  content: "";
-  clear: both;
-  display: table;
+    content: "";
+    clear: both;
+    display: table;
 }
 
-#baseButton1{
+#baseButton1 {
     background-color: transparent;
 }
 
-#mainContainer{
+#mainContainer {
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 2%;
-    width:90%;
+    width: 90%;
 }
-
-
 
 #clear {
     clear: both;
 }
 
-#addDetContainer{
-    background-color: red;
-    width:100%;
-    margin:auto;
-}
-
-
-
-#stepOptions{
+#stepOptions {
     margin-bottom: 10px;
 }
 
 
 
 
-
-
-
-#invalidFormatAlert{
-    display: none;
-
-}
-
-
-select{
+select {
     text-align: center;
 }
 
-
-
-
-#breakInProg{
-    display: none;
-}
-
-#breakTabs{
+#breakTabs {
     border-collapse: separate;
-     border-spacing: 15px;
+    border-spacing: 15px;
 }
-
-
-/*#adminContentLeft{*/
-/*    float: left;*/
-/*    height: 100%;*/
-/*}*/
-
-
 
 
 .btn-info {
