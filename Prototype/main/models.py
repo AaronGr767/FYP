@@ -15,7 +15,6 @@ class UserProfile(models.Model):
         return f"{self.user}"
 
 class Attraction(models.Model):
-    #will probably need to set an id here as opposed to trying to use the one created by postgres
     name = models.CharField(max_length=100)
     latitude = models.CharField(max_length=50)
     longitude = models.CharField(max_length=50)
@@ -32,7 +31,6 @@ class Attraction(models.Model):
     averageTime = models.CharField(max_length=3, null=True)
 
 class SavedTrip(models.Model):
-    #will probably need to set an id here as opposed to trying to use the one created by postgres
     userOwner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     tripName = models.CharField(max_length=100,null=True)
     startLocation = models.CharField(max_length=100,null=True)
