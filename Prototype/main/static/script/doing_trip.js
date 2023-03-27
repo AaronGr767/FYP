@@ -553,7 +553,7 @@ function locationMarker() {
                 );
 
                 //remember to reverse logic when done testing and uncomment the for loop
-                if (distanceToGeofence <= 50) {
+                if (distanceToGeofence >= 50) {
                     console.log("Within Range")
                     if (displayCounter == 0) {
                         for (j = 0; j <= resultsObj.attNames.length - 1; j++) {
@@ -561,7 +561,7 @@ function locationMarker() {
                         }
                         let popUp = document.getElementById("mapPopUp2")
                         popUp.innerHTML = `<strong>Welcome to the ${resultsObj.attNames[i]}!</strong><br><br>
-                                     <p style="text-align: left">${resultsObj.tripDescs[i]}</p>
+                                     <p style="text-align: left">${resultsObj.tripTips[i]}</p>
                                      <a href="${resultsObj.tripSites[i]}" target="_blank"><em>Click here to visit the website!</em></a><br><br>
                                      <button onclick=finishAttraction(${i}) type="button" class="btn btn-outline-secondary">Finished With This Attraction</button>`;
 
@@ -872,7 +872,7 @@ function calculateRoute() {
     for (i = 0; i < resultsObj.attNames.length; i++) {
         if (resultsObj.attStatus[i] == false || !lockClosed.includes(resultsObj.attNames[i])) {
             remainingLocNames.push(resultsObj.attNames[i])
-            remainingLocDesc.push(resultsObj.tripDescs[i])
+            remainingLocDesc.push(resultsObj.tripTips[i])
             remainingLocSites.push(resultsObj.tripSites[i])
             remainingLocCol.push(resultsObj.tripColours[i])
 

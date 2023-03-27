@@ -140,6 +140,7 @@ def saveTrip(request):
     savedDate = request.POST.get("cDate", None)
     groupSize = request.POST.get("gSize", None)
     description = request.POST.getlist("desc[]", None)
+    tip = request.POST.getlist("tips[]", None)
     website = request.POST.getlist("site[]", None)
     colours = request.POST.getlist("mColours[]", None)
     closing = request.POST.getlist("cArray[]", None)
@@ -156,6 +157,7 @@ def saveTrip(request):
         sTrip.attLat = savedLat
         sTrip.attLng = savedLng
         sTrip.tripDescs = description
+        sTrip.tripTips = tip
         sTrip.tripSites = website
         sTrip.tripTags = savedFilt
         sTrip.tripName = tripName
@@ -556,6 +558,7 @@ def saveEditedTrip(request):
     savedDate = request.POST.get("cDate", None)
     groupSize = request.POST.get("gSize", None)
     description = request.POST.getlist("desc[]", None)
+    tip = request.POST.getlist("tips[]", None)
     website = request.POST.getlist("site[]", None)
     colours = request.POST.getlist("mColours[]", None)
     closing = request.POST.getlist("cArray[]", None)
@@ -575,6 +578,7 @@ def saveEditedTrip(request):
         editedTrip.attLat = savedLat
         editedTrip.attLng = savedLng
         editedTrip.tripDescs = description
+        editedTrip.tripTips = tip
         editedTrip.tripSites = website
         editedTrip.tripTags = savedFilt
         editedTrip.tripName = tripName

@@ -132,6 +132,7 @@ function saveTrip(startCheck) {
     let siteArray = [];
     let colourArray = [];
     let statusArray = [];
+    let tipArray = [];
     let finalStore = retrieveStore()
 
     let closingArray = retrieveTimes(finalStore)
@@ -151,6 +152,7 @@ function saveTrip(startCheck) {
         resultsLat.push(element.latitude)
         resultsLng.push(element.longitude)
         descArray.push(element.description)
+        tipArray.push(element.tips)
         siteArray.push(element.website)
         colourArray.push(element.markerColour)
     })
@@ -184,6 +186,7 @@ function saveTrip(startCheck) {
             mPrice:detailsObj.maxPrice,
             cDate:detailsObj.chosenDate,
             desc:descArray,
+            tips:tipArray,
             site:siteArray,
             mColours: colourArray,
             aStatus: statusArray,
@@ -225,6 +228,7 @@ function saveTrip(startCheck) {
             mPrice:detailsObj.maxPrice,
             cDate:detailsObj.chosenDate,
             desc:descArray,
+            tips:tipArray,
             site:siteArray,
             mColours: colourArray,
             aStatus: statusArray,
