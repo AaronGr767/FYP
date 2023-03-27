@@ -241,7 +241,8 @@ def compareSimilarity(request):
 
     mySet = set(savedFilt)
 
-    query = SavedTrip.objects.all().order_by('-id')[:10]
+    # Limit number of trips to avoid any speed issues, this can be modified accordingly as needs be
+    query = SavedTrip.objects.all().order_by('-id')[:50]
 
     print(query[0].tripTags)
 
