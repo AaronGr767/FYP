@@ -200,13 +200,15 @@ function addAttraction(buttonId) {
                 console.log(myLatlng)
                 addMarker(myLatlng, element.name, element.markerColour)
 
-                for (j = 0; j < recData.attractions.length; j++) {
+                if(recData != undefined){
+                    for (j = 0; j < recData.attractions.length; j++) {
 
-                    tempHold = document.getElementById("rec" + j)
-                    if (tempHold.name == element.name) {
-                        currHold = tempHold;
-                        currHold.disabled = true;
-                        disArray.push(j)
+                        tempHold = document.getElementById("rec" + j)
+                        if (tempHold.name == element.name) {
+                            currHold = tempHold;
+                            currHold.disabled = true;
+                            disArray.push(j)
+                        }
                     }
                 }
             }
@@ -271,15 +273,17 @@ function collectChoices() {
             })
         }
     }
-    for (i = 0; i < recData.frequency.length; i++) {
-        let formatId = "rec" + i
-        checkRec = document.getElementById(formatId)
-        if (checkRec.checked) {
-            for (j = 0; j < recData.frequency.length; j++) {
-                if (recData.attractions[j].name == checkRec.name) {
-                    finalChoices.push(recData.attractions[j])
-                    console.log(recData.attractions[j])
-                    console.log(finalChoices)
+    if(recData != undefined) {
+        for (i = 0; i < recData.frequency.length; i++) {
+            let formatId = "rec" + i
+            checkRec = document.getElementById(formatId)
+            if (checkRec.checked) {
+                for (j = 0; j < recData.frequency.length; j++) {
+                    if (recData.attractions[j].name == checkRec.name) {
+                        finalChoices.push(recData.attractions[j])
+                        console.log(recData.attractions[j])
+                        console.log(finalChoices)
+                    }
                 }
             }
         }
@@ -415,20 +419,29 @@ function addRecAttraction(buttonId,type) {
     console.log("Adding rec")
     console.log(attBut.name)
 
+    let chosenData;
+
+    if(type=="rec"){
+        chosenData = recData.attractions
+    } else{
+        chosenData = popularResults
+    }
+
+
     if (attBut.checked) {
 
         let compare;
 
-        for (i = 0; i < recData.frequency.length; i++) {
+        for (i = 0; i < chosenData.length; i++) {
             // let id = element.id;
-            if (attBut.name == recData.attractions[i].name) {
-                var myLatlng = new google.maps.LatLng(parseFloat(recData.attractions[i].latitude), parseFloat(recData.attractions[i].longitude));
-                console.log(recData.attractions[i].latitude)
+            if (attBut.name == chosenData[i].name) {
+                var myLatlng = new google.maps.LatLng(parseFloat(chosenData[i].latitude), parseFloat(chosenData[i].longitude));
+                console.log(chosenData[i].latitude)
                 console.log(myLatlng)
-                addMarker(myLatlng, recData.attractions[i].name, recData.attractions[i].markerColour)
+                addMarker(myLatlng, chosenData.name, chosenData[i].markerColour)
                 for (j = 0; j < resultsObj.length; j++) {
                     tempHold = document.getElementById(j)
-                    if (tempHold.name == recData.attractions[i].name) {
+                    if (tempHold.name == chosenData[i].name) {
                         currHold = tempHold;
                         currHold.disabled = true;
                         disArray.push(j)
@@ -441,7 +454,7 @@ function addRecAttraction(buttonId,type) {
                             recHold = document.getElementById("rec" + j)
                         }
 
-                        if (recHold.name == recData.attractions[i].name) {
+                        if ( recHold != null && recHold.name == chosenData[i].name) {
                             currHold = recHold;
                             currHold.disabled = true;
                             disArray.push(j)
@@ -460,10 +473,10 @@ function addRecAttraction(buttonId,type) {
         //     currHold.disabled = false;
         // }
 
-        for (i = 0; i < recData.frequency.length; i++) {
+        for (i = 0; i < chosenData.length; i++) {
 
-            if (attBut.name == recData.attractions[i].name) {
-                var tempLatLng = new google.maps.LatLng(parseFloat(recData.attractions[i].latitude), parseFloat(recData.attractions[i].longitude));
+            if (attBut.name == chosenData[i].name) {
+                var tempLatLng = new google.maps.LatLng(parseFloat(chosenData[i].latitude), parseFloat(chosenData[i].longitude));
                 console.log(tempLatLng)
                 markers.forEach((item) => {
                     j++;
@@ -475,7 +488,7 @@ function addRecAttraction(buttonId,type) {
                         if (disArray.length != 0) {
                             for (k = 0; k < disArray.length; k++) {
                                 tempHold = document.getElementById(disArray[k])
-                                if (tempHold.name == recData.attractions[i].name) {
+                                if (tempHold.name == chosenData[i].name) {
                                     tempHold.disabled = false;
                                     disArray.splice(k, 1)
                                 }
@@ -487,7 +500,7 @@ function addRecAttraction(buttonId,type) {
                                         recHold = document.getElementById("rec" + k)
                                     }
 
-                                    if (recHold.name == recData.attractions[i].name) {
+                                    if (recHold != null && recHold.name == chosenData[i].name) {
                                         recHold.disabled = false;
                                         disArray.splice(k, 1)
                                     }

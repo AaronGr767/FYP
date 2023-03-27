@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import socket
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-^!-sm3t2dgpz)f4i6yf1txb=vec9l5054e*2lv6mz_x1mr#!0-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aarong767.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'django.contrib.gis',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,7 @@ WSGI_APPLICATION = 'prototype.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Local machine db's
 if os.environ.get('CONDA_PREFIX', '').startswith('/opt'):
     DATABASES = {
         'default': {
@@ -105,6 +107,17 @@ else:
         }
     }
 
+#Hosting on pythonanywhere DB
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'myappdb',
+#         'USER': 'myappuser',
+#         'PASSWORD': 'QwLFDMFX8UUuQut',
+#         'HOST': 'aaronG767-3111.postgres.pythonanywhere-services.com',
+#         'PORT': 13111,
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
