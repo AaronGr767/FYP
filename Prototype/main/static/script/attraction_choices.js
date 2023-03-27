@@ -4,8 +4,10 @@ retrievePresets()
 
 checkEdit()
 
+// Check to see if an attraction has been supplied for editing purpose
 function checkEdit(){
     let status = localStorage.getItem("editedTripStatus");
+    // If there is such an attraction then populate the relevant fields with its data
     if(status=="true"){
         let eTrip = localStorage.getItem("editedTrip")
         let editedTrip = JSON.parse(eTrip)
@@ -32,6 +34,51 @@ function checkEdit(){
     }
 }
 
+//Retrieves all the presets belonging to a user by doing an AJAX call
+function retrievePresets(){
+    $.ajax({
+        type: "GET",
+        url: "retrievecreatepreset/",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+    }).done(function (data, status, xhr) {
+        console.log(data);
+
+        //If the user has atleast one preset then display them as options on the screen
+        if(data.results.length>0){
+            renderCreatePresets(data.results)
+        }
+
+    }).fail(function (xhr, status, error) {
+        var message = "Passing data failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
+}
+
+//Display all presets belonging to a user as clickable radio buttons
+function renderCreatePresets(data){
+    presetObj = data
+    let presCont = document.getElementById("presetContainer")
+
+    for(i=0;i<presetObj.length;i++){
+        let label = "inlineRadio" + i
+        let passParam = presetObj[i]
+
+        //Radio buttons will run a function to populate relevant input fields when selected
+        presCont.innerHTML+= `<div class="form-check form-check-inline">
+                                <input onclick=fillPreset(${i}) class="form-check-input" type="radio" name="inlineRadioOptions">
+                                <label class="form-check-label">Preset ${presetObj[i].preId}</label>
+                            </div>`
+
+    }
+
+    let presetBox = document.getElementById("presetOuter")
+    presetBox.style.display = 'block'
+}
+
+//Fills out all the relevant input fields based on the selected preset choice
 function fillPreset(presetChoice){
     console.log(presetObj[presetChoice])
 
@@ -97,46 +144,7 @@ function fillPreset(presetChoice){
 
 }
 
-function retrievePresets(){
-    $.ajax({
-        type: "GET",
-        url: "retrievecreatepreset/",
-        headers: {
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-    }).done(function (data, status, xhr) {
-        console.log(data);
-
-        if(data.results.length>0){
-            renderCreatePresets(data.results)
-        }
-
-    }).fail(function (xhr, status, error) {
-        var message = "Passing filters failed.<br/>";
-        console.log("Status: " + xhr.status + " " + xhr.responseText);
-    }).always(function () {
-    });
-}
-
-function renderCreatePresets(data){
-    presetObj = data
-    let presCont = document.getElementById("presetContainer")
-
-    for(i=0;i<presetObj.length;i++){
-        let label = "inlineRadio" + i
-        let passParam = presetObj[i]
-
-        presCont.innerHTML+= `<div class="form-check form-check-inline">
-                                <input onclick=fillPreset(${i}) class="form-check-input" type="radio" name="inlineRadioOptions">
-                                <label class="form-check-label">Preset ${presetObj[i].preId}</label>
-                            </div>`
-
-    }
-
-    let presetBox = document.getElementById("presetOuter")
-    presetBox.style.display = 'block'
-}
-
+//Sets & stores in local storage all the various selected filters for future use
 function setFilters(){
     let counter= 0;
     let filterArray=[];
@@ -183,17 +191,21 @@ function setFilters(){
 
     console.log(filterArray)
     localStorage.setItem('filterStore', JSON.stringify(filterArray))
+
     let chosenDay;
 
-    // location.href='/choose'
     let tName = document.getElementById("tripName").value
     let cDate = new Date(document.getElementById("chosenDate").value)
+
+    // Checks to see if user inputted a valid date, else notify user
     if(!isNaN(cDate.getTime())){
+
+        // Checks to see if user entered a trip name, else notify user
         if(tName != ""){
+
+            // Get index value based on selected day (e.g. Sun = 0, Mon = 1, etc)
             let days = [0, 1, 2, 3, 4, 5, 6]
-
             chosenDay = days[cDate.getDay()]
-
             console.log("Day of choice: " + chosenDay)
 
             let gSizeInput = document.getElementById("groupSize")
@@ -202,19 +214,24 @@ function setFilters(){
             let gSizeCheck = true;
             let mPriceCheck = true;
 
+            //If user entered a group size, check that it is a valid int
             if (gSizeInput.value != "") {
                 gSizeCheck = Number.isInteger(parseInt(gSizeInput.value))
                 console.log(gSizeCheck)
             }
+
+            //If user entered a max price, check that it is a valid int
             if (mPriceInput.value != "") {
                 mPriceCheck = Number.isInteger(parseInt(mPriceInput.value))
             }
 
+            // If both values are valid ints then proceed to store details and use the filters, else notify user
             if (gSizeCheck && mPriceCheck) {
                 storeDetails(chosenDay);
 
                 postFilters(filterArray, chosenDay)
             } else {
+
                 console.log("Incorrect format")
                 let alertFormBox = document.getElementById("invalidFormatAlert")
                 let alertMessage = document.getElementById("formatErrorMsg")
@@ -230,7 +247,6 @@ function setFilters(){
             alertBox.style.display = 'block'
         }
     } else{
-        // chosenDay = "null"
         console.log("No day chosen")
         let alertBox = document.getElementById("invalidAlert")
         let alertDateMessage = document.getElementById("errorMsg")
@@ -241,6 +257,7 @@ function setFilters(){
     }
 }
 
+//Close the various alerts when user clicks the X button
 function closeInvAlert(alertType){
     if(alertType == "noDate"){
         let alertBox = document.getElementById("invalidAlert")
@@ -252,6 +269,7 @@ function closeInvAlert(alertType){
     }
 }
 
+//Using the selected filters & chosen date, retrieve attractions that match these parameters
 function postFilters(filterArray,chosenDay){
 
     let csrftoken = getCookie('csrftoken');
@@ -271,26 +289,22 @@ function postFilters(filterArray,chosenDay){
                     }
                 }).done(function (data, status, xhr) {
 
-                    console.log("Did we make it home?");
-
-
-
-                    // let jsonResp = JSON.parse('{"data"}');
                     console.log(data);
 
+                    //Store the filtered attractions and proceed user to next page
                     localStorage.setItem('resultStore', JSON.stringify(data))
-
                     location.href='/choose'
 
 
                 }).fail(function (xhr, status, error) {
-                    var message = "Passing filters failed.<br/>";
+                    var message = "Passing data failed.<br/>";
                     console.log("Status: " + xhr.status + " " + xhr.responseText);
                 }).always(function () {
                 });
 
 }
 
+// Create cookies for use in AJAX req
 function getCookie(cname) {
      var name = cname + "=";
      var ca = document.cookie.split(';');
@@ -303,6 +317,7 @@ function getCookie(cname) {
      return "";
     }
 
+//Stores various details used in trip creation in local storage
 function storeDetails(chosenday){
     tName = document.getElementById("tripName").value
     gSize = document.getElementById("groupSize").value
