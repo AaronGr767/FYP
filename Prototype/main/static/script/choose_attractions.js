@@ -324,12 +324,18 @@ function collectChoices() {
             if (checkRec.checked) {
                 for (j = 0; j < popularResults.length; j++) {
                     if (popularResults[j].name == checkRec.name) {
-                        finalChoices.push(popularResults[j])
+                        if(!savedPopChoice.includes(popularResults[j])){
+                            finalChoices.push(popularResults[j])
+                        }
                         console.log(popularResults[j])
                         console.log(finalChoices)
                     }
                 }
             }
+        }
+
+        for(j=0;j<savedPopChoice.length;j++){
+            finalChoices.push(savedPopChoice[j])
         }
     }
 
