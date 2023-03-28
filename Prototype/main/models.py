@@ -30,6 +30,7 @@ class Attraction(models.Model):
     openingHours = ArrayField(models.TextField(), null=True)
     closingHours = ArrayField(models.TextField(), null=True)
     averageTime = models.CharField(max_length=3, null=True)
+    access = models.TextField(null=True)
 
 class SavedTrip(models.Model):
     userOwner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)

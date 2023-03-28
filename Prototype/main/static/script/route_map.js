@@ -132,6 +132,9 @@ function saveTrip(startCheck) {
     let siteArray = [];
     let colourArray = [];
     let statusArray = [];
+    let accessArray = [];
+    let lengthArray = [];
+    let hoursArray = [];
     let tipArray = [];
     let finalStore = retrieveStore()
 

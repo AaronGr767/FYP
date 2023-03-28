@@ -58,13 +58,16 @@ function displayDetails(chosenName) {
 
     console.log(dayIdx)
 
-    console.log(recData.attractions[0].name)
+
 
     for (i = 0; i < resultsObj.length; i++) {
         if (chosenName == resultsObj[i].name) {
             infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${resultsObj[i].description}</p>
-                                    <p>Average Attraction Length : <strong>${resultsObj[i].averageTime} minutes</strong></p>
-                                    <p>Hours for Chosen Date : <strong>${resultsObj[i].openingHours[dayIdx].substring(0, 2)}:${resultsObj[i].openingHours[dayIdx].substring(2)} - ${resultsObj[i].closingHours[dayIdx].substring(0, 2)}:${resultsObj[i].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <p><em>Ticket Price (per adult) : </em><strong>€${resultsObj[i].maxPrice}</strong></p>
+                                    <p><em>Access : </em><strong>${resultsObj[i].access}</strong></p>
+                                    <p><em>Average Tour Length : </em><strong>${resultsObj[i].averageTime} minutes</strong></p>
+                                    <p><em>Hours for Chosen Date : </em><strong>${resultsObj[i].openingHours[dayIdx].substring(0, 2)}:${resultsObj[i].openingHours[dayIdx].substring(2)} - ${resultsObj[i].closingHours[dayIdx].substring(0, 2)}:${resultsObj[i].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <p><em>Website : </em><a style="color:inherit" href="${resultsObj[i].website} target="_blank""><strong>${resultsObj[i].website}</strong></a></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
             done++
@@ -75,8 +78,11 @@ function displayDetails(chosenName) {
         for (j = 0; j < recData.attractions.length; j++) {
             if (chosenName == recData.attractions[j].name) {
                 infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${recData.attractions[j].description}</p>
-                                    <p>Average Attraction Length : <strong>${recData.attractions[j].averageTime} minutes</strong></p>
+                                    <p><em>Ticket Price (per adult) : </em><strong>€${recData.attractions[j].maxPrice}</strong></p>
+                                    <p><em>Access : </em><strong>${recData.attractions[j].access}</strong></p>
+                                    <p><em>Average Tour Length : </em><strong>${recData.attractions[j].averageTime} minutes</strong></p>
                                     <p>Hours for Chosen Date : <strong>${recData.attractions[j].openingHours[dayIdx].substring(0, 2)}:${recData.attractions[j].openingHours[dayIdx].substring(2)} - ${recData.attractions[j].closingHours[dayIdx].substring(0, 2)}:${recData.attractions[j].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <p><em>Website : </em><a style="color:inherit" href="${recData.attractions[j].website} target="_blank""><strong>${recData.attractions[j].website}</strong></a></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
                 done++
@@ -90,8 +96,11 @@ function displayDetails(chosenName) {
         for (k = 0; k < popularResults.length; k++) {
             if (chosenName == popularResults[k].name) {
                 infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${popularResults[k].description}</p>
-                                    <p>Average Attraction Length : <strong>${popularResults[k].averageTime} minutes</strong></p>
+                                    <p><em>Ticket Price (per adult) : </em><strong>€${popularResults[k].maxPrice}</strong></p>
+                                    <p><em>Access : </em><strong>${popularResults[k].access}</strong></p>
+                                    <p>Average Tour Length : <strong>${popularResults[k].averageTime} minutes</strong></p>
                                     <p>Hours for Chosen Date : <strong>${popularResults[k].openingHours[dayIdx].substring(0, 2)}:${popularResults[k].openingHours[dayIdx].substring(2)} - ${popularResults[k].closingHours[dayIdx].substring(0, 2)}:${popularResults[k].closingHours[dayIdx].substring(2)}</strong></p>
+                                    <p><em>Website : </em><a style="color:inherit" href="${popularResults[k].website} target="_blank""><strong>${popularResults[k].website}</strong></a></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
                 done++

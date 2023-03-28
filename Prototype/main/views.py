@@ -291,7 +291,7 @@ def compareSimilarity(request):
 
     attCount = []
 
-    # Creating a list that counts the frequency of each attraction
+    # Creating a list that counts the frequency of each attraction in similar trips
     for item in matchRating:
         temp = combinedTrips.count(item)
         attCount.append(temp)
