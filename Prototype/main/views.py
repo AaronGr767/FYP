@@ -257,8 +257,8 @@ def compareSimilarity(request):
         int = len(mySet.intersection(testSet))
         finalSim = int / union
         print(finalSim)
-        # If trips are 2/3 similarity
-        if (finalSim >= .66):
+        # If trips have 3/4 similarity
+        if (finalSim >= .75):
             matchingTrips.append(item.attNames)
 
     print(matchingTrips)
@@ -422,7 +422,8 @@ def checkAdmin(request):
 
         print(context)
 
-        # Can only return attraction here as returning rating causes a problem with Decimal that doesnt allow for the object to be recieved, couldnt fix
+        # Can only return attraction here as returning rating causes a problem with Decimal that doesn't allow for the
+        # object to be received, couldn't fix
         return render(request, 'admin.html', {'attraction': list(attQuery)})
 
     except ExternalADUser.DoesNotExist:
