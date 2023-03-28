@@ -3,7 +3,6 @@ retrieveTrip()
 function retrieveTrip(){
     let savedTrip = localStorage.getItem("saveAndStart");
     let stId = JSON.parse(savedTrip)
-    console.log(stId.id)
 
     $.ajax({
         type: "POST",
@@ -17,7 +16,7 @@ function retrieveTrip(){
     }).done(function (data, status, xhr) {
         console.log(data)
         displayTrip(data)
-        // console.log(tripid_query)
+
         var originalMsg = $(".toast-body").html();
         $(".toast-body").html(originalMsg + "<br/>Retrievedtrip<br/>" + data["message"]);
     }).fail(function (xhr, status, error) {
