@@ -86,7 +86,6 @@ function displayPrevious(previousArray){
 
 function getTrips() {
 
-
     $.ajax({
         type: "GET",
         headers: {
@@ -94,13 +93,16 @@ function getTrips() {
         },
         url:"managetripretrieve/"
     }).done(function (data, status, xhr) {
+
         console.log(data)
 
         let savedTrips = [];
         let previousTrips = [];
 
         for(i=0;i<data.userTrips.length;i++){
+
             if(data.userTrips[i].completed){
+
                 previousTrips.push(data.userTrips[i])
                 console.log(previousTrips)
             }else{

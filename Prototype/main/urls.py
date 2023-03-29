@@ -36,4 +36,5 @@ urlpatterns = [
     path('retrievepreference/', views.retrievePreference, name="retrievePreference"),
     path('edittrip/', views.editTrip, name="editTrip"),
     path('saveeditedtrip/', views.saveEditedTrip, name="saveEditedTrip"),
+    path('retrieverating/', views.retrieveRating, name="retrieveRating"),
 ]

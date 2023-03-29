@@ -49,6 +49,7 @@ function displayOptions() {
 }
 
 function displayDetails(chosenName) {
+    let attrRating;
     let infoPopup = document.getElementById("mapPopUp4")
     infoPopup.style.display = 'block'
     let done = 0;
@@ -56,13 +57,25 @@ function displayDetails(chosenName) {
     let parsedDetails = JSON.parse(details)
     let dayIdx = parsedDetails.dayIndex
 
-    console.log(dayIdx)
+    $.ajax({
+        type: "POST",
+        url: "retrieverating/",
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        data: {
+            attName: chosenName
+        }
+    }).done(function (data, status, xhr) {
+        console.log("Retrieval successful.");
+        console.log(data)
 
+        attrRating = data.results[0].averageRating / 2
 
-
-    for (i = 0; i < resultsObj.length; i++) {
-        if (chosenName == resultsObj[i].name) {
-            infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${resultsObj[i].description}</p>
+        for (i = 0; i < resultsObj.length; i++) {
+            if (chosenName == resultsObj[i].name) {
+                infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${resultsObj[i].description}</p>
+                                    <p><em>User Rating : </em><strong>${attrRating} <i class="fa-solid fa-star"></i></strong></p>
                                     <p><em>Ticket Price (per adult) : </em><strong>€${resultsObj[i].maxPrice}</strong></p>
                                     <p><em>Access : </em><strong>${resultsObj[i].access}</strong></p>
                                     <p><em>Average Tour Length : </em><strong>${resultsObj[i].averageTime} minutes</strong></p>
@@ -70,14 +83,14 @@ function displayDetails(chosenName) {
                                     <p><em>Website : </em><a style="color:inherit" href="${resultsObj[i].website} target="_blank""><strong>${resultsObj[i].website}</strong></a></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
-            done++
+                done++
+            }
         }
-    }
 
-    if (done == 0) {
-        for (j = 0; j < recData.attractions.length; j++) {
-            if (chosenName == recData.attractions[j].name) {
-                infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${recData.attractions[j].description}</p>
+        if (done == 0) {
+            for (j = 0; j < recData.attractions.length; j++) {
+                if (chosenName == recData.attractions[j].name) {
+                    infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${recData.attractions[j].description}</p>
                                     <p><em>Ticket Price (per adult) : </em><strong>€${recData.attractions[j].maxPrice}</strong></p>
                                     <p><em>Access : </em><strong>${recData.attractions[j].access}</strong></p>
                                     <p><em>Average Tour Length : </em><strong>${recData.attractions[j].averageTime} minutes</strong></p>
@@ -85,17 +98,17 @@ function displayDetails(chosenName) {
                                     <p><em>Website : </em><a style="color:inherit" href="${recData.attractions[j].website} target="_blank""><strong>${recData.attractions[j].website}</strong></a></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
-                done++
+                    done++
+                }
             }
         }
-    }
 
-    console.log(popularResults)
+        console.log(popularResults)
 
-    if (done == 0) {
-        for (k = 0; k < popularResults.length; k++) {
-            if (chosenName == popularResults[k].name) {
-                infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${popularResults[k].description}</p>
+        if (done == 0) {
+            for (k = 0; k < popularResults.length; k++) {
+                if (chosenName == popularResults[k].name) {
+                    infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${popularResults[k].description}</p>
                                     <p><em>Ticket Price (per adult) : </em><strong>€${popularResults[k].maxPrice}</strong></p>
                                     <p><em>Access : </em><strong>${popularResults[k].access}</strong></p>
                                     <p>Average Tour Length : <strong>${popularResults[k].averageTime} minutes</strong></p>
@@ -103,10 +116,19 @@ function displayDetails(chosenName) {
                                     <p><em>Website : </em><a style="color:inherit" href="${popularResults[k].website} target="_blank""><strong>${popularResults[k].website}</strong></a></p>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>`
-                done++
+                    done++
+                }
             }
         }
-    }
+
+    }).fail(function (xhr, status, error) {
+        var message = "Passing filters failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
+
+    console.log(dayIdx)
+
 }
 
 compareTrips(0)
@@ -206,7 +228,7 @@ function addAttraction(buttonId) {
                 let formatId = "pop" + i
                 checkRec = document.getElementById(formatId)
                 if (checkRec.checked && checkRec != null) {
-                    if(!savedPopChoice.includes(popularResults[i])){
+                    if (!savedPopChoice.includes(popularResults[i])) {
                         savedPopChoice.push(popularResults[i])
                         console.log(savedPopChoice)
                     }
@@ -228,15 +250,15 @@ function addAttraction(buttonId) {
                 console.log(myLatlng)
                 addMarker(myLatlng, element.name, element.markerColour)
 
-                    for (j = 0; j < recData.attractions.length; j++) {
+                for (j = 0; j < recData.attractions.length; j++) {
 
-                        tempHold = document.getElementById("rec" + j)
-                        if (tempHold.name == element.name) {
-                            currHold = tempHold;
-                            currHold.disabled = true;
-                            disArray.push(j)
-                        }
+                    tempHold = document.getElementById("rec" + j)
+                    if (tempHold.name == element.name) {
+                        currHold = tempHold;
+                        currHold.disabled = true;
+                        disArray.push(j)
                     }
+                }
 
             }
         })
@@ -333,7 +355,7 @@ function collectChoices() {
             if (checkRec.checked) {
                 for (j = 0; j < popularResults.length; j++) {
                     if (popularResults[j].name == checkRec.name) {
-                        if(!savedPopChoice.includes(popularResults[j])){
+                        if (!savedPopChoice.includes(popularResults[j])) {
                             finalChoices.push(popularResults[j])
                         }
                         console.log(popularResults[j])
@@ -343,7 +365,7 @@ function collectChoices() {
             }
         }
 
-        for(j=0;j<savedPopChoice.length;j++){
+        for (j = 0; j < savedPopChoice.length; j++) {
             finalChoices.push(savedPopChoice[j])
         }
     }
@@ -660,10 +682,10 @@ function renderPopular(popResults) {
 function checkForSelected(type, id, name) {
     let ifPopExists = document.getElementById("popChoices").style.display
 
-    for (v=0;v<resultsObj.length;v++){
-        if(document.getElementById(v).checked){
-            if(document.getElementById(v).name == name){
-               disArray.push(v)
+    for (v = 0; v < resultsObj.length; v++) {
+        if (document.getElementById(v).checked) {
+            if (document.getElementById(v).name == name) {
+                disArray.push(v)
             }
 
         }

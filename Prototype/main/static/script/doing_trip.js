@@ -38,9 +38,9 @@ tripName()
 
 visitStatus()
 
-function visitStatus() {
+function visitStatus(){
     let status = localStorage.getItem("editedTripStatus");
-    if (status == "true") {
+    if(status=="true") {
         for (j = 0; j < resultsObj.attStatus.length; j++) {
             resultsObj.attStatus[j] = true;
         }
@@ -142,33 +142,33 @@ function checkTime() {
 
 }
 
-function lockClosedAttraction(closedNames) {
+function lockClosedAttraction(closedNames){
     for (i = 0; i < closedNames.length; i++) {
-        for (j = 0; j < resultsObj.attNames.length; j++) {
+        for(j = 0; j < resultsObj.attNames.length; j++){
             let checkAttName = document.getElementById(j)
-            if (closedNames[i] == checkAttName.name) {
-                checkAttName.disabled = true;
-                let checkAttDiv = document.getElementById("title" + j)
-                let checkAttLabel = document.getElementById("dis" + j)
+                if(closedNames[i] == checkAttName.name){
+                    checkAttName.disabled = true;
+                    let checkAttDiv = document.getElementById("title"+j)
+                    let checkAttLabel = document.getElementById("dis"+j)
 
-                checkAttDiv.title = "Closed"
-                checkAttLabel.innerHTML = `${closedNames[i]} <i class="fa-solid fa-shop-lock"></i>`
-            }
+                    checkAttDiv.title = "Closed"
+                    checkAttLabel.innerHTML = `${closedNames[i]} <i class="fa-solid fa-shop-lock"></i>`
+                }
         }
     }
 }
 
-function lockFinishedAttraction(finName) {
-    for (j = 0; j < resultsObj.attNames.length; j++) {
+function lockFinishedAttraction(finName){
+    for(j = 0; j < resultsObj.attNames.length; j++){
         let checkAttName = document.getElementById(j)
-        if (finName == checkAttName.name) {
-            checkAttName.disabled = true;
-            let checkAttDiv = document.getElementById("title" + j)
-            let checkAttLabel = document.getElementById("dis" + j)
+            if(finName == checkAttName.name){
+                checkAttName.disabled = true;
+                let checkAttDiv = document.getElementById("title"+j)
+                let checkAttLabel = document.getElementById("dis"+j)
 
-            checkAttDiv.title = "Finished"
-            checkAttLabel.innerHTML += ` <i class="fa-solid fa-circle-check"></i>`
-        }
+                checkAttDiv.title = "Finished"
+                checkAttLabel.innerHTML += ` <i class="fa-solid fa-circle-check"></i>`
+            }
     }
 
 }
@@ -394,7 +394,7 @@ function closeAlert(closeCheck) {
         let alertList = document.getElementById("closingBreakAtts")
         alertList.innerHTML = ``
         alertBox.style.display = 'none'
-    } else if (closeCheck == "closed") {
+    } else if (closeCheck == "closed"){
         let alertBox = document.getElementById("closedAlert")
         let alertList = document.getElementById("closedAtts")
         alertList.innerHTML = ``
@@ -419,8 +419,8 @@ function displayOptions() {
 
         console.log(resultsObj.attNames[i])
 
-        let disId = "dis" + i
-        let titleId = "title" + i
+        let disId = "dis"+i
+        let titleId = "title"+i
 
         checkHtml = `
                             <div id=${titleId} class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:99%">
@@ -543,7 +543,6 @@ function locationMarker() {
         for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
 
             let checks = document.getElementById(i)
-
             if (checks.checked == true && i == routePending) {
                 let chosenLatlng = new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]));
                 let distanceToGeofence = google.maps.geometry.spherical.computeDistanceBetween(
@@ -936,19 +935,19 @@ function calculateRoute() {
 }
 
 function filterFunction() {
-    var input, filter, ul, li, option, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
-    option = div.getElementsByTagName("option");
-    for (i = 0; i < option.length; i++) {
-        txtValue = option[i].textContent || option[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            option[i].style.display = "";
-        } else {
-            option[i].style.display = "none";
-        }
+  var input, filter, ul, li, option, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  option = div.getElementsByTagName("option");
+  for (i = 0; i < option.length; i++) {
+    txtValue = option[i].textContent || option[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      option[i].style.display = "";
+    } else {
+      option[i].style.display = "none";
     }
+  }
 }
 
 window.initMap = initMap;

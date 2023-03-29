@@ -34,7 +34,7 @@ function retrieveData(attractionId, attractionName) {
 }
 
 // Renders the Data section using attraction data returned from the AJAX request to the view
-function renderData(dataResults, accCount, planCount) {
+function renderData(dataResults, planCount, accCount) {
     let occTableBody = document.getElementById("occBody")
 
     let ratingCont = document.getElementById("rateContent")

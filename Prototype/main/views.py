@@ -608,3 +608,14 @@ def saveEditedTrip(request):
     except:
 
         return JsonResponse({"message": "Saved failed for " + request.user}, status=400)
+
+def retrieveRating(request):
+    attrName = request.POST.get("attName", None)
+
+    retrieveRateData = AttractionData.objects.filter(attractionName=attrName).values('averageRating')
+
+    context = {
+        "results": list(retrieveRateData),
+    }
+
+    return JsonResponse(context, status=200)

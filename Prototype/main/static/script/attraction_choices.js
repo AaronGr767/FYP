@@ -51,7 +51,6 @@ function retrievePresets(){
         }
 
     }).fail(function (xhr, status, error) {
-        var message = "Passing data failed.<br/>";
         console.log("Status: " + xhr.status + " " + xhr.responseText);
     }).always(function () {
     });
