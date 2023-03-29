@@ -23,6 +23,7 @@ urlpatterns = [
     path('startTrip/', TemplateView.as_view(template_name="startTrip.html"), name="startTrip"),
     path('doingTrip/', TemplateView.as_view(template_name="doingTrip.html"), name="doingTrip"),
     path('tripRoute', TemplateView.as_view(template_name="tripRoute.html"), name="tripRoute"),
+    path('rateTrip', TemplateView.as_view(template_name="rateTrip.html"), name="rateTrip"),
     path('managetripretrieve/', views.manageTripRetrieve, name="manageTripRetrieve"),
     path('managetripdelete/', views.manageTripDelete, name="manageTripDelete"),
     path('retrievepreset/', views.retrievePreset, name="retrievePreset"),
@@ -37,4 +38,5 @@ urlpatterns = [
     path('edittrip/', views.editTrip, name="editTrip"),
     path('saveeditedtrip/', views.saveEditedTrip, name="saveEditedTrip"),
     path('retrieverating/', views.retrieveRating, name="retrieveRating"),
+    path('savetriprating/', views.savetripRating, name="savetripRating"),
 ]

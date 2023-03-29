@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 
-from .models import Attraction, SavedTrip, AttractionData, DetailsPreset, ExternalADUser, PreferencesProfile
+from .models import Attraction, SavedTrip, AttractionData, DetailsPreset, ExternalADUser, PreferencesProfile, TripRating
 from django.contrib.auth import logout
 from main.forms import NewUser
 from main.models import UserProfile
@@ -619,3 +619,18 @@ def retrieveRating(request):
     }
 
     return JsonResponse(context, status=200)
+
+def savetripRating(request):
+    trip = request.POST.get("tripId", None)
+    rating = request.POST.get("overallRating", None)
+    feedback = request.POST.get("userFeedback", None)
+    currUser = request.user.id
+
+    newRating = TripRating()
+    newRating.tripRate = rating
+    newRating.userFeedback = feedback
+    newRating.trip_id = trip
+    newRating.user_id = currUser
+    newRating.save()
+
+    return HttpResponse(status=200)

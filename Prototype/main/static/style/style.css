@@ -828,6 +828,29 @@ border
 /* END DOING TRIP */
 
 /* MISC */
+#askRating {
+    width: min(70vw, 60vh);
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    background-color: rgba(245, 245, 245, .8);
+    border: solid #DBF4A7 3px;
+    border-radius: 5px;
+}
+
+#rateContainer {
+    display: none;
+    border-radius: 10px;
+    border: solid #7D84B2 3px;
+    text-align: center;
+    margin: auto;
+    width: min(90vw, 80vh);
+    background-color: whitesmoke;
+}
+
 img {
     height: 7em;
 }

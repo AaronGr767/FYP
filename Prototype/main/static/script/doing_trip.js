@@ -829,7 +829,7 @@ function markFinished() {
     }).done(function (data, status, xhr) {
         console.log("Success");
 
-        location.href = '/home'
+        location.href = '/rateTrip'
 
     }).fail(function (xhr, status, error) {
         var message = "Passing filters failed.<br/>";

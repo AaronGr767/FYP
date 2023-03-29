@@ -77,3 +77,9 @@ class ExternalADUser(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     associatedAttraction = models.OneToOneField(Attraction, null=True, on_delete=models.CASCADE)
     attractionData = models.OneToOneField(AttractionData, null=True, on_delete=models.CASCADE)
+
+class TripRating(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    trip = models.ForeignKey(SavedTrip, null=True, on_delete=models.CASCADE)
+    tripRate = models.DecimalField(max_digits=3, decimal_places=1)
+    userFeedback = models.TextField(null=True)

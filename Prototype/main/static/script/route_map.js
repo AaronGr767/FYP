@@ -4,6 +4,7 @@ displayAttractions(resultsObj)
 
 displayDetails()
 
+//
 function displayDetails() {
     let details = localStorage.getItem("detailsStore");
     let detailsObj = JSON.parse(details);
@@ -45,8 +46,11 @@ function displayDetails() {
 var popup = document.getElementById("optPopUp");
 popup.style.display = "none";
 
+// Retrieves the previously chosen trip details from local storage and parses them to an object
 function retrieveStore() {
     let results = localStorage.getItem("finalChoice");
+
+    let resultsStorage;
 
     if (results == null) {
         resultsStorage = [];
@@ -58,10 +62,7 @@ function retrieveStore() {
 }
 
 function displayAttractions(resultsObj) {
-    choiceHtml = document.getElementById("attList")
-
-
-    console.log("cheese = " + typeof (resultsObj))
+    let choiceHtml = document.getElementById("attList")
 
     resultsObj.forEach((element) => {
         console.log(element.name)
