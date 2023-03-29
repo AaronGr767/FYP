@@ -10,7 +10,7 @@ let currHold;
 let savedPopChoice = []
 let disArray = []
 
-let i = 0
+// let i = 0
 let j = -1;
 
 document.getElementById('optionsContainer').innerHTML = `<h5 style="text-align: center">Attractions Based on<br> Your Choices:</h5>`;
