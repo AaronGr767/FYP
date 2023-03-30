@@ -111,7 +111,13 @@
         </div>
         <br>
         <script type="text/javascript">
-            {#document.getElementById("chosenDate").valueAsDate = new Date()#}
+            //Limit date entry minimum to today
+
+            let datePicker = document.getElementById("chosenDate")
+            let todaysDate =  new Date();
+
+            todaysDate = todaysDate.toISOString().slice(0,10)
+            datePicker.min = todaysDate
         </script>
 
         <script src="{% static 'script/attraction_choices.js' %}"></script>
