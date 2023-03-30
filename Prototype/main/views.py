@@ -86,16 +86,17 @@ def filterAttractions(request):
                 maxPrice__lte=maximumPrice).exclude(closingHours__contains=[chosenDay, "0"]).exclude(
                 name__in=userPrefs.blackList)
 
-        elif len(userPrefs.whiteList) > 0 and len(userPrefs.blackList) == 0:
+        elif len(userPrefs.whiteList) > 0:
             filt_query = Attraction.objects.filter(
                 Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray) | Q(
                     name__in=userPrefs.whiteList)).exclude(closingHours__contains=[chosenDay, "0"])
 
-        elif len(userPrefs.blackList) > 0 and len(userPrefs.whiteList) == 0:
+        elif len(userPrefs.blackList) > 0 :
             filt_query = Attraction.objects.filter(
                 Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray)).exclude(
-                closingHours__contains=[chosenDay, "0"],
+                closingHours__contains=[chosenDay, "0"]).exclude(
                 name__in=userPrefs.blackList)
+
 
         results = filt_query.values()
 
