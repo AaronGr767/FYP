@@ -226,15 +226,14 @@ function addAttraction(buttonId) {
             for (i = 0; i < popularResults.length; i++) {
                 let formatId = "pop" + i
                 checkRec = document.getElementById(formatId)
-                if (checkRec.checked && checkRec != null) {
-                    if (!savedPopChoice.includes(popularResults[i])) {
-                        savedPopChoice.push(popularResults[i])
-                        console.log(savedPopChoice)
+                if(checkRec != null) {
+                    if (checkRec.checked) {
+                        if (!savedPopChoice.includes(popularResults[i])) {
+                            savedPopChoice.push(popularResults[i])
+                            console.log(savedPopChoice)
+                        }
+
                     }
-
-                    // console.log(popularResults[j])
-                    // console.log(finalChoices)
-
                 }
             }
 
@@ -351,14 +350,16 @@ function collectChoices() {
         for (i = 0; i < popularResults.length; i++) {
             let formatId = "pop" + i
             checkRec = document.getElementById(formatId)
-            if (checkRec.checked) {
-                for (j = 0; j < popularResults.length; j++) {
-                    if (popularResults[j].name == checkRec.name) {
-                        if (!savedPopChoice.includes(popularResults[j])) {
-                            finalChoices.push(popularResults[j])
+            if(checkRec != null) {
+                if (checkRec.checked) {
+                    for (j = 0; j < popularResults.length; j++) {
+                        if (popularResults[j].name == checkRec.name) {
+                            if (!savedPopChoice.includes(popularResults[j])) {
+                                finalChoices.push(popularResults[j])
+                            }
+                            console.log(popularResults[j])
+                            console.log(finalChoices)
                         }
-                        console.log(popularResults[j])
-                        console.log(finalChoices)
                     }
                 }
             }
