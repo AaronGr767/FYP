@@ -16,23 +16,22 @@ document.getElementById('optionsContainer').innerHTML = `<h5 style="text-align: 
 
 displayOptions()
 
+// Displays all attraction options to user based on their chosen filters
 function displayOptions() {
     let resultsObj = [];
     let optCont = document.getElementById("optionsContainer")
-    let results = localStorage.getItem("resultStore");
 
+    // Retrieves the results based on user filters
+    let results = localStorage.getItem("resultStore");
     if (results == null) {
         resultsObj = [];
     } else {
         resultsObj = JSON.parse(results);
     }
 
-
-    console.log("beep " + resultsObj.length);
     console.log(resultsObj[0])
-    console.log("cheese = " + typeof (resultsObj))
 
-
+    // Displays all suitable attractions as choices
     for (i = 0; i < resultsObj.length; i++) {
 
         console.log(resultsObj[i].name)
@@ -47,6 +46,8 @@ function displayOptions() {
 
 }
 
+
+//Displays the relevant details for an attraction upon the user clicking the info button
 function displayDetails(chosenName) {
     let attrRating;
     let infoPopup = document.getElementById("mapPopUp4")
@@ -56,6 +57,7 @@ function displayDetails(chosenName) {
     let parsedDetails = JSON.parse(details)
     let dayIdx = parsedDetails.dayIndex
 
+    // Calls a view that finds the chosen attraction and returns its rating
     $.ajax({
         type: "POST",
         url: "retrieverating/",
@@ -71,6 +73,7 @@ function displayDetails(chosenName) {
 
         attrRating = data.results[0].averageRating / 2
 
+        //Display attraction details if its from users own choices
         for (i = 0; i < resultsObj.length; i++) {
             if (chosenName == resultsObj[i].name) {
                 infoPopup.innerHTML = `<div class="alert alert-light alert-dismissible fade show" role="alert" style="margin-bottom: 2%"><p>${resultsObj[i].description}</p>
@@ -86,6 +89,7 @@ function displayDetails(chosenName) {
             }
         }
 
+        //Display attraction details if its from reccommended choices
         if (done == 0) {
             for (j = 0; j < recData.attractions.length; j++) {
                 if (chosenName == recData.attractions[j].name) {
@@ -104,6 +108,7 @@ function displayDetails(chosenName) {
 
         console.log(popularResults)
 
+        //Display attraction details if its from most popular choices
         if (done == 0) {
             for (k = 0; k < popularResults.length; k++) {
                 if (chosenName == popularResults[k].name) {
@@ -133,6 +138,8 @@ function displayDetails(chosenName) {
 compareTrips(0)
 showMarkers()
 
+
+// Retrieves attractions from local storage
 let results = localStorage.getItem("resultStore");
 
 if (results == null) {
@@ -142,6 +149,7 @@ if (results == null) {
 }
 
 
+// Initialises the map
 function initMap() {
     let dublin = {lat: 53.345302024709206, lng: -6.27215179129342};
 
@@ -150,17 +158,9 @@ function initMap() {
         center: dublin,
     });
 
-    //   const pinViewBackground = new google.maps.marker.PinView({
-    //   background: "#FBBC04",
-    // });
-
 }
 
-// const customPin = new google.maps.marker.PinView({
-//     background: "#7bcde8",
-// })
-
-
+// Adds a marker for the chosen attraction with its relevant details
 function addMarker(position, attName, colour) {
 
     const marker = new google.maps.Marker({
@@ -176,6 +176,7 @@ function addMarker(position, attName, colour) {
         }
     });
 
+    // Add a marker that displays the attractions name when clicked
     marker.addListener('click', function () {
         const infowindow = new google.maps.InfoWindow({
             content: marker.title // Use the title as the content of the info window
@@ -208,25 +209,21 @@ function showMarkers() {
     setMapOnAll(map);
 }
 
-// Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-    hideMarkers();
-}
-
+// Adds a selected attraction when the user clicks on it
 function addAttraction(buttonId) {
     let attBut = document.getElementById(buttonId)
     console.log("breaks here")
     console.log(attBut.name)
 
+    // Check to see if the user has clicked on or off the attraction
     if (attBut.checked) {
 
-        let compare;
-
+        // If the user has picked any of the most popular choices, these are then stored in array to be saved later
         if (popularResults != null) {
             for (i = 0; i < popularResults.length; i++) {
                 let formatId = "pop" + i
                 checkRec = document.getElementById(formatId)
-                if(checkRec != null) {
+                if (checkRec != null) {
                     if (checkRec.checked) {
                         if (!savedPopChoice.includes(popularResults[i])) {
                             savedPopChoice.push(popularResults[i])
@@ -239,17 +236,19 @@ function addAttraction(buttonId) {
 
         }
 
-
+        // Iterate through each relevant attraction until it finds the correct attraction that matches the users choice
         resultsObj.forEach((element) => {
-            // let id = element.id;
+
             if (attBut.name == element.name) {
                 let myLatlng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
                 console.log(element.latitude)
                 console.log(myLatlng)
+
+                // Adds the attraction marker
                 addMarker(myLatlng, element.name, element.markerColour)
 
+                // Checks to see if any recommended attraction are the same as the chosen attraction and disables them accordingly
                 for (j = 0; j < recData.attractions.length; j++) {
-
                     tempHold = document.getElementById("rec" + j)
                     if (tempHold.name == element.name) {
                         currHold = tempHold;
@@ -260,23 +259,33 @@ function addAttraction(buttonId) {
 
             }
         })
+
+        //Retrieves top 3 most popular attractions associated with chosen attraction
         retrievePopular(attBut.name)
 
+    // If the user has deselected the attraction
     } else {
         attBut.checked = false;
-        resultsObj.forEach((element) => {
 
+        // Iterate through each relevant attraction until it finds the correct attraction that matches the users choice
+        resultsObj.forEach((element) => {
 
             if (attBut.name == element.name) {
                 var tempLatLng = new google.maps.LatLng(parseFloat(element.latitude), parseFloat(element.longitude));
                 console.log(tempLatLng)
+
+                // Iterate through all markers and remove the marker for the deselected attraction
                 markers.forEach((item) => {
+
                     j++;
                     console.log("comp " + tempLatLng + " / " + markers)
+
                     if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
-                        console.log("no hope")
+
+                        // Remove the marker for the deselected attraction
                         delMarkers(item, j)
 
+                        // Checks to see if any recommended or most popular attractions are the same as the chosen attraction and re-enables them accordingly
                         if (disArray.length != 0) {
                             for (k = 0; k < disArray.length; k++) {
                                 tempHold = document.getElementById("rec" + disArray[k])
@@ -307,6 +316,7 @@ function addAttraction(buttonId) {
 
 window.initMap = initMap;
 
+// Retrieves and stores the users final choices when they click the next step button
 function collectChoices() {
     let results = localStorage.getItem("resultStore");
 
@@ -317,19 +327,23 @@ function collectChoices() {
     }
 
     let finalChoices = [];
-    let attId = []
+
+    // Store any attractions chosen from the users own choices section
     for (i = 0; i < resultsObj.length; i++) {
         checkVar = document.getElementById(i)
+
         if (checkVar.checked) {
             resultsObj.forEach((element) => {
+
                 if (element.name == checkVar.name) {
                     finalChoices.push(element)
-                    console.log("vibes")
                     console.log(finalChoices)
                 }
             })
         }
     }
+
+    // Store any attractions chosen from the recommended section
     if (recData != undefined) {
         for (i = 0; i < recData.frequency.length; i++) {
             let formatId = "rec" + i
@@ -346,11 +360,12 @@ function collectChoices() {
         }
     }
 
+    // Store any attractions chosen from the most popular section
     if (popularResults != null) {
         for (i = 0; i < popularResults.length; i++) {
             let formatId = "pop" + i
             checkRec = document.getElementById(formatId)
-            if(checkRec != null) {
+            if (checkRec != null) {
                 if (checkRec.checked) {
                     for (j = 0; j < popularResults.length; j++) {
                         if (popularResults[j].name == checkRec.name) {
@@ -370,11 +385,12 @@ function collectChoices() {
         }
     }
 
-
+    // Stores all chosen attractions in local storage and move to next page
     localStorage.setItem('finalChoice', JSON.stringify(finalChoices))
     location.href = '/setLocation'
 }
 
+// Calls the view to retrieve data for recommendation based on similar trips
 function compareTrips(minRating) {
     let optCont = document.getElementById('reccChoices')
     optCont.innerHTML = ``;
@@ -384,6 +400,7 @@ function compareTrips(minRating) {
 
     // let csrftoken = getCookie('csrftoken');
 
+    // Calls view passes the user's chosen filters and rating in order to return recommendations based on similar trips
     $.ajax({
         type: "POST",
         headers: {
@@ -400,6 +417,7 @@ function compareTrips(minRating) {
 
         removeCheck++
 
+        // Displays the recommendations
         displayRecommendations(data)
 
         var originalMsg = $(".toast-body").html();
@@ -414,6 +432,7 @@ function compareTrips(minRating) {
 
 }
 
+// Create cookies for use in AJAX req
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -426,10 +445,12 @@ function getCookie(cname) {
     return "";
 }
 
+//Shows the dropdown for selecting a star rating
 function showDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
+// Manages logic for selecting a star value for rating
 //Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown
 window.onclick = function (event) {
     if (!event.target.matches('.dropbtn')) {
@@ -446,6 +467,7 @@ window.onclick = function (event) {
 
 //End Reference
 
+// Displays all the recommendations recieved for the user
 function displayRecommendations(recAtt) {
     let recChoice = document.getElementById('reccChoices')
     let recOptions = document.getElementById('recOptions')
@@ -462,12 +484,7 @@ function displayRecommendations(recAtt) {
                           <label class="btn btn-outline-secondary" for=${recId}><button class="attInfo" title="info" onclick="displayDetails('${recAtt.attractions[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${recAtt.attractions[i].name}</label>
                         </div><br>`
 
-            //     `<div id="popOps" class="btn-group" role="group" aria-label="Basic radio toggle button group" title="${popResults[i].tag1}" style="margin-bottom: 2%;width:99%">
-            //   <input type="checkbox"  onclick=addRecAttraction(${i},"pop") class="btn-check" name="${popResults[i].name}" id=${popId}  autocomplete="off">
-            //   <label class="btn btn-outline-secondary" for=${popId}><button class="attInfo" title="info" onclick="displayDetails('${resultsObj[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${popResults[i].name}</label>
-            // </div><br>`
-
-
+            // Checks to see if any of these recommendations are already present in the other attractions tabs
             checkForSelected("rec", recId, recAtt.attractions[i].name)
         }
     } else {
@@ -476,7 +493,10 @@ function displayRecommendations(recAtt) {
 
 }
 
+// Adds a selected recommended attraction when the user clicks on it
 function addRecAttraction(buttonId, type) {
+    //Formats the buttons proper id based for if it is either from the recommended or popular section
+
     realId = type + buttonId
     let attBut = document.getElementById(realId)
     console.log("Adding rec")
@@ -484,26 +504,32 @@ function addRecAttraction(buttonId, type) {
 
     let chosenData;
 
+    // Checks if the attraction is sourced from popular or recommended
     if (type == "rec") {
         chosenData = recData.attractions
     } else {
         chosenData = popularResults
     }
 
-
+    // Check to see if the user has clicked on or off the attraction
     if (attBut.checked) {
 
-        let compare;
-
+        // Iterate through each relevant attraction until it finds the correct attraction that matches the users choice
         for (i = 0; i < chosenData.length; i++) {
-            // let id = element.id;
+
             if (attBut.name == chosenData[i].name) {
+
                 var myLatlng = new google.maps.LatLng(parseFloat(chosenData[i].latitude), parseFloat(chosenData[i].longitude));
                 console.log(chosenData[i].latitude)
                 console.log(myLatlng)
+
+                // Adds the attraction marker
                 addMarker(myLatlng, chosenData.name, chosenData[i].markerColour)
+
+                // Checks to see if any other offered attractions are the same attraction as the chosen attraction and disables them accordingly
                 for (j = 0; j < resultsObj.length; j++) {
                     tempHold = document.getElementById(j)
+
                     if (tempHold.name == chosenData[i].name) {
                         currHold = tempHold;
                         currHold.disabled = true;
@@ -531,23 +557,27 @@ function addRecAttraction(buttonId, type) {
         console.log(recHold)
         console.log(currHold)
         console.log(disArray)
-    } else {
-        // if(currHold.disabled){
-        //     currHold.disabled = false;
-        // }
 
+    // If the user has deselected the attraction
+    } else {
+
+        // Iterate through each relevant attraction until it finds the correct attraction that matches the users choice
         for (i = 0; i < chosenData.length; i++) {
 
             if (attBut.name == chosenData[i].name) {
                 var tempLatLng = new google.maps.LatLng(parseFloat(chosenData[i].latitude), parseFloat(chosenData[i].longitude));
                 console.log(tempLatLng)
+
+                // Iterate through all markers and remove the marker for the deselected attraction
                 markers.forEach((item) => {
                     j++;
                     console.log("comp " + tempLatLng + " / " + markers)
                     if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
-                        console.log("no hope")
+
+                        // Remove the marker for the deselected attraction
                         delMarkers(item, j)
 
+                        // Checks to see if any disabled attractions are the same as the chosen attraction and re-enables them accordingly
                         if (disArray.length != 0) {
                             for (k = 0; k < disArray.length; k++) {
                                 tempHold = document.getElementById(disArray[k])
@@ -581,54 +611,10 @@ function addRecAttraction(buttonId, type) {
 
 }
 
+// Retrieves the top 3 most popular attractions associated with an attraction
 function retrievePopular(attName) {
 
-    // if (popularResults != undefined && popularResults != null) {
-    //     for (i = 0; i < popularResults.length; i++) {
-    //         for (j = 0; j < savedPopChoice.length; j++) {
-    //             if (popularResults[i].name == savedPopChoice[j].name) {
-    //                 for (k = 0; k < resultsObj.length; k++) {
-    //                     let optionsButton = document.getElementById(k)
-    //                     if (optionsButton.name == popularResults[i].name) {
-    //                         optionsButton.disabled = false
-    //
-    //                         var tempLatLng = new google.maps.LatLng(parseFloat(popularResults[i].latitude), parseFloat(popularResults[i].longitude));
-    //                         markers.forEach((item) => {
-    //                             j++;
-    //                             if (JSON.stringify(item.position) === JSON.stringify(tempLatLng)) {
-    //                                 console.log("no hope")
-    //                                 delMarkers(item, j)
-    //
-    //                                 if (disArray.length != 0) {
-    //                                     for (k = 0; k < disArray.length; k++) {
-    //                                         tempHold = document.getElementById(disArray[k])
-    //                                         if (tempHold.name == popularResults[i].name) {
-    //                                             tempHold.disabled = false;
-    //                                             disArray.splice(k, 1)
-    //                                         }
-    //
-    //
-    //                                                 recHold = document.getElementById("rec" + k)
-    //
-    //
-    //                                             if (recHold != null && recHold.name == popularResults[i].name) {
-    //                                                 recHold.disabled = false;
-    //                                                 disArray.splice(k, 1)
-    //                                             }
-    //                                         }
-    //
-    //                                 }
-    //                             }
-    //                         })
-    //                         optionsButton.click()
-    //                     }
-    //                 }
-    //                 savedPopChoice.splice(j, 1);
-    //             }
-    //         }
-    //     }
-    // }
-
+    // Passes the attractions name to a view that returns the top 3 most popular attractions associated with an attraction
     $.ajax({
         type: "POST",
         headers: {
@@ -643,7 +629,9 @@ function retrievePopular(attName) {
 
         popularResults = data.results;
 
+        // Displays the most popular attractions
         renderPopular(data.results)
+
         var originalMsg = $(".toast-body").html();
         $(".toast-body").html(originalMsg + "<br/>Updateddatabase<br/>" + data["message"]);
     }).fail(function (xhr, status, error) {
@@ -655,6 +643,7 @@ function retrievePopular(attName) {
     });
 }
 
+// Displays the most popular attractions the user as selectable options
 function renderPopular(popResults) {
     let popCont = document.getElementById("popChoices")
     popCont.style.display = 'block'
@@ -673,6 +662,7 @@ function renderPopular(popResults) {
                       <label class="btn btn-outline-secondary" for=${popId}><button class="attInfo" title="info" onclick="displayDetails('${popResults[i].name}')"><i class="fa-solid fa-circle-info"></i></button> ${popResults[i].name}</label>
                     </div><br>`
 
+        // Checks to see if any of these recommendations are already present in the other attraction selection tabs
         checkForSelected("pop", popId, popResults[i].name)
     }
 
@@ -680,49 +670,44 @@ function renderPopular(popResults) {
 
 //If option is already selected elsewhere
 function checkForSelected(type, id, name) {
-    let ifPopExists = document.getElementById("popChoices").style.display
 
+    // Adds all attractions from the users own choices tab to the disabled array
     for (v = 0; v < resultsObj.length; v++) {
         if (document.getElementById(v).checked) {
             if (document.getElementById(v).name == name) {
                 disArray.push(v)
             }
-
         }
     }
+
     if (disArray.length > 0) {
 
         //breaks entire page by freezing when I iterate using 'i'
+        // Iterate through the array containing all clicked attractions
         for (p = 0; p < disArray.length; p++) {
+
             let existingSelects = document.getElementById(disArray[p]).name
+
+            // Ensure that all disabled attractions remain disabled
             if (existingSelects == name) {
                 document.getElementById(id).disabled = true;
+
+            //Disables all popular attractions that already have the attraction selected elsewhere
             } else if (type != "pop") {
+
                 if (document.getElementById("pop" + disArray[p]).name == name) {
                     document.getElementById(id).disabled = true;
                 }
+
+            //Disables all recommended attractions that already have the attraction selected elsewhere
             } else if (type != "rec" && document.getElementById("rec" + disArray[p]) != null) {
+
                 if (document.getElementById("rec" + disArray[p]).name == name) {
                     document.getElementById(id).disabled = true;
                 }
             }
         }
 
-
-        //     //
-        //     // if (ifPopExists == 'block' && type == "rec") {
-        //     //
-        //     // }
-        //
-        //     // else if (type == "pop"){
-        //     //     if (document.getElementById(disArray[i]).name == name) {
-        //     //         document.getElementById(id).disabled = true;
-        //     //     }
-        //     //     if (document.getElementById("rec"+disArray[i]).name == name) {
-        //     //         document.getElementById(id).disabled = true;
-        //     //     }
-        //     // }
-        // }
     }
 
 }

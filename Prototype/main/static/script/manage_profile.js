@@ -1,15 +1,16 @@
-whitelistArray=[];
-blacklistArray=[];
+whitelistArray = [];
+blacklistArray = [];
 
 loadPreferences();
 
-function createOptions(preset){
+// Displays the selected preset
+function createOptions(preset) {
     let modalBod3 = document.getElementById("mBody3")
-    modalBod3.innerHTML=``
+    modalBod3.innerHTML = ``
     let modalBod2 = document.getElementById("mBody2")
-    modalBod2.innerHTML=``
+    modalBod2.innerHTML = ``
     let modalBod1 = document.getElementById("mBody1")
-    modalBod1.innerHTML=``
+    modalBod1.innerHTML = ``
 
     let formatPreset = "mBody" + preset
     let chosenPreset = document.getElementById(formatPreset)
@@ -59,46 +60,52 @@ function createOptions(preset){
 
 }
 
-function populatePreset(presetObj){
-    if(presetObj.length>0){
+//Populates the displayed preset with its associated values
+function populatePreset(presetObj) {
+    if (presetObj.length > 0) {
         presetObj = presetObj[0]
         let mPrice = document.getElementById("maxPrice")
-    mPrice.value = presetObj.presetPrice
+        mPrice.value = presetObj.presetPrice
 
-    let gSize = document.getElementById("groupSize")
-    gSize.value = presetObj.presetSize
+        let gSize = document.getElementById("groupSize")
+        gSize.value = presetObj.presetSize
 
-    if (presetObj.presetTags.includes(document.getElementById('artCheck').value)) {
-        document.getElementById('artCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('histCheck').value)) {
-        document.getElementById('histCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('archCheck').value)) {
-        document.getElementById('archCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('cultCheck').value)) {
-        document.getElementById('cultCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('eduCheck').value)) {
-        document.getElementById('eduCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('famCheck').value)) {
-        document.getElementById('famCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('outCheck').value)) {
-        document.getElementById('outCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('recCheck').value)) {
-        document.getElementById('recCheck').checked = true
-    }
-    if (presetObj.presetTags.includes(document.getElementById('relCheck').value)) {
-        document.getElementById('relCheck').checked = true
-    }
+        // Each of these checks to see if their associated filter is in the preset and checks the box if it does
+
+        if (presetObj.presetTags.includes(document.getElementById('artCheck').value)) {
+            document.getElementById('artCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('histCheck').value)) {
+            document.getElementById('histCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('archCheck').value)) {
+            document.getElementById('archCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('cultCheck').value)) {
+            document.getElementById('cultCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('eduCheck').value)) {
+            document.getElementById('eduCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('famCheck').value)) {
+            document.getElementById('famCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('outCheck').value)) {
+            document.getElementById('outCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('recCheck').value)) {
+            document.getElementById('recCheck').checked = true
+        }
+        if (presetObj.presetTags.includes(document.getElementById('relCheck').value)) {
+            document.getElementById('relCheck').checked = true
+        }
     }
 }
 
-function renderPresets(preset){
+// Retrieves preset values for rendering
+function renderPresets(preset) {
+
+    //Calls a view which passes the preset ID and returns the data associated with the preset
     $.ajax({
         type: "POST",
         url: "retrievepreset/",
@@ -111,6 +118,7 @@ function renderPresets(preset){
     }).done(function (data, status, xhr) {
         console.log(data);
 
+        // Display and populate the preset with its data
         createOptions(preset)
         populatePreset(data.results)
 
@@ -121,6 +129,7 @@ function renderPresets(preset){
     });
 }
 
+// Sets the preset filters if they are checked
 function setFilters(preset) {
     let counter = 0;
     let filterArray = [];
@@ -165,10 +174,13 @@ function setFilters(preset) {
         filterArray = ['historical', 'architecture', 'art', 'cultural', 'educational', 'family-friendly', 'outdoors', 'recreational', 'religious']
     }
 
-    savePreset(preset,filterArray)
+    savePreset(preset, filterArray)
 }
 
-function savePreset(preset,filterArray){
+// Saves the preset if the user clicks the save button
+function savePreset(preset, filterArray) {
+
+    // Calls a view and passes all the preset data to be saved
     $.ajax({
         type: "POST",
         url: "savepreset/",
@@ -178,8 +190,8 @@ function savePreset(preset,filterArray){
         data: {
             presetId: preset,
             filters: filterArray,
-            gSize : document.getElementById("groupSize").value,
-            mPrice : document.getElementById("maxPrice").value,
+            gSize: document.getElementById("groupSize").value,
+            mPrice: document.getElementById("maxPrice").value,
         }
     }).done(function (data, status, xhr) {
         console.log("Success");
@@ -191,20 +203,24 @@ function savePreset(preset,filterArray){
     });
 }
 
+// Create cookies for use in AJAX req
 function getCookie(cname) {
-     var name = cname + "=";
-     var ca = document.cookie.split(';');
-     for(var i=0; i<ca.length; i++) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if(c.indexOf(name) == 0)
-           return c.substring(name.length,c.length);
-     }
-     return "";
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0)
+            return c.substring(name.length, c.length);
+    }
+    return "";
 }
 
-function addWhList(attraction){
-    if(!whitelistArray.includes(attraction) && !blacklistArray.includes(attraction)){
+// Add an attraction to whitelist
+function addWhList(attraction) {
+
+    //Checks to see if the attractions is already in the whitelist or blacklist
+    if (!whitelistArray.includes(attraction) && !blacklistArray.includes(attraction)) {
         let wId = "wh" + attraction
         let list = document.getElementById("whListAttractions");
         list.innerHTML += `<div id="${wId}" class="card"><label>${attraction} <button onclick="removeWh('${wId}','${attraction}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
@@ -212,8 +228,11 @@ function addWhList(attraction){
     }
 }
 
-function addBlList(attraction){
-    if(!blacklistArray.includes(attraction) && !whitelistArray.includes(attraction)){
+// Add an attraction to blackList
+function addBlList(attraction) {
+
+    //Checks to see if the attractions is already in the whitelist or blacklist
+    if (!blacklistArray.includes(attraction) && !whitelistArray.includes(attraction)) {
         let bId = "bl" + attraction
         let list = document.getElementById("blListAttractions");
         list.innerHTML += `<div id="${bId}" class="card"><label>${attraction} <button onclick="removeBl('${bId}','${attraction}')" style="background: white;border:none"><i class="fa-solid fa-xmark"></i></button></label></div>`;
@@ -221,22 +240,27 @@ function addBlList(attraction){
     }
 }
 
-function removeWh(id,name){
+// Removes an attraction from the whitelist
+function removeWh(id, name) {
     let removeIndex = whitelistArray.indexOf(name)
-    whitelistArray.splice(removeIndex,1)
+    whitelistArray.splice(removeIndex, 1)
 
-    let removeDiv= document.getElementById(id)
+    let removeDiv = document.getElementById(id)
     removeDiv.remove()
 }
 
-function removeBl(id,name){
+// Removes an attraction from the blacklist
+function removeBl(id, name) {
     let removeIndex = blacklistArray.indexOf(name)
-    blacklistArray.splice(removeIndex,1)
-    let removeDiv= document.getElementById(id)
+    blacklistArray.splice(removeIndex, 1)
+    let removeDiv = document.getElementById(id)
     removeDiv.remove()
 }
 
-function savePreferences(){
+// Save the users chosen whitelists and blacklist when they select the save button
+function savePreferences() {
+
+    // Calls a view that passes the whitelist and blacklist for saving
     $.ajax({
         type: "POST",
         url: "savepreference/",
@@ -253,13 +277,15 @@ function savePreferences(){
         let successMsg = document.getElementById("mapPopUp3")
         successMsg.style.display = 'block';
 
+
+        //Successfully saved message
         setTimeout(function () {
-        successMsg.classList.add('fadeOut');
-        setTimeout(function () {
-            successMsg.classList.remove('fadeOut');
-            successMsg.style.display = 'none';
+            successMsg.classList.add('fadeOut');
+            setTimeout(function () {
+                successMsg.classList.remove('fadeOut');
+                successMsg.style.display = 'none';
+            }, 2000);
         }, 2000);
-    }, 2000);
 
     }).fail(function (xhr, status, error) {
         var message = "Passing filters failed.<br/>";
@@ -268,7 +294,10 @@ function savePreferences(){
     });
 }
 
-function loadPreferences(){
+// Loads the users saved whitelists and blacklists
+function loadPreferences() {
+
+    // Calls a view which returns the users whitelist and blacklist data
     $.ajax({
         type: "GET",
         url: "retrievepreference/",
@@ -282,7 +311,8 @@ function loadPreferences(){
         let whitelistData = data.results[0].whiteList
         let blacklistData = data.results[0].blackList
 
-        for(i=0;i<whitelistData.length;i++){
+        // Create a card for each whitelisted attraction
+        for (i = 0; i < whitelistData.length; i++) {
             let attractionList = whitelistData[i]
             let wId = "wh" + attractionList
             let list = document.getElementById("whListAttractions");
@@ -290,7 +320,8 @@ function loadPreferences(){
             whitelistArray.push(attractionList)
         }
 
-        for(i=0;i<blacklistData.length;i++){
+        // Create a card for each blacklisted attraction
+        for (i = 0; i < blacklistData.length; i++) {
             let attractionList = blacklistData[i]
             let bId = "bl" + attractionList
             let list = document.getElementById("blListAttractions");

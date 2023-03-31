@@ -15,6 +15,7 @@ from django.db.models import Q
 
 from django.contrib.auth import login
 
+
 # Register a new user and create a profile and user account for them
 def register_request(request):
     if request.method == "POST":
@@ -32,6 +33,7 @@ def register_request(request):
     form = NewUser()
     return render(request=request, template_name="registration/register.html", context={"register_form": form})
 
+
 # Logout a user
 @login_required
 def logout_request(request):
@@ -39,9 +41,9 @@ def logout_request(request):
     messages.info(request, "Successfully logged out!")
     return redirect("main:home")
 
+
 # Retrieve attractions that match chosen filters
 def filterAttractions(request):
-
     filterArray = request.POST.getlist('filters[]')
     groupSize = request.POST.get('gSize')
     maximumPrice = request.POST.get('mPrice')
@@ -91,12 +93,11 @@ def filterAttractions(request):
                 Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray) | Q(
                     name__in=userPrefs.whiteList)).exclude(closingHours__contains=[chosenDay, "0"])
 
-        elif len(userPrefs.blackList) > 0 :
+        elif len(userPrefs.blackList) > 0:
             filt_query = Attraction.objects.filter(
                 Q(tag1__in=filterArray) | Q(tag2__in=filterArray) | Q(tag3__in=filterArray)).exclude(
                 closingHours__contains=[chosenDay, "0"]).exclude(
                 name__in=userPrefs.blackList)
-
 
         results = filt_query.values()
 
@@ -130,6 +131,7 @@ def filterAttractions(request):
 
         return JsonResponse(list(results), safe=False)
 
+
 # Save a trip when it is completed
 def saveTrip(request):
     savedFilt = request.POST.getlist('tripTags[]', None)
@@ -150,7 +152,7 @@ def saveTrip(request):
     attStat = [False] * len(savedNames)
 
     try:
-        #All attributes to be saved
+        # All attributes to be saved
         sTrip = SavedTrip()
         sTrip.userOwner = request.user
         sTrip.startLocation = savedStart
@@ -174,10 +176,12 @@ def saveTrip(request):
         for item in savedNames:
             tempAtt = AttractionData.objects.get(attractionName=item)
             print("Parent")
-            otherAtts = [others for others in savedNames if others != item] # Creates a temporary list that doesnt contain current attraction
+            otherAtts = [others for others in savedNames if
+                         others != item]  # Creates a temporary list that doesnt contain current attraction
             for tripAtt in otherAtts:
-                for i, countAtt in enumerate(tempAtt.otherAttractions): # Iterates through array in DB with an index for the specific attraction to add to
-                    if (tripAtt == countAtt):   # If Database array matches temporary list
+                for i, countAtt in enumerate(
+                        tempAtt.otherAttractions):  # Iterates through array in DB with an index for the specific attraction to add to
+                    if (tripAtt == countAtt):  # If Database array matches temporary list
                         tempAtt.occurrenceCount[i] = tempAtt.occurrenceCount[i] + 1
                         tempAtt.save()
 
@@ -236,6 +240,7 @@ def updateTripStatus(request):
     SavedTrip.objects.filter(id=thisTrip).update(completed=True)
 
     return HttpResponse(status=200)
+
 
 # Comparing the users trip with existing trips using Jaccard Sim and retrieving attractions present in the similar trips that meet the rating threshold
 def compareSimilarity(request):
@@ -307,6 +312,7 @@ def compareSimilarity(request):
 
     return JsonResponse(finalResults, status=200)
 
+
 # Retrieves all trips belonging to a user
 def manageTripRetrieve(request):
     userFilter = request.user.id
@@ -319,6 +325,7 @@ def manageTripRetrieve(request):
 
     return JsonResponse(results, status=200)
 
+
 # Deletes a trip specified by a user
 def manageTripDelete(request):
     delTripId = request.POST.get("delId", None)
@@ -327,6 +334,7 @@ def manageTripDelete(request):
     delTrip.delete()
 
     return HttpResponse(status=200)
+
 
 # Saves the users preset
 def savePreset(request):
@@ -358,7 +366,7 @@ def savePreset(request):
         return HttpResponse(status=200)
 
     except DetailsPreset.DoesNotExist:
-        #if preset does not exist, make a new database entry
+        # if preset does not exist, make a new database entry
 
         detPreset = DetailsPreset()
         detPreset.userOwner = request.user
@@ -495,6 +503,7 @@ def retrieveData(request):
 
     return JsonResponse(context, status=200)
 
+
 # Save the users associated preferences
 def savePreference(request):
     whitelistArr = request.POST.getlist('whitelist[]', None)
@@ -610,6 +619,8 @@ def saveEditedTrip(request):
 
         return JsonResponse({"message": "Saved failed for " + request.user}, status=400)
 
+
+# Retrieve the rating for a chosen attraction when user clicks info button
 def retrieveRating(request):
     attrName = request.POST.get("attName", None)
 
@@ -621,6 +632,8 @@ def retrieveRating(request):
 
     return JsonResponse(context, status=200)
 
+
+# Saves the user's trip rating upon successful completion
 def savetripRating(request):
     trip = request.POST.get("tripId", None)
     rating = request.POST.get("overallRating", None)

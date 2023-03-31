@@ -5,7 +5,6 @@ popup.style.display = "none";
 let displayCounter = 0;
 let finishedAttractions = 0;
 let userLocation;
-let userArray = []
 let chosenLatlng;
 let finishedArray = [];
 let routePath = [];
@@ -38,21 +37,22 @@ tripName()
 
 visitStatus()
 
-function visitStatus(){
+// If this is a previously completed trip, reset all the statuses for the attractions
+function visitStatus() {
     let status = localStorage.getItem("editedTripStatus");
-    if(status=="true") {
+    if (status == "true") {
         for (j = 0; j < resultsObj.attStatus.length; j++) {
             resultsObj.attStatus[j] = true;
         }
     }
 }
 
-// updateLocation()
-if (mapType.checked) {
 
+if (mapType.checked) {
     displayOptions()
 }
 
+// Display the trips name
 function tripName() {
     let tripTitle = document.getElementById('tripHeader')
     tripTitle.innerHTML = ``
@@ -61,8 +61,9 @@ function tripName() {
 
 locationMarker(markCount)
 
+// Calls the checkTime function every minute
+setTimeout(checkTime, 60000)
 
-setTimeout(checkTime, 4000)
 
 function checkTime() {
     let closingNameArray = []
@@ -70,20 +71,28 @@ function checkTime() {
     let closedNameArray = []
     let closedTimeArray = []
     let currTime = new Date();
+
+    //Formats the current time into minutes
     let compareTime = (currTime.getHours() * 60) + currTime.getMinutes()
     console.log(resultsObj.attNames.length)
+
+    //Iterates through each attraction
     for (i = 0; i < resultsObj.attNames.length; i++) {
+
         console.log(resultsObj.attNames.length)
         let attHour = parseInt(resultsObj.attClosing[i].substring(0, 2)) * 60
         let attMins = parseInt(resultsObj.attClosing[i].substring(2))
         let attTime = attHour + attMins
         let dif = attTime - compareTime;
         console.log("dif for each= " + dif)
+
+        // If the attraction closes in an hour or less than an hour after the user has stopped the trip store its name & time
         if (dif == 60 || (firstTimeCheck == 0 && dif < 60 && dif > 0)) {
             closingNameArray.push(resultsObj.attNames[i])
             closingTimeArray.push(resultsObj.attClosing[i])
         }
 
+        // If the attraction is closed store its name & time aswell as placing it in an array to be locked
         if (dif == 0 || (alreadyClosed == 0 && dif < 0)) {
             closedNameArray.push(resultsObj.attNames[i])
             closedTimeArray.push(resultsObj.attClosing[i])
@@ -91,9 +100,13 @@ function checkTime() {
         }
 
     }
+
+    // Disable all closed attractions
     lockClosedAttraction(lockClosed)
     firstTimeCheck++
     alreadyClosed++
+
+    // If there are any attractions that close in an hour, notify the user
     if (closingNameArray.length != 0) {
         let mapDiv = document.getElementById("map");
         timeAlertBox = document.createElement("div");
@@ -106,7 +119,6 @@ function checkTime() {
             timeAlertBox.parentNode.removeChild(timeAlertBox);
         }
 
-
         mapDiv.appendChild(timeAlertBox)
         timeAlertBox.style.display = 'block'
         let alertList = document.getElementById("closingAtts")
@@ -117,6 +129,7 @@ function checkTime() {
         }
     }
 
+    // If there are any attractions that are now closed, notify the user
     if (closedNameArray.length != 0) {
         let mapDiv = document.getElementById("map");
         closeAlertBox = document.createElement("div");
@@ -142,37 +155,47 @@ function checkTime() {
 
 }
 
-function lockClosedAttraction(closedNames){
-    for (i = 0; i < closedNames.length; i++) {
-        for(j = 0; j < resultsObj.attNames.length; j++){
-            let checkAttName = document.getElementById(j)
-                if(closedNames[i] == checkAttName.name){
-                    checkAttName.disabled = true;
-                    let checkAttDiv = document.getElementById("title"+j)
-                    let checkAttLabel = document.getElementById("dis"+j)
+//Disable the attractions that are closed
+function lockClosedAttraction(closedNames) {
 
-                    checkAttDiv.title = "Closed"
-                    checkAttLabel.innerHTML = `${closedNames[i]} <i class="fa-solid fa-shop-lock"></i>`
-                }
+    for (i = 0; i < closedNames.length; i++) {
+
+        for (j = 0; j < resultsObj.attNames.length; j++) {
+
+            let checkAttName = document.getElementById(j)
+            if (closedNames[i] == checkAttName.name) {
+
+                checkAttName.disabled = true;
+                let checkAttDiv = document.getElementById("title" + j)
+                let checkAttLabel = document.getElementById("dis" + j)
+
+                checkAttDiv.title = "Closed"
+                checkAttLabel.innerHTML = `${closedNames[i]} <i class="fa-solid fa-shop-lock"></i>`
+            }
         }
     }
 }
 
-function lockFinishedAttraction(finName){
-    for(j = 0; j < resultsObj.attNames.length; j++){
-        let checkAttName = document.getElementById(j)
-            if(finName == checkAttName.name){
-                checkAttName.disabled = true;
-                let checkAttDiv = document.getElementById("title"+j)
-                let checkAttLabel = document.getElementById("dis"+j)
+//Disable an attraction if the user has finished it
+function lockFinishedAttraction(finName) {
 
-                checkAttDiv.title = "Finished"
-                checkAttLabel.innerHTML += ` <i class="fa-solid fa-circle-check"></i>`
-            }
+    for (j = 0; j < resultsObj.attNames.length; j++) {
+
+        let checkAttName = document.getElementById(j)
+        if (finName == checkAttName.name) {
+
+            checkAttName.disabled = true;
+            let checkAttDiv = document.getElementById("title" + j)
+            let checkAttLabel = document.getElementById("dis" + j)
+
+            checkAttDiv.title = "Finished"
+            checkAttLabel.innerHTML += ` <i class="fa-solid fa-circle-check"></i>`
+        }
     }
 
 }
 
+// If the user starts a break then change the display to break in progress and start the break
 function renderBreak(state, radius) {
     let alertBox = document.getElementById("breakAlert")
     alertBox.style.display = 'none'
@@ -196,6 +219,7 @@ function renderBreak(state, radius) {
 
     let formatType;
 
+    // If the users breaktype is shopping, create this tailored request
     if (bType == "store") {
         formatType = ["clothing_store", "jewelry_store"]
         let request1 = {
@@ -211,6 +235,7 @@ function renderBreak(state, radius) {
 
         service = new google.maps.places.PlacesService(map);
 
+        // Search for nearby locations based on the above requests
         service.nearbySearch(request1, callback);
         service.nearbySearch(request2, callback);
 
@@ -224,23 +249,27 @@ function renderBreak(state, radius) {
 
         service = new google.maps.places.PlacesService(map);
 
+        // Search for nearby locations based on the above request
         service.nearbySearch(request, callback);
     }
 
 
 }
 
+// Callback to display results of the break request
 function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
+
         for (i = 0; i < results.length; i++) {
+
             console.log(results[i])
-            // if(results[i].opening_hours.isOpen){
             createMarker(results[i]);
-            // }
+
         }
     }
 }
 
+//Creates a marker for each location that fits the filters provided by the break request
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
 
@@ -262,12 +291,14 @@ function createMarker(place) {
 
 }
 
+//Removes markers for all break locations
 function removeBreakLocs() {
     for (i = 0; i < nearbyMarker.length; i++) {
         nearbyMarker[i].setMap(null);
     }
 }
 
+// Ends the break for user and hides 'break in progress' section
 function finishBreak() {
     for (i = 0; i < nearbyMarker.length; i++) {
         nearbyMarker[i].setMap(null);
@@ -279,13 +310,16 @@ function finishBreak() {
     progBreak.style.display = 'none'
 }
 
+// Begins a break for user
 function beginBreak() {
     let brHour = document.getElementById("breakHours").value
     let brMins = document.getElementById("breakMins").value
     let brTime = brHour + ":" + brMins
 
+    // Regex for a valid time format
     let testRegex = new RegExp("^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$")
 
+    // If the user has inpuuted a valid time
     if (testRegex.test(brTime)) {
         let closingNameArray = []
         let closingTimeArray = []
@@ -302,7 +336,7 @@ function beginBreak() {
 
         let finalTime = (maxHours * 60) + maxMins
 
-        //don't forget to flick this back after testing
+        // If the users chosen break length will exceed the latest closing time for the attractions, notify them accordingly
         if (combinedTime > finalTime) {
             let breakSetup = document.getElementById("breakSetUp");
             alertBox = document.createElement("div");
@@ -321,11 +355,15 @@ function beginBreak() {
             alertBox.style.display = 'block'
             let errMsg = document.getElementById("errorMsg")
             errMsg.innerHTML = `No attractions will be open at this hour!`
+
+
         } else {
             for (i = 0; i < resultsObj.attClosing.length; i++) {
                 console.log(i)
                 let attHour = parseInt(resultsObj.attClosing[i].substring(0, 2)) * 60
                 let attMins = parseInt(resultsObj.attClosing[i].substring(2))
+
+                // calculate if any attractions will close during or an after the break
                 let attTime = attHour + attMins
                 let dif = attTime - combinedTime;
                 if (combinedTime > attTime || dif <= 60) {
@@ -334,6 +372,7 @@ function beginBreak() {
                 }
             }
 
+            // if any attractions will close during or an after the break then notify the user accordingly, otherwise just start the break
             if (closingNameArray.length != 0) {
                 let breakSetup = document.getElementById("breakSetUp");
                 breakAlertBox = document.createElement("div");
@@ -358,10 +397,13 @@ function beginBreak() {
                     alertList.innerHTML += `<li>${closingNameArray[k]} / ${closingTimeArray[k].substring(0, 2)}:${closingTimeArray[k].substring(2)}</li>`
                 }
             } else {
+
+                // Begin the break with a default seach radius of 300 metres
                 renderBreak("start", "300")
             }
         }
 
+        // Notify the user of an invalid time format inputted
     } else {
         let breakSetup = document.getElementById("breakSetUp");
         alertBox = document.createElement("div");
@@ -383,6 +425,7 @@ function beginBreak() {
     }
 }
 
+// Close the various pop ups a user may encounter
 function closeAlert(closeCheck) {
     if (closeCheck == "time") {
         let alertBox = document.getElementById("timeAlert")
@@ -394,7 +437,7 @@ function closeAlert(closeCheck) {
         let alertList = document.getElementById("closingBreakAtts")
         alertList.innerHTML = ``
         alertBox.style.display = 'none'
-    } else if (closeCheck == "closed"){
+    } else if (closeCheck == "closed") {
         let alertBox = document.getElementById("closedAlert")
         let alertList = document.getElementById("closedAtts")
         alertList.innerHTML = ``
@@ -403,11 +446,13 @@ function closeAlert(closeCheck) {
 
 }
 
+// Closed invalid time alert
 function closeInvAlert() {
     let alertBox = document.getElementById("invalidAlert")
     alertBox.style.display = 'none'
 }
 
+// Display all the users attractions in the trip for selection purposes
 function displayOptions() {
     if (routePath.length != 0) {
         for (i = 0; i < routePath.length; i++)
@@ -419,8 +464,8 @@ function displayOptions() {
 
         console.log(resultsObj.attNames[i])
 
-        let disId = "dis"+i
-        let titleId = "title"+i
+        let disId = "dis" + i
+        let titleId = "title" + i
 
         checkHtml = `
                             <div id=${titleId} class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 2%;width:99%">
@@ -437,6 +482,7 @@ function displayOptions() {
     }
 }
 
+// If the user selects an attraction while in custom route mode, ask them to confirm
 function confirmBox(i) {
     let mapDiv = document.getElementById("map");
     ConfirmRouteBox = document.createElement("div");
@@ -452,9 +498,9 @@ function confirmBox(i) {
 
     mapDiv.appendChild(ConfirmRouteBox)
     ConfirmRouteBox.style.display = 'block'
-
 }
 
+// If the user does not wish to map a route to selected attraction, hide this popup box
 function hideBox(i) {
     let popUp = document.getElementById("mapPopUp")
     popUp.style.display = 'none'
@@ -469,16 +515,12 @@ function hideBox(i) {
     }
 }
 
-
-// In the following example, markers appear when the user clicks on the map.
-// The markers are stored in an array.
-// The user can then click an option to hide, show or delete the markers.
 let map;
 let markers = [];
 
-
 showMarkers()
 
+// Initialise the map
 function initMap() {
     let dublin = {lat: 53.345302024709206, lng: -6.27215179129342};
 
@@ -491,16 +533,19 @@ function initMap() {
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
 
+    // Listen for if the user updates the break search radius mid break and then update the request with the newly chosen type
     document.getElementById("progBreakType").addEventListener("change", () => {
         removeBreakLocs()
         renderBreak("progress", document.getElementById("searchRad").value)
     });
 
+    // Listen for if the user changes the break type mid break and then update the request with the newly search radius
     document.getElementById("searchRad").addEventListener("change", () => {
         removeBreakLocs()
         renderBreak("progress", document.getElementById("searchRad").value)
     });
 
+    // If the user changes the travel mode mid route, then update the route with the newly chosen travel route
     document.getElementById("mode").addEventListener("change", () => {
         if (document.getElementById("cust").checked) {
             if (lastRoute != '') {
@@ -535,28 +580,34 @@ function initMap() {
 
 }
 
+// Tracks the users location and updates the icon if any changes
 function locationMarker() {
     navigator.geolocation.watchPosition(function (position) {
         userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        // userArray = []
 
         for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
 
             let checks = document.getElementById(i)
+
+            // If the user is currently on the way to an attraction
             if (checks.checked == true && i == routePending) {
+
                 let chosenLatlng = new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]));
                 let distanceToGeofence = google.maps.geometry.spherical.computeDistanceBetween(
                     userLocation,
                     chosenLatlng
                 );
 
-                //remember to reverse logic when done testing and uncomment the for loop
+                // If user is within distance of the attraction on their current route then notify them accordingly & provide content
                 if (distanceToGeofence <= 50) {
+
                     console.log("Within Range")
                     if (displayCounter == 0) {
+
                         for (j = 0; j <= resultsObj.attNames.length - 1; j++) {
                             document.getElementById(j).disabled = true;
                         }
+
                         let popUp = document.getElementById("mapPopUp2")
                         popUp.innerHTML = `<strong>Welcome to the ${resultsObj.attNames[i]}!</strong><br><br>
                                      <p style="text-align: left">${resultsObj.tripTips[i]}</p>
@@ -582,14 +633,15 @@ function locationMarker() {
             anchor: new google.maps.Point(20, 35),
         };
 
+        //If the marker is being set on user for the first time then create a new marker, otherwise update the existing marker
         if (markCount == 0) {
-            locMarker = new google.maps.Marker({
-                position: userLocation,
-                map,
-                icon: svgMarker,
-            });
-            locMarker.setMap(map);
-            markCount++
+                locMarker = new google.maps.Marker({
+                    position: userLocation,
+                    map,
+                    icon: svgMarker,
+                });
+                locMarker.setMap(map);
+                markCount++
         } else {
             locMarker.setPosition(userLocation)
         }
@@ -597,6 +649,7 @@ function locationMarker() {
     });
 }
 
+// Upon finishing an attraction provide the user with an option to rate it
 function finishAttraction(finAtt) {
     resultsObj.attStatus[finAtt] = true
     let lastPopUp = document.getElementById("mapPopUp2")
@@ -620,6 +673,7 @@ function finishAttraction(finAtt) {
     //End reference
 }
 
+// If the user chose to rate the attraction, save their chosen rating
 function addRating(rating, finAtt) {
     let attName = resultsObj.attNames[finAtt]
     resultsObj.att
@@ -627,8 +681,12 @@ function addRating(rating, finAtt) {
 
     let csrftoken = getCookie('csrftoken');
 
+    // If they provided a rating
     if (rating != "none") {
+
         popUp.innerHTML = 'Thank you for rating this attraction!';
+
+        // Call a view which sends the rating to its associated attraction for storage
         $.ajax({
             type: "POST",
             url: "updaterating/",
@@ -647,8 +705,10 @@ function addRating(rating, finAtt) {
             console.log("Status: " + xhr.status + " " + xhr.responseText);
         }).always(function () {
         });
+
     }
 
+    // Fade away thank you message
     setTimeout(function () {
         popUp.classList.add('fadeOut');
         setTimeout(function () {
@@ -659,6 +719,7 @@ function addRating(rating, finAtt) {
     console.log(rating)
     console.log(attName)
 
+    // Disables the attraction for further selection
     for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
         document.getElementById(i).checked = false;
         document.getElementById(i).disabled = false;
@@ -667,19 +728,24 @@ function addRating(rating, finAtt) {
 
     finishedArray.push(finAtt)
 
+    //Locks all finished and closed attractions
     lockFinishedAttraction(attName)
     lockClosedAttraction(lockClosed)
 
     for (i = 0; i < finishedArray.length; i++) {
         document.getElementById(finishedArray[i]).disabled = true;
     }
+
     displayCounter = 0;
     finishedAttractions++;
     lastRoute.setMap(null);
     lastRoute = '';
+
+    // Removes the attractions markers
     delMarkers(markers[finAtt], finAtt)
 }
 
+// Create cookies for use in AJAX req
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -692,6 +758,7 @@ function getCookie(cname) {
     return "";
 }
 
+// If the user has chosen an attraction while using custom route then map the route from their position to this attraction
 function startRoute(i) {
     routePending = i
     let popUp = document.getElementById("mapPopUp")
@@ -699,9 +766,11 @@ function startRoute(i) {
         popUp.parentNode.removeChild(popUp);
     }
 
+    // Remove any currently mapped routes
     if (lastRoute) {
         lastRoute.setMap(null);
     }
+
     navigator.geolocation.getCurrentPosition(function (position) {
         userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -709,6 +778,7 @@ function startRoute(i) {
 
         chosenLatlng = new google.maps.LatLng(parseFloat(resultsObj.attLat[i]), parseFloat(resultsObj.attLng[i]));
 
+        // Creates a request using the user's location, the attraction's location and the user's selected travel mode
         let request = {
             origin: userLocation,
             destination: chosenLatlng,
@@ -719,6 +789,7 @@ function startRoute(i) {
         let directionsService = new google.maps.DirectionsService();
         directionsService.route(request, function (result, status) {
             if (status == 'OK') {
+
                 // Create a new route object and display it on the map
                 lastRoute = new google.maps.DirectionsRenderer({
                     suppressMarkers: true,
@@ -732,8 +803,8 @@ function startRoute(i) {
 
 }
 
+// Prepares each attraction so that a marker for each can be added to the map
 function addAttraction() {
-    console.log("breaks here")
 
     let results = localStorage.getItem("currentTrip");
 
@@ -750,6 +821,7 @@ function addAttraction() {
     }
 }
 
+// Deletes a chosen marker when called
 function delMarkers(delMark, i) {
     console.log(delMark)
     delete markers[i]
@@ -758,6 +830,7 @@ function delMarkers(delMark, i) {
     console.log(markers)
 }
 
+// Adds a marker for each attraction on the map
 function addMarker(position, attName, colour, closing) {
     let reformat = closing.substring(0, 2) + ":" + closing.substring(2)
 
@@ -779,7 +852,7 @@ function addMarker(position, attName, colour, closing) {
         let infowindow = new google.maps.InfoWindow({
             content: "<strong>" + marker.title + "</strong>" + "<br>Closing Hours:" + marker.subtitle
         });
-        infowindow.open(map, marker); // Open the info window at the marker's position
+        infowindow.open(map, marker);
     });
 
     markers.push(marker);
@@ -795,15 +868,16 @@ function setMapOnAll(map) {
 
 // Shows any markers currently in the array.
 function showMarkers() {
-
     setMapOnAll(map);
 }
 
+// Clears checks from all checked boxes and checks the selected box
 $(":checkbox").click(function (e) {
     $(":checkbox").prop('checked', false)
     $(e.target).prop('checked', true);
 });
 
+// Display or hide popup
 function optionsPopUp(check) {
     var popup = document.getElementById("optPopUp");
     if (check) {
@@ -814,9 +888,11 @@ function optionsPopUp(check) {
 
 }
 
+// Mark the trip as finished upon completions
 function markFinished() {
     let csrftoken = getCookie('csrftoken');
 
+    // Passes the trip id to a view in order to update the status of this trip as completed
     $.ajax({
         type: "POST",
         url: "updatetripstatus/",
@@ -838,6 +914,7 @@ function markFinished() {
     });
 }
 
+// If the user has selected a recommended route, lock the ability to individually select each attraction
 function lockOptions() {
 
     for (i = 0; i <= resultsObj.attNames.length - 1; i++) {
@@ -846,8 +923,10 @@ function lockOptions() {
     calculateRoute()
 }
 
+// If the user has chosen the recommended route then calculate and map the most optimized route possible
 function calculateRoute() {
 
+    // Remove any existing routes
     if (lastRoute) {
         lastRoute.setMap(null);
     }
@@ -868,7 +947,10 @@ function calculateRoute() {
     let remainingLocCol = [];
     console.log(resultsObj)
 
+    // Iterate through each attraction
     for (i = 0; i < resultsObj.attNames.length; i++) {
+
+        // If the attraction is not closed or completed
         if (resultsObj.attStatus[i] == false && !lockClosed.includes(resultsObj.attNames[i])) {
             remainingLocNames.push(resultsObj.attNames[i])
             remainingLocDesc.push(resultsObj.tripTips[i])
@@ -879,6 +961,7 @@ function calculateRoute() {
 
             console.log(parseFloat(resultsObj.attLat[i]))
 
+            // Format each suitable attraction for use as a waypoint
             remainingLocCoords.push({
                 location: attLocation,
                 stopover: true
@@ -887,9 +970,11 @@ function calculateRoute() {
         }
     }
 
+
     let wpDest = remainingLocCoords[remainingLocCoords.length - 1].location
     remainingLocCoords.pop()
 
+    // Create a route using the userslocation, the suitables attractions and the selected travel mode
     directionsService
         .route({
             origin: userLocation,
@@ -899,14 +984,12 @@ function calculateRoute() {
             travelMode: google.maps.TravelMode[selectedMode],
         })
         .then((response) => {
+            // Render this route to the map
+
             directionsRenderer.setDirections(response);
 
             const myRoute = response.routes[0].overview_path;
             console.log(myRoute)
-
-            //   var routePath = new google.maps.Polyline({
-            //   path: myRoute,
-            // });
 
             for (let i = 0; i < response.routes[0].legs.length; i++) {
                 const leg = response.routes[0].legs[i];
@@ -926,6 +1009,7 @@ function calculateRoute() {
 
         })
         .catch((e) => {
+            // If google maps is unable to plot a transport route
             if (selectedMode == 'TRANSIT') {
                 window.alert("Unable to plot a route between these attractions using public transport. Sorry!")
             } else {
@@ -934,21 +1018,7 @@ function calculateRoute() {
         })
 }
 
-function filterFunction() {
-  var input, filter, ul, li, option, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  option = div.getElementsByTagName("option");
-  for (i = 0; i < option.length; i++) {
-    txtValue = option[i].textContent || option[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      option[i].style.display = "";
-    } else {
-      option[i].style.display = "none";
-    }
-  }
-}
+
 
 window.initMap = initMap;
 

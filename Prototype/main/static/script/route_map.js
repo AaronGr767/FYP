@@ -4,7 +4,7 @@ displayAttractions(resultsObj)
 
 displayDetails()
 
-//
+// Display a short summary of the trip details
 function displayDetails() {
     let details = localStorage.getItem("detailsStore");
     let detailsObj = JSON.parse(details);
@@ -61,6 +61,7 @@ function retrieveStore() {
     return resultsStorage;
 }
 
+// Displays each attraction in a bullet point list
 function displayAttractions(resultsObj) {
     let choiceHtml = document.getElementById("attList")
 
@@ -72,6 +73,7 @@ function displayAttractions(resultsObj) {
     return resultsObj;
 }
 
+// Save the trip when the user is finished
 function saveTrip(startCheck) {
     let resultsName = [];
     let resultsLat = [];
@@ -94,7 +96,7 @@ function saveTrip(startCheck) {
 
     let detailsObj = JSON.parse(details);
 
-
+    // Creates an array for each attribute so it can be successfully receieved by the view
     finalStore.forEach((element) => {
         resultsName.push(element.name)
         resultsLat.push(element.latitude)
@@ -109,12 +111,13 @@ function saveTrip(startCheck) {
     console.log(resultsLat)
     console.log(resultsLng)
 
-
     let status = localStorage.getItem("editedTripStatus");
+    //If this was an already saved trip which was being edited
     if (status == "true") {
         let eTrip = localStorage.getItem("editedTrip")
         let editedTrip = JSON.parse(eTrip)
 
+        // Calls a view which passes all the relevant data to a view that updates the trips data
         $.ajax({
             type: "POST",
             headers: {
@@ -141,6 +144,8 @@ function saveTrip(startCheck) {
             }
         }).done(function (data, status, xhr) {
             console.log(data)
+
+            // If the user wishes to start the trip immediately, store it in local storage and send them to startTrip, otherwise send them to the home page
             if (startCheck) {
                 localStorage.setItem('saveAndStart', JSON.stringify(data.id))
                 location.href = '/startTrip'
@@ -157,7 +162,10 @@ function saveTrip(startCheck) {
             console.log("update finished");
         });
 
+    // If this is a new trip
     } else {
+
+        // Calls a view which passes all the relevant data to a view that saves the new trip
         $.ajax({
             type: "POST",
             headers: {
@@ -183,6 +191,8 @@ function saveTrip(startCheck) {
             }
         }).done(function (data, status, xhr) {
             console.log(data)
+
+            // If the user wishes to start the trip immediately, store it in local storage and send them to startTrip, otherwise send them to the home page
             if (startCheck) {
                 localStorage.setItem('saveAndStart', JSON.stringify(data.id))
                 location.href = '/startTrip'
@@ -202,6 +212,7 @@ function saveTrip(startCheck) {
 
 }
 
+// Retrieves the closing hours for each attraction and then saves them in array
 function retrieveTimes(finalStore) {
     let dayArray = [];
     let myDets = localStorage.getItem("detailsStore");
@@ -221,6 +232,7 @@ function retrieveTimes(finalStore) {
     return dayArray;
 }
 
+// Create cookies for use in AJAX req
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -233,6 +245,7 @@ function getCookie(cname) {
     return "";
 }
 
+//Display a pop up for starting the trip now or later
 function optionsPopUp() {
     var popup = document.getElementById("optPopUp");
     popup.style.display = "block";
@@ -243,6 +256,7 @@ let markers = [];
 
 showMarkers()
 
+// initialises the map
 function initMap() {
     let dublin = {lat: 53.345302024709206, lng: -6.27215179129342};
 
@@ -257,6 +271,7 @@ function initMap() {
 
     let starting = JSON.parse(startLoc)
 
+    // If the user chose a starting location, display it on the map as an svgMarker
     if (starting != "None") {
 
         let plannedStart = new google.maps.LatLng(starting.lat, starting.lng);
@@ -303,6 +318,7 @@ function showMarkers() {
     setMapOnAll(map);
 }
 
+// Adds a marker for each of the users attractions
 function addMarker(position, attName, colour) {
 
     const marker = new google.maps.Marker({
@@ -319,14 +335,14 @@ function addMarker(position, attName, colour) {
     });
     marker.addListener('click', function () {
         const infowindow = new google.maps.InfoWindow({
-            content: marker.title // Use the title as the content of the info window
+            content: marker.title
         });
-        infowindow.open(map, marker); // Open the info window at the marker's position
+        infowindow.open(map, marker);
     });
     markers.push(marker);
 }
 
-
+// Sends each markers details to the addMarker function to create a marker
 function addAttraction() {
     resultsObj = retrieveStore()
 

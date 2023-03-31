@@ -5,10 +5,10 @@ retrievePresets()
 checkEdit()
 
 // Check to see if an attraction has been supplied for editing purpose
-function checkEdit(){
+function checkEdit() {
     let status = localStorage.getItem("editedTripStatus");
     // If there is such an attraction then populate the relevant fields with its data
-    if(status=="true"){
+    if (status == "true") {
         let eTrip = localStorage.getItem("editedTrip")
         let editedTrip = JSON.parse(eTrip)
 
@@ -26,8 +26,8 @@ function checkEdit(){
         let trDate = document.getElementById("chosenDate")
         trDate.value = editedTrip.date
 
-        for(i=0;i<editedTrip.tripTags.length;i++){
-            let reformat = editedTrip.tripTags[i].substring(0,3) + "Check"
+        for (i = 0; i < editedTrip.tripTags.length; i++) {
+            let reformat = editedTrip.tripTags[i].substring(0, 3) + "Check"
             let filter = document.getElementById(reformat)
             filter.checked = true;
         }
@@ -35,7 +35,7 @@ function checkEdit(){
 }
 
 //Retrieves all the presets belonging to a user by doing an AJAX call
-function retrievePresets(){
+function retrievePresets() {
     $.ajax({
         type: "GET",
         url: "retrievecreatepreset/",
@@ -46,7 +46,7 @@ function retrievePresets(){
         console.log(data);
 
         //If the user has atleast one preset then display them as options on the screen
-        if(data.results.length>0){
+        if (data.results.length > 0) {
             renderCreatePresets(data.results)
         }
 
@@ -57,16 +57,16 @@ function retrievePresets(){
 }
 
 //Display all presets belonging to a user as clickable radio buttons
-function renderCreatePresets(data){
+function renderCreatePresets(data) {
     presetObj = data
     let presCont = document.getElementById("presetContainer")
 
-    for(i=0;i<presetObj.length;i++){
+    for (i = 0; i < presetObj.length; i++) {
         let label = "inlineRadio" + i
         let passParam = presetObj[i]
 
         //Radio buttons will run a function to populate relevant input fields when selected
-        presCont.innerHTML+= `<div class="form-check form-check-inline">
+        presCont.innerHTML += `<div class="form-check form-check-inline">
                                 <input onclick=fillPreset(${i}) class="form-check-input" type="radio" name="inlineRadioOptions">
                                 <label class="form-check-label">Preset ${presetObj[i].preId}</label>
                             </div>`
@@ -78,7 +78,7 @@ function renderCreatePresets(data){
 }
 
 //Fills out all the relevant input fields based on the selected preset choice
-function fillPreset(presetChoice){
+function fillPreset(presetChoice) {
     console.log(presetObj[presetChoice])
 
     let mPrice = document.getElementById("maxPrice")
@@ -89,103 +89,103 @@ function fillPreset(presetChoice){
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('artCheck').value)) {
         document.getElementById('artCheck').checked = true
-    }else{
+    } else {
         document.getElementById('artCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('hisCheck').value)) {
         document.getElementById('hisCheck').checked = true
-    }else{
+    } else {
         document.getElementById('hisCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('arcCheck').value)) {
         document.getElementById('arcCheck').checked = true
-    }else{
+    } else {
         document.getElementById('arcCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('culCheck').value)) {
         document.getElementById('culCheck').checked = true
-    }else{
+    } else {
         document.getElementById('culCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('eduCheck').value)) {
         document.getElementById('eduCheck').checked = true
-    }else{
+    } else {
         document.getElementById('eduCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('famCheck').value)) {
         document.getElementById('famCheck').checked = true
-    }else{
+    } else {
         document.getElementById('famCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('outCheck').value)) {
         document.getElementById('outCheck').checked = true
-    }else{
+    } else {
         document.getElementById('outCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('recCheck').value)) {
         document.getElementById('recCheck').checked = true
-    }else{
+    } else {
         document.getElementById('recCheck').checked = false
     }
 
     if (presetObj[presetChoice].presetTags.includes(document.getElementById('relCheck').value)) {
         document.getElementById('relCheck').checked = true
-    }else{
+    } else {
         document.getElementById('relCheck').checked = false
     }
 
 }
 
 //Sets & stores in local storage all the various selected filters for future use
-function setFilters(){
-    let counter= 0;
-    let filterArray=[];
+function setFilters() {
+    let counter = 0;
+    let filterArray = [];
     if (document.getElementById('artCheck').checked) {
-            filterArray[counter] = "art";
-            counter ++;
+        filterArray[counter] = "art";
+        counter++;
     }
     if (document.getElementById('hisCheck').checked) {
-            filterArray[counter] = "historical";
-            counter ++;
+        filterArray[counter] = "historical";
+        counter++;
     }
     if (document.getElementById('arcCheck').checked) {
-            filterArray[counter] = "architecture";
-            counter ++;
+        filterArray[counter] = "architecture";
+        counter++;
     }
     if (document.getElementById('culCheck').checked) {
-            filterArray[counter] = "cultural";
-            counter ++;
+        filterArray[counter] = "cultural";
+        counter++;
     }
     if (document.getElementById('eduCheck').checked) {
-            filterArray[counter] = "educational";
-            counter ++;
+        filterArray[counter] = "educational";
+        counter++;
     }
     if (document.getElementById('famCheck').checked) {
-            filterArray[counter] = "family-friendly";
-            counter ++;
+        filterArray[counter] = "family-friendly";
+        counter++;
     }
     if (document.getElementById('outCheck').checked) {
-            filterArray[counter] = "outdoors";
-            counter ++;
+        filterArray[counter] = "outdoors";
+        counter++;
     }
     if (document.getElementById('recCheck').checked) {
-            filterArray[counter] = "recreational";
-            counter ++;
+        filterArray[counter] = "recreational";
+        counter++;
     }
     if (document.getElementById('relCheck').checked) {
-            filterArray[counter] = "religious";
-            counter ++;
+        filterArray[counter] = "religious";
+        counter++;
     }
 
-    if(filterArray.length==0){
-        filterArray = ['historical','architecture','art','cultural','educational','family-friendly','outdoors','recreational','religious']
+    if (filterArray.length == 0) {
+        filterArray = ['historical', 'architecture', 'art', 'cultural', 'educational', 'family-friendly', 'outdoors', 'recreational', 'religious']
     }
 
     console.log(filterArray)
@@ -197,10 +197,10 @@ function setFilters(){
     let cDate = new Date(document.getElementById("chosenDate").value)
 
     // Checks to see if user inputted a valid date, else notify user
-    if(!isNaN(cDate.getTime())){
+    if (!isNaN(cDate.getTime())) {
 
         // Checks to see if user entered a trip name, else notify user
-        if(tName != ""){
+        if (tName != "") {
 
             // Get index value based on selected day (e.g. Sun = 0, Mon = 1, etc)
             let days = [0, 1, 2, 3, 4, 5, 6]
@@ -238,30 +238,30 @@ function setFilters(){
                 alertFormBox.style.display = 'block'
                 alertMessage.innerHTML = `Invalid value entered!`
             }
-        }else{
+        } else {
             let alertBox = document.getElementById("invalidAlert")
             let alertNameMessage = document.getElementById("errorMsg")
 
-            alertNameMessage.innerHTML=`You must choose a name for your trip!`
+            alertNameMessage.innerHTML = `You must choose a name for your trip!`
             alertBox.style.display = 'block'
         }
-    } else{
+    } else {
         console.log("No day chosen")
         let alertBox = document.getElementById("invalidAlert")
         let alertDateMessage = document.getElementById("errorMsg")
 
-        alertDateMessage.innerHTML=`You must enter a value for trip date as certain attractions may be closed on specific days!`
+        alertDateMessage.innerHTML = `You must enter a value for trip date as certain attractions may be closed on specific days!`
         alertBox.style.display = 'block'
 
     }
 }
 
 //Close the various alerts when user clicks the X button
-function closeInvAlert(alertType){
-    if(alertType == "noDate"){
+function closeInvAlert(alertType) {
+    if (alertType == "noDate") {
         let alertBox = document.getElementById("invalidAlert")
         alertBox.style.display = 'none'
-    } else{
+    } else {
         let alertBox = document.getElementById("invalidFormatAlert")
 
         alertBox.style.display = 'none'
@@ -269,71 +269,72 @@ function closeInvAlert(alertType){
 }
 
 //Using the selected filters & chosen date, retrieve attractions that match these parameters
-function postFilters(filterArray,chosenDay){
+function postFilters(filterArray, chosenDay) {
 
     let csrftoken = getCookie('csrftoken');
 
-     $.ajax({
-                    type: "POST",
-                    url: "filterAttractions/",
-                    headers: {
-                        'X-CSRFToken': csrftoken
-                    },
-                    data: {
-                        filters: filterArray,
-                        choseDay: chosenDay,
-                        gSize : document.getElementById("groupSize").value,
-                        mPrice : document.getElementById("maxPrice").value,
-                        cDate : document.getElementById("chosenDate").value
-                    }
-                }).done(function (data, status, xhr) {
+    // Send the various filters to a view which returns suitable attractions
+    $.ajax({
+        type: "POST",
+        url: "filterAttractions/",
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
+        data: {
+            filters: filterArray,
+            choseDay: chosenDay,
+            gSize: document.getElementById("groupSize").value,
+            mPrice: document.getElementById("maxPrice").value,
+            cDate: document.getElementById("chosenDate").value
+        }
+    }).done(function (data, status, xhr) {
 
-                    console.log(data);
+        console.log(data);
 
-                    //Store the filtered attractions and proceed user to next page
-                    localStorage.setItem('resultStore', JSON.stringify(data))
-                    location.href='/choose'
+        //Store the filtered attractions and proceed user to next page
+        localStorage.setItem('resultStore', JSON.stringify(data))
+        location.href = '/choose'
 
 
-                }).fail(function (xhr, status, error) {
-                    var message = "Passing data failed.<br/>";
-                    console.log("Status: " + xhr.status + " " + xhr.responseText);
-                }).always(function () {
-                });
+    }).fail(function (xhr, status, error) {
+        var message = "Passing data failed.<br/>";
+        console.log("Status: " + xhr.status + " " + xhr.responseText);
+    }).always(function () {
+    });
 
 }
 
 // Create cookies for use in AJAX req
 function getCookie(cname) {
-     var name = cname + "=";
-     var ca = document.cookie.split(';');
-     for(var i=0; i<ca.length; i++) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if(c.indexOf(name) == 0)
-           return c.substring(name.length,c.length);
-     }
-     return "";
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0)
+            return c.substring(name.length, c.length);
     }
+    return "";
+}
 
 //Stores various details used in trip creation in local storage
-function storeDetails(chosenday){
+function storeDetails(chosenday) {
     tName = document.getElementById("tripName").value
     gSize = document.getElementById("groupSize").value
     mPrice = document.getElementById("maxPrice").value
     cDate = document.getElementById("chosenDate").value
 
-    console.log("hola "+mPrice)
+    console.log("hola " + mPrice)
 
     let resultsObj1 = {
-        tripName:tName,
-        groupSize:gSize,
-        maxPrice:mPrice,
-        chosenDate:cDate,
+        tripName: tName,
+        groupSize: gSize,
+        maxPrice: mPrice,
+        chosenDate: cDate,
         dayIndex: chosenday
     };
 
-     localStorage.setItem('detailsStore', JSON.stringify(resultsObj1))
+    localStorage.setItem('detailsStore', JSON.stringify(resultsObj1))
 
 }
 

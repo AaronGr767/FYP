@@ -1,5 +1,6 @@
 getTrips()
 
+// Displays all the users saved trips
 function displaySaved(savedArray){
     let sTrip = document.getElementById("savedTrips")
     sTrip.innerHTML = ``
@@ -14,8 +15,12 @@ function displaySaved(savedArray){
     }
 }
 
+// Retrieve the chosen trip, and its details, for editing
 function editTrip(editId){
+
     event.stopPropagation()
+
+    // Retrieves the trip details based on supplied trip ID using this view
     $.ajax({
         type: "POST",
         url: "edittrip/",
@@ -28,9 +33,11 @@ function editTrip(editId){
     }).done(function (data, status, xhr) {
         console.log(data);
 
+        // Stores the trip details in local storage and marks the status for editing
         localStorage.setItem('editedTrip', JSON.stringify(data.results[0]))
         localStorage.setItem('editedTripStatus', "true")
 
+        //Redirect the user to the create page
         location.href='/create'
     }).fail(function (xhr, status, error) {
         var message = "Passing filters failed.<br/>";
@@ -39,16 +46,19 @@ function editTrip(editId){
     });
 }
 
+// Store the users selected trip for starting and redirects to the start trip page
 function setTrip(thisTrip){
     localStorage.setItem('saveAndStart', JSON.stringify(thisTrip))
     location.href='/startTrip'
 }
 
+// Deletes the chosen trip if user clicks the delete button
 function deleteTrip(thisTrip){
     event.stopPropagation()
 
     console.log(thisTrip)
 
+    // Sends the trip's ID to a view for deletion
     $.ajax({
         type: "POST",
         url: "managetripdelete/",
@@ -61,6 +71,7 @@ function deleteTrip(thisTrip){
     }).done(function (data, status, xhr) {
         console.log(status);
 
+        // Refreshes the users trips
         getTrips()
 
     }).fail(function (xhr, status, error) {
@@ -70,6 +81,7 @@ function deleteTrip(thisTrip){
     });
 }
 
+// Displays all the users completed trips
 function displayPrevious(previousArray){
     let pTrip = document.getElementById("previousTrips")
     pTrip.innerHTML = ``
@@ -84,8 +96,10 @@ function displayPrevious(previousArray){
     }
 }
 
+// Retrieve all the trips associated with the user
 function getTrips() {
 
+    // Calls a view that returns the users trips
     $.ajax({
         type: "GET",
         headers: {
@@ -101,6 +115,7 @@ function getTrips() {
 
         for(i=0;i<data.userTrips.length;i++){
 
+            // Sorts the trips based on whether they were completed and pushes them into their relevant array
             if(data.userTrips[i].completed){
 
                 previousTrips.push(data.userTrips[i])
@@ -110,8 +125,10 @@ function getTrips() {
             }
         }
 
+        // Call functions to display both trip types
         displaySaved(savedTrips)
         displayPrevious(previousTrips)
+
         var originalMsg = $(".toast-body").html();
         $(".toast-body").html(originalMsg + "<br/>Updateddatabase<br/>" + data["message"]);
     }).fail(function (xhr, status, error) {
@@ -124,6 +141,7 @@ function getTrips() {
 
 }
 
+// Create cookies for use in AJAX req
 function getCookie(cname) {
      var name = cname + "=";
      var ca = document.cookie.split(';');

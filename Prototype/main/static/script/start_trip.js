@@ -5,6 +5,7 @@ function retrieveTrip() {
     let savedTrip = localStorage.getItem("saveAndStart");
     let stId = JSON.parse(savedTrip)
 
+    // Send trip ID to a view and returns the trips associated details
     $.ajax({
         type: "POST",
         headers: {

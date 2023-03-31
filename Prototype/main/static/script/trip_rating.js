@@ -1,5 +1,6 @@
 let tripRating = "";
 
+// Displays the rating/review form if the user chooses to provide one
 function openRating() {
     let questionPopup = document.getElementById("askRating")
     questionPopup.remove()
@@ -8,12 +9,15 @@ function openRating() {
     ratingForm.style.display = 'block'
 }
 
+// Stores the rating value each time the user selects a rating, in case they change it multiple times
 function addRating(ratingValue) {
     tripRating = ratingValue
 }
 
+// Saves the various details regarding the user's review
 function saveTripRate() {
 
+    // Retrieve the trip details from local storage to access the ID
     let results = localStorage.getItem("currentTrip");
 
     if (results == null) {
@@ -24,13 +28,15 @@ function saveTripRate() {
 
     let userFeedback = document.getElementById("ratingFeedback").value
 
-    if(tripRating == ""){
+    // If the user has not given a rating, highlight the text red
+    if (tripRating == "") {
         let warning = document.getElementById("ratingText")
         warning.style.color = "red"
     } else {
 
         let csrftoken = getCookie('csrftoken');
 
+        // Send the review details to a view to be saved
         $.ajax({
             type: "POST",
             url: "savetriprating/",
@@ -53,6 +59,7 @@ function saveTripRate() {
     }
 }
 
+// Create cookies for use in AJAX req
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
